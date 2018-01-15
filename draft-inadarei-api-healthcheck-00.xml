@@ -117,17 +117,48 @@ uses the format described in <xref target="RFC7159"/> and has the media type
 
 <t><spanx style="strong">Note: this media type is not final, and will change before final publication.</spanx></t>
 
-<t>Its content consists of a root object with:</t>
+<t>Its content consists of a single mandatory root field and several optional
+fields:</t>
 
 <t><list style="symbols">
-  <t>lorem</t>
-  <t>ipsum.</t>
+  <t>status: (required) indicates whether the service status is acceptable or not.
+API publishers SHOULD use following values for the field:  <list style="symbols">
+      <t>“pass”: healthy,</t>
+      <t>“fail”: unhealthy, and</t>
+      <t>“warn”: healthy, with some concerns.</t>
+    </list>
+For “pass” and “warn” statuses HTTP response code in the 2xx - 3xx range MUST
+be used. for “fail” status HTTP response code in the 4xx - 5xx range MUST be
+used.  <vspace blankLines='1'/>
+In case of “warn” status, additional information SHOULD be provided, utilizing
+optional fields of the response.</t>
+  <t>serviceID: (optional) unique identifier of the service, in the application
+scope.</t>
+  <t>description: (optional) human-friendly description of the service.</t>
+  <t>memory: (optional) array of sizes for the  currently utilized resident memory
+(in kilobytes) on each of the logical nodes backing the service. Logical node
+can be a physical server, VM, a container or any other logical unit that makes
+sense for service publisher.</t>
+  <t>cpu: (optional) array of cpu utiliation percentage on each of the logical
+nodes backing the service. Logical node can be a physical server, VM, a
+container or any other logical unit that makes sense for service publisher.</t>
+  <t>uptime: (optional) current uptime in seconds since the last restart</t>
+  <t>notes: (optional) array of notes relevant to current state of health</t>
+  <t>output: (optional) raw error output, in case of “fail” or “warn” states. This
+field SHOULD be omitted for “pass” state.</t>
+  <t>details: (optional) an array of objects optionally providing additional information
+regarding the various sub-components of the service.</t>
+  <t>links: (optional) an array of objects containing link relations and URIs 
+<xref target="RFC3986"/> for external links that MAY contain more information about the 
+health of the endpoint. Per web-linking standards <xref target="RFC5988"/> a link relationship
+SHOULD either be a common/registered one or be indicated as a URI, to avoid
+name clashes.</t>
 </list></t>
 
 <t>For example:</t>
 
 <figure><artwork><![CDATA[
-  GET / HTTP/1.1
+  GET /health HTTP/1.1
   Host: example.org
   Accept: application/vnd.health+json
 
@@ -137,7 +168,37 @@ uses the format described in <xref target="RFC7159"/> and has the media type
   Connection: close
 
   {
-    "foo" : "bar"
+    "serviceID": "service:authz",
+    "description": "health of authz service",
+    "status": "pass",
+    "memory": [4096, 1024, 3456],
+    "cpu": [20, 40, 50],
+    "uptime": "1209600",
+    "notes": [""],
+    "output": "",
+    "details": [
+      {
+        "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "name": "sub-component-X",
+        "status": "pass",
+        "value": "12313",
+        "output": ""
+      },
+      {
+        "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
+        "name": "sub-component-Y",
+        "status": "warn",
+        "value": "0920394",
+        "output": "Close to capacity"
+      }
+    ],
+    "links": [
+      {"rel": "about", "uri": "http://api.example.com/about/authz"},
+      {
+        "rel": "http://api.example.com/rel/thresholds",
+        "uri": "http://api.example.com/about/authz/thresholds"
+      }
+    ]
   }
 ]]></artwork></figure>
 
@@ -164,7 +225,8 @@ access control.</t>
 
 <section anchor="media-type-registration" title="Media Type Registration">
 
-<t>TODO: application/vnd.health+json</t>
+<t>TODO: application/vnd.health+json will be submitted for registration per
+<xref target="RFC6838"/></t>
 
 </section>
 </section>
@@ -336,7 +398,7 @@ in mind:</t>
 
 <t><list style="symbols">
   <t>A health response endpoint is best located at a memorable and commonly-used
-URI, such as _health because it will help self-discoverability by clients.</t>
+URI, such as “health” because it will help self-discoverability by clients.</t>
   <t>Health check responses can be personalized. For example, you could advertise
 different URIs, and/or different kinds of link relations, to afford different
 clients access to additional health check information.</t>
@@ -388,74 +450,97 @@ attempt to create the most powerful format possible.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-H36z30dDGQAA
+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
+4i9SJAAA
 
 -->
 

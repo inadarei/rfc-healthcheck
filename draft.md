@@ -76,11 +76,11 @@ Standardizing a format for health checks can provide any of a number of
 benefits, including:
 
 * Flexible deployment - since operational tooling and API clients can rely on
-rich, uniform format, they can be safely combined and substituted as needed.
+  rich, uniform format, they can be safely combined and substituted as needed.
 
 * Evolvability - new APIs, conforming to the standard, can safely be introduced
-in any environment and ecosystem that also conforms to the same standard,
-without costly coordination and testing requirements.
+  in any environment and ecosystem that also conforms to the same standard,
+  without costly coordination and testing requirements.
 
 This document defines a "health check" format using the JSON format {{RFC7159}}
 for APIs to use as a standard point for the health information they offer.
@@ -103,16 +103,49 @@ uses the format described in {{RFC7159}} and has the media type
 
 **Note: this media type is not final, and will change before final publication.**
 
-Its content consists of a root object with:
+Its content consists of a single mandatory root field and several optional
+fields:
 
-* lorem
+* status: (required) indicates whether the service status is acceptable or not.
+  API publishers SHOULD use following values for the field: 
+  
+  - "pass": healthy, 
+  - "fail": unhealthy, and
+  - "warn": healthy, with some concerns. 
+  
+  For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx range MUST
+  be used. for "fail" status HTTP response code in the 4xx - 5xx range MUST be
+  used.
 
-* ipsum.
+  In case of "warn" status, additional information SHOULD be provided, utilizing
+  optional fields of the response.
+
+* serviceID: (optional) unique identifier of the service, in the application
+  scope.
+* description: (optional) human-friendly description of the service.
+* memory: (optional) array of sizes for the  currently utilized resident memory
+  (in kilobytes) on each of the logical nodes backing the service. Logical node
+  can be a physical server, VM, a container or any other logical unit that makes
+  sense for service publisher.
+* cpu: (optional) array of cpu utiliation percentage on each of the logical
+  nodes backing the service. Logical node can be a physical server, VM, a
+  container or any other logical unit that makes sense for service publisher.
+* uptime: (optional) current uptime in seconds since the last restart
+* notes: (optional) array of notes relevant to current state of health
+* output: (optional) raw error output, in case of "fail" or "warn" states. This
+  field SHOULD be omitted for "pass" state.
+* details: (optional) an array of objects optionally providing additional information
+  regarding the various sub-components of the service.
+* links: (optional) an array of objects containing link relations and URIs 
+  {{RFC3986}} for external links that MAY contain more information about the 
+  health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
+  SHOULD either be a common/registered one or be indicated as a URI, to avoid
+  name clashes. 
 
 For example:
 
 ~~~
-  GET / HTTP/1.1
+  GET /health HTTP/1.1
   Host: example.org
   Accept: application/vnd.health+json
 
@@ -122,10 +155,39 @@ For example:
   Connection: close
 
   {
-    "foo" : "bar"
+    "serviceID": "service:authz",
+    "description": "health of authz service",
+    "status": "pass",
+    "memory": [4096, 1024, 3456],
+    "cpu": [20, 40, 50],
+    "uptime": "1209600",
+    "notes": [""],
+    "output": "",
+    "details": [
+      {
+        "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "name": "sub-component-X",
+        "status": "pass",
+        "value": "12313",
+        "output": ""
+      },
+      {
+        "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
+        "name": "sub-component-Y",
+        "status": "warn",
+        "value": "0920394",
+        "output": "Close to capacity"
+      }
+    ],
+    "links": [
+      {"rel": "about", "uri": "http://api.example.com/about/authz"},
+      {
+        "rel": "http://api.example.com/rel/thresholds",
+        "uri": "http://api.example.com/about/authz/thresholds"
+      }
+    ]
   }
 ~~~
-
 
 
 # Another subtitle
@@ -148,7 +210,8 @@ access control.
 
 ## Media Type Registration
 
-TODO: application/vnd.health+json
+TODO: application/vnd.health+json will be submitted for registration per
+{{RFC6838}}
 
 
 --- back
@@ -165,7 +228,7 @@ When making an health check endpoint available, there are a few things to keep
 in mind:
 
 * A health response endpoint is best located at a memorable and commonly-used
-  URI, such as _health because it will help self-discoverability by clients.
+  URI, such as "health" because it will help self-discoverability by clients.
 * Health check responses can be personalized. For example, you could advertise
   different URIs, and/or different kinds of link relations, to afford different
   clients access to additional health check information. 

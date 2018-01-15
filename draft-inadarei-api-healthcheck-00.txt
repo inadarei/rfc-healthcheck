@@ -78,22 +78,22 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Notational Conventions  . . . . . . . . . . . . . . . . .   3
    2.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Final subtitle  . . . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   4
-     6.1.  Media Type Registration . . . . . . . . . . . . . . . . .   4
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   4
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   4
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   5
-     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   5
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   6
-   Appendix B.  Creating and Serving Health Responses  . . . . . . .   6
-   Appendix C.  Consuming Health Check Responses . . . . . . . . . .   6
-   Appendix D.  Frequently Asked Questions . . . . . . . . . . . . .   7
-     D.1.  Why not use (insert other health check format)? . . . . .   7
-     D.2.  Why doesn't the format allow references or inheritance? .   7
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   7
+   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  Final subtitle  . . . . . . . . . . . . . . . . . . . . . . .   6
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
+     6.1.  Media Type Registration . . . . . . . . . . . . . . . . .   6
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .   7
+     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   7
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   7
+   Appendix B.  Creating and Serving Health Responses  . . . . . . .   7
+   Appendix C.  Consuming Health Check Responses . . . . . . . . . .   8
+   Appendix D.  Frequently Asked Questions . . . . . . . . . . . . .   8
+     D.1.  Why not use (insert other health check format)? . . . . .   8
+     D.2.  Why doesn't the format allow references or inheritance? .   8
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
@@ -156,12 +156,12 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
    *Note: this media type is not final, and will change before final
    publication.*
 
-   Its content consists of a root object with:
+   Its content consists of a single mandatory root field and several
+   optional fields:
 
-   o  lorem
-
-   o  ipsum.
-
+   o  status: (required) indicates whether the service status is
+      acceptable or not.  API publishers SHOULD use following values for
+      the field:
 
 
 
@@ -170,9 +170,65 @@ Nadareishvili             Expires July 19, 2018                 [Page 3]
 Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 
+      *  "pass": healthy,
+
+      *  "fail": unhealthy, and
+
+      *  "warn": healthy, with some concerns.
+
+      For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
+      range MUST be used. for "fail" status HTTP response code in the
+      4xx - 5xx range MUST be used.
+
+      In case of "warn" status, additional information SHOULD be
+      provided, utilizing optional fields of the response.
+
+   o  serviceID: (optional) unique identifier of the service, in the
+      application scope.
+
+   o  description: (optional) human-friendly description of the service.
+
+   o  memory: (optional) array of sizes for the currently utilized
+      resident memory (in kilobytes) on each of the logical nodes
+      backing the service.  Logical node can be a physical server, VM, a
+      container or any other logical unit that makes sense for service
+      publisher.
+
+   o  cpu: (optional) array of cpu utiliation percentage on each of the
+      logical nodes backing the service.  Logical node can be a physical
+      server, VM, a container or any other logical unit that makes sense
+      for service publisher.
+
+   o  uptime: (optional) current uptime in seconds since the last
+      restart
+
+   o  notes: (optional) array of notes relevant to current state of
+      health
+
+   o  output: (optional) raw error output, in case of "fail" or "warn"
+      states.  This field SHOULD be omitted for "pass" state.
+
+   o  details: (optional) an array of objects optionally providing
+      additional information regarding the various sub-components of the
+      service.
+
+   o  links: (optional) an array of objects containing link relations
+      and URIs [RFC3986] for external links that MAY contain more
+      information about the health of the endpoint.  Per web-linking
+      standards [RFC5988] a link relationship SHOULD either be a common/
+      registered one or be indicated as a URI, to avoid name clashes.
+
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 4]
+
+Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+
+
    For example:
 
-     GET / HTTP/1.1
+     GET /health HTTP/1.1
      Host: example.org
      Accept: application/vnd.health+json
 
@@ -182,8 +238,49 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
      Connection: close
 
      {
-       "foo" : "bar"
+       "serviceID": "service:authz",
+       "description": "health of authz service",
+       "status": "pass",
+       "memory": [4096, 1024, 3456],
+       "cpu": [20, 40, 50],
+       "uptime": "1209600",
+       "notes": [""],
+       "output": "",
+       "details": [
+         {
+           "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+           "name": "sub-component-X",
+           "status": "pass",
+           "value": "12313",
+           "output": ""
+         },
+         {
+           "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
+           "name": "sub-component-Y",
+           "status": "warn",
+           "value": "0920394",
+           "output": "Close to capacity"
+         }
+       ],
+       "links": [
+         {"rel": "about", "uri": "http://api.example.com/about/authz"},
+         {
+           "rel": "http://api.example.com/rel/thresholds",
+           "uri": "http://api.example.com/about/authz/thresholds"
+         }
+       ]
      }
+
+
+
+
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 5]
+
+Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+
 
 3.  Another subtitle
 
@@ -204,7 +301,8 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 6.1.  Media Type Registration
 
-   TODO: application/vnd.health+json
+   TODO: application/vnd.health+json will be submitted for registration
+   per [RFC6838]
 
 7.  References
 
@@ -214,17 +312,6 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-
-
-
-Nadareishvili             Expires July 19, 2018                 [Page 4]
-
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
-
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -243,6 +330,13 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <https://www.rfc-editor.org/info/rfc7159>.
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 6]
+
+Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -274,14 +368,6 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
    [3] https://github.com/inadarei/rfc-healthcheck/commits/master
 
-
-
-
-Nadareishvili             Expires July 19, 2018                 [Page 5]
-
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
-
-
    [4] https://datatracker.ietf.org/doc/draft-inadarei-api-healthcheck/
 
 Appendix A.  Acknowledgements
@@ -296,8 +382,17 @@ Appendix B.  Creating and Serving Health Responses
    things to keep in mind:
 
    o  A health response endpoint is best located at a memorable and
-      commonly-used URI, such as _health because it will help self-
+      commonly-used URI, such as "health" because it will help self-
       discoverability by clients.
+
+
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 7]
+
+Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+
 
    o  Health check responses can be personalized.  For example, you
       could advertise different URIs, and/or different kinds of link
@@ -329,15 +424,6 @@ Appendix C.  Consuming Health Check Responses
    encouraged obtain a fresh copy of the health check response, to
    assure that it is up-to-date.
 
-
-
-
-
-Nadareishvili             Expires July 19, 2018                 [Page 6]
-
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
-
-
 Appendix D.  Frequently Asked Questions
 
 D.1.  Why not use (insert other health check format)?
@@ -354,6 +440,15 @@ D.2.  Why doesn't the format allow references or inheritance?
    users).  For the sake of interoperability and ease of implementation
    this specification doesn't attempt to create the most powerful format
    possible.
+
+
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 8]
+
+Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+
 
 Author's Address
 
@@ -389,4 +484,21 @@ Author's Address
 
 
 
-Nadareishvili             Expires July 19, 2018                 [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nadareishvili             Expires July 19, 2018                 [Page 9]
