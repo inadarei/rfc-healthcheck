@@ -13,8 +13,8 @@ Health Check Endpoint for HTTP APIs
 ## Using
 
 1. Edit draft.md
-2. To regenerate a specific version of the XML RFC from draft.md (e.g.);
+2. To regenerate the latest version of XML/TXT/HTML;
 
     ```
-    make draft-inadarei-api-healthcheck-00.xml
+    make latest
     ```
