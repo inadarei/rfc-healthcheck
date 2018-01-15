@@ -388,9 +388,6 @@
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
-<link href="#rfc.appendix.D" rel="Chapter" title="D Frequently Asked Questions">
-<link href="#rfc.appendix.D.1" rel="Chapter" title="D.1 Why not use (insert other health check format)?">
-<link href="#rfc.appendix.D.2" rel="Chapter" title="D.2 Why doesn&#8217;t the format allow references or inheritance?">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -437,7 +434,7 @@
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>This document proposes a &#8220;health check response&#8221; format for API HTTP clients.</p>
 <h1><a>Note to Readers</a></h1>
-<p><em>RFC EDITOR: please remove this section before publication</em></p>
+<p><strong>RFC EDITOR: please remove this section before publication</strong></p>
 <p>The issues list for this draft can be found at <a href="https://github.com/inadarei/rfc-healthcheck/issues">https://github.com/inadarei/rfc-healthcheck/issues</a>.</p>
 <p>The most recent draft is at <a href="https://inadarei.github.io/rfc-healthcheck/">https://inadarei.github.io/rfc-healthcheck/</a>.</p>
 <p>Recent changes are listed at <a href="https://github.com/inadarei/rfc-healthcheck/commits/master">https://github.com/inadarei/rfc-healthcheck/commits/master</a>.</p>
@@ -484,13 +481,7 @@
 </li>
 <li>Appendix C.   <a href="#rfc.appendix.C">Consuming Health Check Responses</a>
 </li>
-<li>Appendix D.   <a href="#rfc.appendix.D">Frequently Asked Questions</a>
-</li>
-<ul><li>D.1.   <a href="#rfc.appendix.D.1">Why not use (insert other health check format)?</a>
-</li>
-<li>D.2.   <a href="#rfc.appendix.D.2">Why doesn&#8217;t the format allow references or inheritance?</a>
-</li>
-</ul><li><a href="#rfc.authors">Author's Address</a>
+<li><a href="#rfc.authors">Author's Address</a>
 </li>
 
 
@@ -588,11 +579,11 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#another-subtitle" id="another-subtitle">Another subtitle</a>
 </h1>
-<p id="rfc.section.3.p.1">Lorem Ipsum</p>
+<p id="rfc.section.3.p.1">TODO</p>
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#final-subtitle" id="final-subtitle">Final subtitle</a>
 </h1>
-<p id="rfc.section.4.p.1">Lorem ipsum</p>
+<p id="rfc.section.4.p.1">TODO</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
@@ -603,7 +594,7 @@
 <h1 id="rfc.section.6.1">
 <a href="#rfc.section.6.1">6.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
 </h1>
-<p id="rfc.section.6.1.p.1">TODO: application/vnd.health+json will be submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.6.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
 <a href="#rfc.references">7.</a> References</h1>
 <h1 id="rfc.references.1">
@@ -618,11 +609,6 @@
 <td class="reference"><b id="RFC3986">[RFC3986]</b></td>
 <td class="top">
 <a>Berners-Lee, T.</a>, <a>Fielding, R.</a> and <a>L. Masinter</a>, "<a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005.</td>
-</tr>
-<tr>
-<td class="reference"><b id="RFC5226">[RFC5226]</b></td>
-<td class="top">
-<a>Narten, T.</a> and <a>H. Alvestrand</a>, "<a href="https://tools.ietf.org/html/rfc5226">Guidelines for Writing an IANA Considerations Section in RFCs</a>", RFC 5226, DOI 10.17487/RFC5226, May 2008.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC5988">[RFC5988]</b></td>
@@ -682,17 +668,6 @@
 <p id="rfc.section.C.p.2">Note that the health check response is a &#8220;living&#8221; document; links from the health check response MUST NOT be assumed to be valid beyond the freshness lifetime of the health check response, as per HTTP&#8217;s caching model <a href="#RFC7234" class="xref">[RFC7234]</a>.</p>
 <p id="rfc.section.C.p.3">As a result, clients ought to cache the health check response (as per <a href="#RFC7234" class="xref">[RFC7234]</a>), to avoid fetching it before every interaction (which would otherwise be required).</p>
 <p id="rfc.section.C.p.4">Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain a fresh copy of the health check response, to assure that it is up-to-date.</p>
-<h1 id="rfc.appendix.D">
-<a href="#rfc.appendix.D">Appendix D.</a> <a href="#frequently-asked-questions" id="frequently-asked-questions">Frequently Asked Questions</a>
-</h1>
-<h1 id="rfc.appendix.D.1">
-<a href="#rfc.appendix.D.1">D.1.</a> <a href="#why-not-use-insert-other-health-check-format" id="why-not-use-insert-other-health-check-format">Why not use (insert other health check format)?</a>
-</h1>
-<p id="rfc.section.D.1.p.1">There are a fair number of existing health check formats. However, these formats have generally been optimised for particular use-cases, and less capable of fitting into general scenarios, optimized for interoperability.</p>
-<h1 id="rfc.appendix.D.2">
-<a href="#rfc.appendix.D.2">D.2.</a> <a href="#why-doesnt-the-format-allow-references-or-inheritance" id="why-doesnt-the-format-allow-references-or-inheritance">Why doesn&#8217;t the format allow references or inheritance?</a>
-</h1>
-<p id="rfc.section.D.2.p.1">Implementing them would add considerable complexity and the associated potential for errors (both in the specification and by its users). For the sake of interoperability and ease of implementation this specification doesn&#8217;t attempt to create the most powerful format possible.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
   <address class="vcard">

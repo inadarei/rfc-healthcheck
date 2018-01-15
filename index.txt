@@ -18,7 +18,7 @@ Abstract
 
 Note to Readers
 
-   _RFC EDITOR: please remove this section before publication_
+   *RFC EDITOR: please remove this section before publication*
 
    The issues list for this draft can be found at
    https://github.com/inadarei/rfc-healthcheck/issues [1].
@@ -78,7 +78,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Notational Conventions  . . . . . . . . . . . . . . . . .   3
    2.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   6
+   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   5
    4.  Final subtitle  . . . . . . . . . . . . . . . . . . . . . . .   6
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
@@ -90,10 +90,7 @@ Table of Contents
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   7
    Appendix B.  Creating and Serving Health Responses  . . . . . . .   7
    Appendix C.  Consuming Health Check Responses . . . . . . . . . .   8
-   Appendix D.  Frequently Asked Questions . . . . . . . . . . . . .   8
-     D.1.  Why not use (insert other health check format)? . . . . .   8
-     D.2.  Why doesn't the format allow references or inheritance? .   8
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   9
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -105,6 +102,9 @@ Table of Contents
    decisions, for failover or circuit-breaking, are essential for
    providing highly available solutions.
 
+   There exists a wide variety of operational software that relies on
+   the ability to read health check response of APIs.  There is
+   currently no standard for the health check output response, however,
 
 
 
@@ -114,9 +114,6 @@ Nadareishvili             Expires July 19, 2018                 [Page 2]
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
-   There exists a wide variety of operational software that relies on
-   the ability to read health check response of APIs.  There is
-   currently no standard for the health check output response, however,
    so most applications either rely on the basic level of information
    included in HTTP status codes [RFC7231] or use task-specific formats.
 
@@ -163,14 +160,15 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
       acceptable or not.  API publishers SHOULD use following values for
       the field:
 
+      *  "pass": healthy,
+
+
 
 
 Nadareishvili             Expires July 19, 2018                 [Page 3]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
-
-      *  "pass": healthy,
 
       *  "fail": unhealthy, and
 
@@ -218,6 +216,8 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
       standards [RFC5988] a link relationship SHOULD either be a common/
       registered one or be indicated as a URI, to avoid name clashes.
 
+   For example:
+
 
 
 
@@ -225,8 +225,6 @@ Nadareishvili             Expires July 19, 2018                 [Page 4]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
-
-   For example:
 
      GET /health HTTP/1.1
      Host: example.org
@@ -271,7 +269,9 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
        ]
      }
 
+3.  Another subtitle
 
+   TODO
 
 
 
@@ -282,13 +282,9 @@ Nadareishvili             Expires July 19, 2018                 [Page 5]
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
-3.  Another subtitle
-
-   Lorem Ipsum
-
 4.  Final subtitle
 
-   Lorem ipsum
+   TODO
 
 5.  Security Considerations
 
@@ -301,7 +297,7 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 6.1.  Media Type Registration
 
-   TODO: application/vnd.health+json will be submitted for registration
+   TODO: application/vnd.health+json is being submitted for registration
    per [RFC6838]
 
 7.  References
@@ -318,11 +314,6 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
 
-   [RFC5226]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
-              IANA Considerations Section in RFCs", RFC 5226,
-              DOI 10.17487/RFC5226, May 2008,
-              <https://www.rfc-editor.org/info/rfc5226>.
-
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
@@ -331,17 +322,21 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
               2014, <https://www.rfc-editor.org/info/rfc7159>.
 
+   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
+              RFC 7234, DOI 10.17487/RFC7234, June 2014,
+              <https://www.rfc-editor.org/info/rfc7234>.
+
+
+
+
+
 
 
 Nadareishvili             Expires July 19, 2018                 [Page 6]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
-
-   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
-              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
-              RFC 7234, DOI 10.17487/RFC7234, June 2014,
-              <https://www.rfc-editor.org/info/rfc7234>.
 
 7.2.  Informative References
 
@@ -385,6 +380,11 @@ Appendix B.  Creating and Serving Health Responses
       commonly-used URI, such as "health" because it will help self-
       discoverability by clients.
 
+   o  Health check responses can be personalized.  For example, you
+      could advertise different URIs, and/or different kinds of link
+      relations, to afford different clients access to additional health
+      check information.
+
 
 
 
@@ -393,11 +393,6 @@ Nadareishvili             Expires July 19, 2018                 [Page 7]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
-
-   o  Health check responses can be personalized.  For example, you
-      could advertise different URIs, and/or different kinds of link
-      relations, to afford different clients access to additional health
-      check information.
 
    o  Health check responses must be assigned a freshness lifetime
       (e.g., "Cache-Control: max-age=3600") so that clients can
@@ -423,32 +418,6 @@ Appendix C.  Consuming Health Check Responses
    Likewise, a client encountering a 404 (Not Found) on a link is
    encouraged obtain a fresh copy of the health check response, to
    assure that it is up-to-date.
-
-Appendix D.  Frequently Asked Questions
-
-D.1.  Why not use (insert other health check format)?
-
-   There are a fair number of existing health check formats.  However,
-   these formats have generally been optimised for particular use-cases,
-   and less capable of fitting into general scenarios, optimized for
-   interoperability.
-
-D.2.  Why doesn't the format allow references or inheritance?
-
-   Implementing them would add considerable complexity and the
-   associated potential for errors (both in the specification and by its
-   users).  For the sake of interoperability and ease of implementation
-   this specification doesn't attempt to create the most powerful format
-   possible.
-
-
-
-
-
-Nadareishvili             Expires July 19, 2018                 [Page 8]
-
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
-
 
 Author's Address
 
@@ -476,29 +445,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Nadareishvili             Expires July 19, 2018                 [Page 9]
+Nadareishvili             Expires July 19, 2018                 [Page 8]

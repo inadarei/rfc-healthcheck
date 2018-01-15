@@ -26,7 +26,7 @@ author:
 normative:
   RFC2119:
   RFC3986:
-  RFC5226:
+  #RFC5226:
   RFC5988:
   RFC7159:
   RFC7234:
@@ -42,7 +42,7 @@ This document proposes a "health check response" format for API HTTP clients.
 
 --- note_Note_to_Readers
 
-*RFC EDITOR: please remove this section before publication*
+**RFC EDITOR: please remove this section before publication**
 
 The issues list for this draft can be found at <https://github.com/inadarei/rfc-healthcheck/issues>.
 
@@ -194,11 +194,11 @@ For example:
 
 # Another subtitle
 
-Lorem Ipsum
+TODO
 
 # Final subtitle
 
-Lorem ipsum
+TODO
 
 # Security Considerations
 
@@ -209,10 +209,9 @@ access control.
 
 # IANA Considerations
 
-
 ## Media Type Registration
 
-TODO: application/vnd.health+json will be submitted for registration per
+TODO: application/vnd.health+json is being submitted for registration per
 {{RFC6838}}
 
 
@@ -256,19 +255,3 @@ otherwise be required).
 
 Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain
 a fresh copy of the health check response, to assure that it is up-to-date.
-
-
-# Frequently Asked Questions
-
-## Why not use (insert other health check format)?
-
-There are a fair number of existing health check formats. However, these formats
-have generally been optimised for particular use-cases, and less capable of
-fitting into general scenarios, optimized for interoperability.
-
-## Why doesn't the format allow references or inheritance?
-
-Implementing them would add considerable complexity and the associated
-potential for errors (both in the specification and by its users). For the sake
-of interoperability and ease of implementation this specification doesn't
-attempt to create the most powerful format possible.

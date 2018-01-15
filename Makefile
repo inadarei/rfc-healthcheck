@@ -56,6 +56,3 @@ index.html: $(target).html
 
 index.txt: $(target).txt
 	cp $< $@
-
-update:
-	cp $(id_base)/Tools/skel/Makefile .
