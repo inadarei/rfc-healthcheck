@@ -453,8 +453,8 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 Author's Address
 
    Irakli Nadareishvili
-   street
-   city
+   5th Avenue
+   New York
    United States
 
    Email: irakli@gmail.com
