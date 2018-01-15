@@ -17,8 +17,9 @@ author:
  -
     ins: I. Nadareishvili
     name: Irakli Nadareishvili
+    street: street
+    city: city
     country: United States
-    organization:
     email: irakli@gmail.com
     uri: http://www.freshblurbs.com/
 

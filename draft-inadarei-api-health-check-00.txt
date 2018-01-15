@@ -453,12 +453,12 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 Author's Address
 
    Irakli Nadareishvili
+   street
+   city
+   United States
 
    Email: irakli@gmail.com
    URI:   http://www.freshblurbs.com/
-
-
-
 
 
 
