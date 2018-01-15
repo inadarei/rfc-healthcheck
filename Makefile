@@ -1,12 +1,14 @@
 
-id_base = ..
+id_base = .
 xml2rfc ?= xml2rfc
-saxpath ?= /usr/local/share/saxon-b/saxon9.jar
+# saxpath ?= /usr/local/share/saxon-b/saxon9.jar
+saxpath ?= ./bin/saxon9.jar
 kramdown-rfc2629 ?= kramdown-rfc2629
-bootstrap ?= ../Tools/rfcbootstrap/rfcbootstrap.xslt
+bootstrap ?= $(id_base)/Tools/rfcbootstrap/rfcbootstrap.xslt
 idnits ?= idnits
 
-title = inadarei-$(shell basename ${CURDIR})
+#title = inadarei-$(shell basename ${CURDIR})
+title = inadarei-api-healthcheck
 latest = $(shell (ls draft-${title}-*.xml || echo "draft-${title}-00.xml") | sort | tail -1)
 version = $(shell basename ${latest} .xml | awk -F- '{print $$NF}')
 
@@ -37,10 +39,10 @@ idnits: $(target).txt
 %.html: %.xml
 	sed -i '' -e"s/\"rfc2629.dtd/\"$(id_base)\/Tools\/rfcbootstrap\/rfc2629.dtd/" $<
 	java -classpath $(saxpath) net.sf.saxon.Transform -l $< $(bootstrap) \
-	bootstrapJsUrl='../Tools/bower_components/bootstrap/dist/js/bootstrap.min.js' \
-	bootstrapCssUrl='../Tools/bower_components/bootstrap/dist/css/bootstrap.min.css' \
-	jqueryJsUrl='../Tools/bower_components/jquery/dist/jquery.min.js' \
-	navbar='../Tools/navbar.html' \
+	bootstrapJsUrl='./Tools/bower_components/bootstrap/dist/js/bootstrap.min.js' \
+	bootstrapCssUrl='./Tools/bower_components/bootstrap/dist/css/bootstrap.min.css' \
+	jqueryJsUrl='./Tools/bower_components/jquery/dist/jquery.min.js' \
+	navbar='./Tools/navbar.html' \
 	> $@
 #	$(xml2rfc) --html $< $@
 
