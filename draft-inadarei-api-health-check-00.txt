@@ -8,8 +8,8 @@ Intended status: Informational
 Expires: July 19, 2018
 
 
-                  Healtch Check Response for HTTP APIs
-                   draft-inadarei-api-healthcheck-00
+              Healtch Check Response Format for HTTP APIs
+                   draft-inadarei-api-health-check-00
 
 Abstract
 
@@ -55,7 +55,7 @@ Status of This Memo
 
 Nadareishvili             Expires July 19, 2018                 [Page 1]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
 Copyright Notice
@@ -111,7 +111,7 @@ Table of Contents
 
 Nadareishvili             Expires July 19, 2018                 [Page 2]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
    There exists a wide variety of operational software that relies on
@@ -167,7 +167,7 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 3]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
       *  "pass": healthy,
@@ -223,7 +223,7 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 4]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
    For example:
@@ -279,7 +279,7 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 5]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
 3.  Another subtitle
@@ -335,7 +335,7 @@ Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 6]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
@@ -391,7 +391,7 @@ Appendix B.  Creating and Serving Health Responses
 
 Nadareishvili             Expires July 19, 2018                 [Page 7]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
    o  Health check responses can be personalized.  For example, you
@@ -447,7 +447,7 @@ D.2.  Why doesn't the format allow references or inheritance?
 
 Nadareishvili             Expires July 19, 2018                 [Page 8]
 
-Internet-Draft    Healtch Check Response for HTTP APIs      January 2018
+Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 
 Author's Address
