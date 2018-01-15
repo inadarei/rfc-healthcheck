@@ -133,6 +133,7 @@ fields:
   nodes backing the service. Logical node can be a physical server, VM, a
   container or any other logical unit that makes sense for service publisher.
 * uptime: (optional) current uptime in seconds since the last restart
+* connections: (optional) current number of active connections
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
@@ -163,22 +164,23 @@ For example:
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
     "uptime": "1209600",
+    "connections" : 25,
     "notes": [""],
     "output": "",
     "details": [
       {
         "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "name": "sub-component-X",
-        "status": "pass",
         "value": "12313",
+        "status": "pass",
         "output": ""
       },
       {
         "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
-        "name": "sub-component-Y",
+        "name": "Cassandra test query duration in ms",
+        "value": "250",
         "status": "warn",
-        "value": "0920394",
-        "output": "Close to capacity"
+        "output": "Response time over target of less than 100ms"
       }
     ],
     "links": [

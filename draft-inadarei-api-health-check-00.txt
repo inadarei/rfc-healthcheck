@@ -78,7 +78,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Notational Conventions  . . . . . . . . . . . . . . . . .   3
    2.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   5
+   3.  Another subtitle  . . . . . . . . . . . . . . . . . . . . . .   6
    4.  Final subtitle  . . . . . . . . . . . . . . . . . . . . . . .   6
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   6
@@ -200,6 +200,8 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
    o  uptime: (optional) current uptime in seconds since the last
       restart
 
+   o  connections: (optional) current number of active connections
+
    o  notes: (optional) array of notes relevant to current state of
       health
 
@@ -216,8 +218,6 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
       standards [RFC5988] a link relationship SHOULD either be a common/
       registered one or be indicated as a URI, to avoid name clashes.
 
-   For example:
-
 
 
 
@@ -225,6 +225,8 @@ Nadareishvili             Expires July 19, 2018                 [Page 4]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
+
+   For example:
 
      GET /health HTTP/1.1
      Host: example.org
@@ -242,22 +244,23 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
        "memory": [4096, 1024, 3456],
        "cpu": [20, 40, 50],
        "uptime": "1209600",
+       "connections" : 25,
        "notes": [""],
        "output": "",
        "details": [
          {
            "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
            "name": "sub-component-X",
-           "status": "pass",
            "value": "12313",
+           "status": "pass",
            "output": ""
          },
          {
            "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
-           "name": "sub-component-Y",
+           "name": "Cassandra test query duration in ms",
+           "value": "250",
            "status": "warn",
-           "value": "0920394",
-           "output": "Close to capacity"
+           "output": "Response time over target of less than 100ms"
          }
        ],
        "links": [
@@ -269,9 +272,6 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
        ]
      }
 
-3.  Another subtitle
-
-   TODO
 
 
 
@@ -281,6 +281,10 @@ Nadareishvili             Expires July 19, 2018                 [Page 5]
 
 Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
+
+3.  Another subtitle
+
+   TODO
 
 4.  Final subtitle
 
@@ -326,10 +330,6 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
-
-
-
-
 
 
 
