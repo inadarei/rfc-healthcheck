@@ -18,7 +18,7 @@ author:
     ins: I. Nadareishvili
     name: Irakli Nadareishvili
     organization:
-    email: inadarei@users.noreply.github.com
+    email: irakli@gmail.com
     uri: http://www.freshblurbs.com/
 
 normative:
