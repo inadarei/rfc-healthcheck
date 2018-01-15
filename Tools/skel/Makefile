@@ -36,7 +36,7 @@ idnits: $(target).txt
 %.xml: draft.md
 	$(kramdown-rfc2629) $< > $@
 	
-%.html: %.xml
+%.html2: %.xml
 	sed -i '' -e"s/\"rfc2629.dtd/\"$(id_base)\/Tools\/rfcbootstrap\/rfc2629.dtd/" $<
 	java -classpath $(saxpath) net.sf.saxon.Transform -l $< $(bootstrap) \
 	bootstrapJsUrl='../Tools/bower_components/bootstrap/dist/js/bootstrap.min.js' \
@@ -44,7 +44,9 @@ idnits: $(target).txt
 	jqueryJsUrl='../Tools/bower_components/jquery/dist/jquery.min.js' \
 	navbar='../Tools/navbar.html' \
 	> $@
-#	$(xml2rfc) --html $< $@
+
+%.html: %.xml
+	$(xml2rfc) --html $< $@
 
 %.txt: %.xml
 	$(xml2rfc) $< $@
