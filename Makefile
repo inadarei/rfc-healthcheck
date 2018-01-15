@@ -8,7 +8,7 @@ bootstrap ?= $(id_base)/Tools/rfcbootstrap/rfcbootstrap.xslt
 idnits ?= idnits
 
 #title = inadarei-$(shell basename ${CURDIR})
-title = inadarei-api-healthcheck
+title = inadarei-api-health-check
 latest = $(shell (ls draft-${title}-*.xml || echo "draft-${title}-00.xml") | sort | tail -1)
 version = $(shell basename ${latest} .xml | awk -F- '{print $$NF}')
 

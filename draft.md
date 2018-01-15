@@ -1,5 +1,5 @@
 ---
-title: Healtch Check Response for HTTP APIs
+title: Healtch Check Response Format for HTTP APIs
 abbrev:
 docname: draft-inadarei-api-healthcheck-00
 date: 2018
