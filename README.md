@@ -1,6 +1,6 @@
 # api-healthcheck
 
-Health Check Endpoint for HTTP APIs
+Health Check Response RFC Draft for HTTP APIs
 
 ## Workspace Setup 
 
