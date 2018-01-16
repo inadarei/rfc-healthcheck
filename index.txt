@@ -150,8 +150,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
    *Note: this media type is not final, and will change before final
    publication.*
 
-   Its content consists of a single mandatory root field and several
-   optional fields:
+   Its content consists of a single mandatory root field ("status") and
+   several optional fields:
 
    o  status: (required) indicates whether the service status is
       acceptable or not.  API publishers SHOULD use following values for
