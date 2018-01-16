@@ -121,12 +121,12 @@ fields:
   optional fields of the response.
 
 * version: (optional) public version of the service.
-* release_id: (optional) for APIs backwards-compatible changes in the service
-  should not update version number. In general, APIs usually change their
+* release_id: (optional) in well-designed APIs, backwards-compatible changes in
+  the service should not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
-  However implementation of API may change much more frequently, which leads to
-  release number or release_id that is different from the public version of the
-  API.
+  However implementation of an API may change much more frequently, which leads
+  to the importance of having separate "release number" or "release_id" that is
+  different from the public version of the API.
 * serviceID: (optional) unique identifier of the service, in the application
   scope.
 * description: (optional) human-friendly description of the service.
