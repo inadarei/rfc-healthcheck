@@ -115,10 +115,8 @@ optional fields:
   
   For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx range MUST
   be used. for "fail" status HTTP response code in the 4xx - 5xx range MUST be
-  used.
-
-  In case of "warn" status, additional information SHOULD be provided, utilizing
-  optional fields of the response.
+  used. In case of the "warn" status, additional information SHOULD be provided,
+  utilizing optional fields of the response.
 
 * version: (optional) public version of the service.
 * release_id: (optional) in well-designed APIs, backwards-compatible changes in
