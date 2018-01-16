@@ -76,15 +76,15 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Notational Conventions  . . . . . . . . . . . . . . . . .   3
-   2.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   4.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Media Type Registration . . . . . . . . . . . . . . . . .   7
-   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     5.2.  Informative References  . . . . . . . . . . . . . . . . .   7
-     5.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+   2.  Notational Conventions  . . . . . . . . . . . . . . . . . . .   3
+   3.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  Media Type Registration . . . . . . . . . . . . . . . . .   7
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .   7
+     6.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
    Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   8
    Appendix B.  Creating and Serving Health Responses  . . . . . . .   8
    Appendix C.  Consuming Health Check Responses . . . . . . . . . .   9
@@ -135,13 +135,13 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
    information they offer.  Having a well-defined format for this
    purpose promotes good practice and tooling.
 
-1.1.  Notational Conventions
+2.  Notational Conventions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
 
-2.  API Health Response
+3.  API Health Response
 
    An API Health Response Format (or, interchangeably, "health check
    response") uses the format described in [RFC7159] and has the media
@@ -338,23 +338,23 @@ Nadareishvili             Expires July 20, 2018                 [Page 6]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-3.  Security Considerations
+4.  Security Considerations
 
    Clients need to exercise care when reporting health information.
    Malicious actors could use this information for orchestrating
    attacks.  In some cases the health check endpoints may need to be
    authenticated and institute role-based access control.
 
-4.  IANA Considerations
+5.  IANA Considerations
 
-4.1.  Media Type Registration
+5.1.  Media Type Registration
 
    TODO: application/vnd.health+json is being submitted for registration
    per [RFC6838]
 
-5.  References
+6.  References
 
-5.1.  Normative References
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -379,7 +379,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
 
-5.2.  Informative References
+6.2.  Informative References
 
    [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
               Specifications and Registration Procedures", BCP 13,
@@ -404,7 +404,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
 
-5.3.  URIs
+6.3.  URIs
 
    [1] https://github.com/inadarei/rfc-healthcheck/issues
 

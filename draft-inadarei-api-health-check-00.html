@@ -375,14 +375,14 @@
 
   <link href="#rfc.toc" rel="Contents">
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
-<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Notational Conventions">
-<link href="#rfc.section.2" rel="Chapter" title="2 API Health Response">
-<link href="#rfc.section.3" rel="Chapter" title="3 Security Considerations">
-<link href="#rfc.section.4" rel="Chapter" title="4 IANA Considerations">
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="5 References">
-<link href="#rfc.references.1" rel="Chapter" title="5.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="5.2 Informative References">
+<link href="#rfc.section.2" rel="Chapter" title="2 Notational Conventions">
+<link href="#rfc.section.3" rel="Chapter" title="3 API Health Response">
+<link href="#rfc.section.4" rel="Chapter" title="4 Security Considerations">
+<link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Media Type Registration">
+<link href="#rfc.references" rel="Chapter" title="6 References">
+<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
@@ -453,21 +453,21 @@
 
   	<li>1.   <a href="#rfc.section.1">Introduction</a>
 </li>
-<ul><li>1.1.   <a href="#rfc.section.1.1">Notational Conventions</a>
+<li>2.   <a href="#rfc.section.2">Notational Conventions</a>
 </li>
-</ul><li>2.   <a href="#rfc.section.2">API Health Response</a>
+<li>3.   <a href="#rfc.section.3">API Health Response</a>
 </li>
-<li>3.   <a href="#rfc.section.3">Security Considerations</a>
+<li>4.   <a href="#rfc.section.4">Security Considerations</a>
 </li>
-<li>4.   <a href="#rfc.section.4">IANA Considerations</a>
+<li>5.   <a href="#rfc.section.5">IANA Considerations</a>
 </li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">Media Type Registration</a>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Media Type Registration</a>
 </li>
-</ul><li>5.   <a href="#rfc.references">References</a>
+</ul><li>6.   <a href="#rfc.references">References</a>
 </li>
-<ul><li>5.1.   <a href="#rfc.references.1">Normative References</a>
+<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<li>5.2.   <a href="#rfc.references.2">Informative References</a>
+<li>6.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
 </li>
@@ -495,16 +495,16 @@
 <li>Evolvability - new APIs, conforming to the standard, can safely be introduced in any environment and ecosystem that also conforms to the same standard, without costly coordination and testing requirements.</li>
 </ul>
 <p id="rfc.section.1.p.6">This document defines a &#8220;health check&#8221; format using the JSON format <a href="#RFC7159" class="xref">[RFC7159]</a> for APIs to use as a standard point for the health information they offer.  Having a well-defined format for this purpose promotes good practice and tooling.</p>
-<h1 id="rfc.section.1.1">
-<a href="#rfc.section.1.1">1.1.</a> <a href="#notational-conventions" id="notational-conventions">Notational Conventions</a>
-</h1>
-<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
 <h1 id="rfc.section.2">
-<a href="#rfc.section.2">2.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
+<a href="#rfc.section.2">2.</a> <a href="#notational-conventions" id="notational-conventions">Notational Conventions</a>
 </h1>
-<p id="rfc.section.2.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in <a href="#RFC7159" class="xref">[RFC7159]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.2.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
+</h1>
+<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in <a href="#RFC7159" class="xref">[RFC7159]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
 <p><strong>Note: this media type is not final, and will change before final publication.</strong></p>
-<p id="rfc.section.2.p.3">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
+<p id="rfc.section.3.p.3">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 
 <ul>
@@ -528,7 +528,7 @@
 <li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.</li>
 <li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.</li>
 </ul>
-<p id="rfc.section.2.p.5">For example:</p>
+<p id="rfc.section.3.p.5">For example:</p>
 <pre>
   GET /health HTTP/1.1
   Host: example.org
@@ -576,21 +576,21 @@
     ]
   }
 </pre>
-<h1 id="rfc.section.3">
-<a href="#rfc.section.3">3.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
-</h1>
-<p id="rfc.section.3.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<a href="#rfc.section.4">4.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<h1 id="rfc.section.4.1">
-<a href="#rfc.section.4.1">4.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+<p id="rfc.section.4.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.4.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+</h1>
+<p id="rfc.section.5.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
-<a href="#rfc.references">5.</a> References</h1>
+<a href="#rfc.references">6.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">5.1.</a> Normative References</h1>
+<a href="#rfc.references.1">6.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -619,7 +619,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">5.2.</a> Informative References</h1>
+<a href="#rfc.references.2">6.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC6838">[RFC6838]</b></td>
