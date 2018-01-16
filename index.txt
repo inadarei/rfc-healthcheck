@@ -186,11 +186,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
       having separate "release number" or "release_id" that is different
       from the public version of the API.
 
-   o  serviceID: (optional) unique identifier of the service, in the
-      application scope.
-
-   o  description: (optional) human-friendly description of the service.
-
    o  memory: (optional) array of sizes for the currently utilized
       resident memory (in kilobytes) on each of the logical nodes
       backing the service.  Logical node can be a physical server, VM, a
@@ -217,6 +212,11 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
       additional information regarding the various sub-components of the
       service.
 
+   o  links: (optional) an array of objects containing link relations
+      and URIs [RFC3986] for external links that MAY contain more
+      information about the health of the endpoint.  Per web-linking
+      standards [RFC5988] a link relationship SHOULD either be a common/
+      registered one or be indicated as a URI, to avoid name clashes.
 
 
 
@@ -226,13 +226,13 @@ Nadareishvili             Expires July 20, 2018                 [Page 4]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-   o  links: (optional) an array of objects containing link relations
-      and URIs [RFC3986] for external links that MAY contain more
-      information about the health of the endpoint.  Per web-linking
-      standards [RFC5988] a link relationship SHOULD either be a common/
-      registered one or be indicated as a URI, to avoid name clashes.
+   o  serviceID: (optional) unique identifier of the service, in the
+      application scope.
+
+   o  description: (optional) human-friendly description of the service.
 
    For example:
+
 
 
 
@@ -292,8 +292,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
      Connection: close
 
      {
-       "serviceID": "service:authz",
-       "description": "health of authz service",
        "status": "pass",
        "version" : "1",
        "release_id" : "1.2.2",
@@ -325,7 +323,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
            "rel": "http://api.example.com/rel/thresholds",
            "uri": "http://api.example.com/about/authz/thresholds"
          }
-       ]
+       ],
+       "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+       "description": "health of authz service"
      }
 
 

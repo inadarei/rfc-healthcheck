@@ -517,8 +517,6 @@
 </li>
 <li>version: (optional) public version of the service.</li>
 <li>release_id: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;release_id&#8221; that is different from the public version of the API.</li>
-<li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
-<li>description: (optional) human-friendly description of the service.</li>
 <li>memory: (optional) array of sizes for the  currently utilized resident memory (in kilobytes) on each of the logical nodes backing the service. Logical node can be a physical server, VM, a container or any other logical unit that makes sense for service publisher.</li>
 <li>cpu: (optional) array of cpu utiliation percentage on each of the logical nodes backing the service. Logical node can be a physical server, VM, a container or any other logical unit that makes sense for service publisher.</li>
 <li>uptime: (optional) current uptime in seconds since the last restart</li>
@@ -527,6 +525,8 @@
 <li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
 <li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.</li>
 <li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.</li>
+<li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
+<li>description: (optional) human-friendly description of the service.</li>
 </ul>
 <p id="rfc.section.3.p.5">For example:</p>
 <pre>
@@ -540,8 +540,6 @@
   Connection: close
 
   {
-    "serviceID": "service:authz",
-    "description": "health of authz service",
     "status": "pass",
     "version" : "1",
     "release_id" : "1.2.2",
@@ -573,7 +571,9 @@
         "rel": "http://api.example.com/rel/thresholds",
         "uri": "http://api.example.com/about/authz/thresholds"
       }
-    ]
+    ],
+    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+    "description": "health of authz service"
   }
 </pre>
 <h1 id="rfc.section.4">
