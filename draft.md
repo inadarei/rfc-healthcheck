@@ -170,7 +170,7 @@ For example:
     "release_id" : "1.2.2",
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
-    "uptime": "1209600",
+    "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
     "output": "",
