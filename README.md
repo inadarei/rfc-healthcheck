@@ -11,6 +11,7 @@ RFC Draft: https://tools.ietf.org/html/draft-inadarei-api-health-check-00
 > gem install kramdown-rfc2629
 > sudo easy_install pip # optional, if you don't already have it
 > sudo pip install xml2rfc
+> .githooks/install.sh # to enable automated rebuilds on git push
 ```
 ## Using
 
