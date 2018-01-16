@@ -125,9 +125,6 @@ optional fields:
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "release_id" that is
   different from the public version of the API.
-* serviceID: (optional) unique identifier of the service, in the application
-  scope.
-* description: (optional) human-friendly description of the service.
 * memory: (optional) array of sizes for the  currently utilized resident memory
   (in kilobytes) on each of the logical nodes backing the service. Logical node
   can be a physical server, VM, a container or any other logical unit that makes
@@ -147,6 +144,9 @@ optional fields:
   health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
   SHOULD either be a common/registered one or be indicated as a URI, to avoid
   name clashes. 
+* serviceID: (optional) unique identifier of the service, in the application
+  scope.
+* description: (optional) human-friendly description of the service.
 
 For example:
 
@@ -161,8 +161,6 @@ For example:
   Connection: close
 
   {
-    "serviceID": "service:authz",
-    "description": "health of authz service",
     "status": "pass",
     "version" : "1",
     "release_id" : "1.2.2",
@@ -194,7 +192,9 @@ For example:
         "rel": "http://api.example.com/rel/thresholds",
         "uri": "http://api.example.com/about/authz/thresholds"
       }
-    ]
+    ],
+    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+    "description": "health of authz service"
   }
 ~~~
 
