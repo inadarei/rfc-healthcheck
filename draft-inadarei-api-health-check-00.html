@@ -490,7 +490,7 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">Vast majority of modern APIs, that drive data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as a transport protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
+<p id="rfc.section.1.p.1">The vast majority of modern APIs, that drive data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as a transport protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
 <p id="rfc.section.1.p.2">There exists a wide variety of operational software that relies on the ability to read health check response of APIs. There is currently no standard for the health check output response, however, so most applications either rely on the basic level of information included in HTTP status codes <a href="#RFC7231" class="xref">[RFC7231]</a> or use task-specific formats.</p>
 <p id="rfc.section.1.p.3">Usage of task-specific or application-specific rformats creates significant challenges, disallowing any meaningful interoprerability across different implementations and between different tooling.</p>
 <p id="rfc.section.1.p.4">Standardizing a format for health checks can provide any of a number of benefits, including:</p>
@@ -521,6 +521,8 @@
 </ul>
 <p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 4xx - 5xx range MUST be used.  </p>
 <br><br> In case of &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</li>
+<li>version: (optional) public version of the service.</li>
+<li>release_id: (optional) for APIs backwards-compatible changes in the service should not update version number. In general, APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of API may change much more frequently, which leads to release number or release_id that is different from the public version of the API.</li>
 <li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
 <li>description: (optional) human-friendly description of the service.</li>
 <li>memory: (optional) array of sizes for the  currently utilized resident memory (in kilobytes) on each of the logical nodes backing the service. Logical node can be a physical server, VM, a container or any other logical unit that makes sense for service publisher.</li>
@@ -547,6 +549,8 @@
     "serviceID": "service:authz",
     "description": "health of authz service",
     "status": "pass",
+    "version" : "1",
+    "release_id" : "1.2.2",
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
     "uptime": "1209600",
