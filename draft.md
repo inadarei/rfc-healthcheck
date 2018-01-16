@@ -57,7 +57,7 @@ See also the draft's current status in the IETF datatracker, at
 
 # Introduction
 
-The vast majority of modern APIs, that drive data to web and mobile applications
+The vast majority of modern APIs driving data to web and mobile applications
 use HTTP {{RFC7230}} as a transport protocol. The health and uptime of these
 APIs determine availability of the applications themselves. In distributed
 systems built with a number of APIs, understanding the health status of the APIs
