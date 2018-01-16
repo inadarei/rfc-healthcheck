@@ -122,6 +122,13 @@ fields:
   In case of "warn" status, additional information SHOULD be provided, utilizing
   optional fields of the response.
 
+* version: (optional) public version of the service.
+* release_id: (optional) for APIs backwards-compatible changes in the service
+  should not update version number. In general, APIs usually change their
+  version number as infrequently as possible, to preserve stable interface.
+  However implementation of API may change much more frequently, which leads to
+  release number or release_id that is different from the public version of the
+  API.
 * serviceID: (optional) unique identifier of the service, in the application
   scope.
 * description: (optional) human-friendly description of the service.
@@ -161,6 +168,8 @@ For example:
     "serviceID": "service:authz",
     "description": "health of authz service",
     "status": "pass",
+    "version" : "1",
+    "release_id" : "1.2.2",
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
     "uptime": "1209600",
