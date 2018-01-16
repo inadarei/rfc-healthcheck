@@ -51,7 +51,7 @@ The most recent draft is at <https://inadarei.github.io/rfc-healthcheck/>.
 Recent changes are listed at <https://github.com/inadarei/rfc-healthcheck/commits/master>.
 
 See also the draft's current status in the IETF datatracker, at
-<https://datatracker.ietf.org/doc/draft-inadarei-api-healthcheck/>.
+<https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/>.
 
 --- middle
 
