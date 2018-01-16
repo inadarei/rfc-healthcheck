@@ -103,8 +103,8 @@ uses the format described in {{RFC7159}} and has the media type
 
 **Note: this media type is not final, and will change before final publication.**
 
-Its content consists of a single mandatory root field and several optional
-fields:
+Its content consists of a single mandatory root field ("status") and several
+optional fields:
 
 * status: (required) indicates whether the service status is acceptable or not.
   API publishers SHOULD use following values for the field: 
