@@ -1,5 +1,5 @@
 ---
-title: Healtch Check Response Format for HTTP APIs
+title: Health Check Response Format for HTTP APIs
 abbrev:
 docname: draft-inadarei-api-health-check-00
 date: 2018
@@ -38,7 +38,7 @@ informative:
 
 --- abstract
 
-This document proposes a "health check response" format for API HTTP clients.
+This document proposes a service health check response format for HTTP APIs.
 
 --- note_Note_to_Readers
 
@@ -57,12 +57,12 @@ See also the draft's current status in the IETF datatracker, at
 
 # Introduction
 
-Vast majority of modern APIs, that drive data to web and mobile applications use
-HTTP {{RFC7230}} as a transport protocol. The health and uptime of these APIs
-determine availability of the applications themselves. In distributed systems
-built with a number of APIs, understanding the health status of the APIs and
-making corresponding decisions, for failover or circuit-breaking, are essential
-for providing highly available solutions.
+The vast majority of modern APIs, that drive data to web and mobile applications
+use HTTP {{RFC7230}} as a transport protocol. The health and uptime of these
+APIs determine availability of the applications themselves. In distributed
+systems built with a number of APIs, understanding the health status of the APIs
+and making corresponding decisions, for failover or circuit-breaking, are
+essential for providing highly available solutions.
 
 There exists a wide variety of operational software that relies on the ability
 to read health check response of APIs. There is currently no standard for the

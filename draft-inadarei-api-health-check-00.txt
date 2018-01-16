@@ -8,13 +8,13 @@ Intended status: Informational
 Expires: July 19, 2018
 
 
-              Healtch Check Response Format for HTTP APIs
+               Health Check Response Format for HTTP APIs
                    draft-inadarei-api-health-check-00
 
 Abstract
 
-   This document proposes a "health check response" format for API HTTP
-   clients.
+   This document proposes a service health check response format for
+   HTTP APIs.
 
 Note to Readers
 
@@ -55,7 +55,7 @@ Status of This Memo
 
 Nadareishvili             Expires July 19, 2018                 [Page 1]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 Copyright Notice
@@ -111,7 +111,7 @@ Table of Contents
 
 Nadareishvili             Expires July 19, 2018                 [Page 2]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
    so most applications either rely on the basic level of information
@@ -167,7 +167,7 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 3]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
       *  "fail": unhealthy, and
@@ -223,7 +223,7 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 4]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
    For example:
@@ -279,7 +279,7 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 5]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 3.  Another subtitle
@@ -335,7 +335,7 @@ Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
 
 Nadareishvili             Expires July 19, 2018                 [Page 6]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 7.2.  Informative References
@@ -391,7 +391,7 @@ Appendix B.  Creating and Serving Health Responses
 
 Nadareishvili             Expires July 19, 2018                 [Page 7]
 
-Internet-Draft Healtch Check Response Format for HTTP APIs  January 2018
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
    o  Health check responses must be assigned a freshness lifetime
