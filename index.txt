@@ -172,10 +172,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
       For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
       range MUST be used. for "fail" status HTTP response code in the
-      4xx - 5xx range MUST be used.
-
-      In case of "warn" status, additional information SHOULD be
-      provided, utilizing optional fields of the response.
+      4xx - 5xx range MUST be used.  In case of the "warn" status,
+      additional information SHOULD be provided, utilizing optional
+      fields of the response.
 
    o  version: (optional) public version of the service.
 
@@ -217,6 +216,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
    o  details: (optional) an array of objects optionally providing
       additional information regarding the various sub-components of the
       service.
+
 
 
 
