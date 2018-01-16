@@ -377,14 +377,12 @@
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.1.1" rel="Chapter" title="1.1 Notational Conventions">
 <link href="#rfc.section.2" rel="Chapter" title="2 API Health Response">
-<link href="#rfc.section.3" rel="Chapter" title="3 Another subtitle">
-<link href="#rfc.section.4" rel="Chapter" title="4 Final subtitle">
-<link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
-<link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="7 References">
-<link href="#rfc.references.1" rel="Chapter" title="7.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References">
+<link href="#rfc.section.3" rel="Chapter" title="3 Security Considerations">
+<link href="#rfc.section.4" rel="Chapter" title="4 IANA Considerations">
+<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Media Type Registration">
+<link href="#rfc.references" rel="Chapter" title="5 References">
+<link href="#rfc.references.1" rel="Chapter" title="5.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="5.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
@@ -459,21 +457,17 @@
 </li>
 </ul><li>2.   <a href="#rfc.section.2">API Health Response</a>
 </li>
-<li>3.   <a href="#rfc.section.3">Another subtitle</a>
+<li>3.   <a href="#rfc.section.3">Security Considerations</a>
 </li>
-<li>4.   <a href="#rfc.section.4">Final subtitle</a>
+<li>4.   <a href="#rfc.section.4">IANA Considerations</a>
 </li>
-<li>5.   <a href="#rfc.section.5">Security Considerations</a>
+<ul><li>4.1.   <a href="#rfc.section.4.1">Media Type Registration</a>
 </li>
-<li>6.   <a href="#rfc.section.6">IANA Considerations</a>
+</ul><li>5.   <a href="#rfc.references">References</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Media Type Registration</a>
+<ul><li>5.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-</ul><li>7.   <a href="#rfc.references">References</a>
-</li>
-<ul><li>7.1.   <a href="#rfc.references.1">Normative References</a>
-</li>
-<li>7.2.   <a href="#rfc.references.2">Informative References</a>
+<li>5.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
 </li>
@@ -583,28 +577,20 @@
   }
 </pre>
 <h1 id="rfc.section.3">
-<a href="#rfc.section.3">3.</a> <a href="#another-subtitle" id="another-subtitle">Another subtitle</a>
+<a href="#rfc.section.3">3.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.3.p.1">TODO</p>
+<p id="rfc.section.3.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#final-subtitle" id="final-subtitle">Final subtitle</a>
+<a href="#rfc.section.4">4.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.4.p.1">TODO</p>
-<h1 id="rfc.section.5">
-<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<h1 id="rfc.section.4.1">
+<a href="#rfc.section.4.1">4.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
 </h1>
-<p id="rfc.section.5.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
-<h1 id="rfc.section.6">
-<a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
-</h1>
-<h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
-</h1>
-<p id="rfc.section.6.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.4.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
-<a href="#rfc.references">7.</a> References</h1>
+<a href="#rfc.references">5.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">7.1.</a> Normative References</h1>
+<a href="#rfc.references.1">5.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -633,7 +619,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">7.2.</a> Informative References</h1>
+<a href="#rfc.references.2">5.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC6838">[RFC6838]</b></td>
