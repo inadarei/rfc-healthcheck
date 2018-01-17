@@ -101,8 +101,6 @@ An API Health Response Format (or, interchangeably, "health check response")
 uses the format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
-**Note: this media type is not final, and will change before final publication.**
-
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
 
