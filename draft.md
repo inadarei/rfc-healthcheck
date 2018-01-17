@@ -125,20 +125,13 @@ optional fields:
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "release_id" that is
   different from the public version of the API.
-* memory: (optional) array of sizes for the  currently utilized resident memory
-  (in kilobytes) on each of the logical nodes backing the service. Logical node
-  can be a physical server, VM, a container or any other logical unit that makes
-  sense for service publisher.
-* cpu: (optional) array of cpu utiliation percentage on each of the logical
-  nodes backing the service. Logical node can be a physical server, VM, a
-  container or any other logical unit that makes sense for service publisher.
 * uptime: (optional) current uptime in seconds since the last restart
 * connections: (optional) current number of active connections
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
-* details: (optional) an array of objects optionally providing additional information
-  regarding the various sub-components of the service.
+* details: (optional) an array of objects optionally providing additional
+  information regarding the various sub-components of the service.
 * links: (optional) an array of objects containing link relations and URIs 
   {{RFC3986}} for external links that MAY contain more information about the 
   health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
@@ -164,26 +157,77 @@ For example:
     "status": "pass",
     "version" : "1",
     "release_id" : "1.2.2",
-    "memory": [4096, 1024, 3456],
-    "cpu": [20, 40, 50],
     "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
     "output": "",
     "details": [
       {
-        "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "name": "sub-component-X",
-        "value": "12313",
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
+        "componentType" : "datastore",
+        "metricName" : "response",
+        "metricValue": 250,
+        "metricUnit" : "milliseconds",
         "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
-        "id": "3c1f048c-a4be-4aa2-83e6-2629073d19dc",
-        "name": "Cassandra test query duration in ms",
-        "value": "250",
+        "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "name": "Cassandra",
+        "type" : "datastore",
+        "metricName" : "connections",
+        "metricValue": 75,
         "status": "warn",
-        "output": "Response time over target of less than 100ms"
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "name": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "name": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "name": "memory",
+        "type" : "system",
+        "node" : 1,
+        "metricName" : "utilization",
+        "metricValue": 8.5,
+        "metricUnit" : "gb",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "name": "memory",
+        "node" : 2,
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 5500,
+        "metricUnit" : "mb",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
       }
     ],
     "links": [
@@ -197,6 +241,24 @@ For example:
     "description": "health of authz service"
   }
 ~~~
+
+# Details Object
+
+Following fields and rules SHOULD be used for the details objects of the reponse.
+
+* componentId: (required) unique identifier of a specific sub-component or a
+  dependency of a service. Multiple objects with the same componentId MAY appear
+  in the details, if they are to show
+* componentName: (optional) human-readable name for the component.
+* componentType: (optional) type of the component. Could be one of:
+  - Pre-defined value from this spec. Pre-defined values include: 
+* metricName:
+* metricValue:
+* metricUnit:
+* status:
+* output:
+
+
 
 # Security Considerations
 
