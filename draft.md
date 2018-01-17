@@ -98,16 +98,14 @@ interpreted as described in {{RFC2119}}.
 # API Health Response
 
 An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in {{RFC7159}} and has the media type
+uses the format described in JSON {{RFC7159}} encoding and has the media type
 "application/vnd.health+json".
-
-**Note: this media type is not final, and will change before final publication.**
 
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
 
 * status: (required) indicates whether the service status is acceptable or not.
-  API publishers SHOULD use following values for the field: 
+  API publishers SHOULD use following values for the field:
   
   - "pass": healthy, 
   - "fail": unhealthy, and
@@ -166,7 +164,7 @@ For example:
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentName": "Cassandra",
         "componentType" : "datastore",
-        "metricName" : "response",
+        "metricName" : "responseTime",
         "metricValue": 250,
         "metricUnit" : "milliseconds",
         "status": "pass",
@@ -174,8 +172,8 @@ For example:
         "output": ""
       },
       {
-        "id": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "name": "Cassandra",
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
         "type" : "datastore",
         "metricName" : "connections",
         "metricValue": 75,
@@ -184,8 +182,8 @@ For example:
         "output": ""
       },
       {
-        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "name": "cpu",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
         "type" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
@@ -195,8 +193,8 @@ For example:
         "output": ""
       },
       {
-        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "name": "cpu",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
         "type" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
@@ -206,8 +204,8 @@ For example:
         "output": ""
       },
       {
-        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "name": "memory",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
         "type" : "system",
         "node" : 1,
         "metricName" : "utilization",
@@ -218,8 +216,8 @@ For example:
         "output": ""
       },
       {
-        "id": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "name": "memory",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
         "node" : 2,
         "type" : "system",
         "metricName" : "utilization",
@@ -244,21 +242,57 @@ For example:
 
 # Details Object
 
-Following fields and rules SHOULD be used for the details objects of the reponse.
+Following fields MAY appear and rules SHOULD be used for the details objects of the reponse.
 
-* componentId: (required) unique identifier of a specific sub-component or a
-  dependency of a service. Multiple objects with the same componentId MAY appear
-  in the details, if they are to show
+* componentId: (required) unique identifier of an instance of a specific
+  sub-component/dependency of a service. Multiple objects with the same
+  componentId MAY appear in the details, if they are from different nodes.
+* status: (required) "pass", "fail" or "warn". Same semantic meaning as at  the
+  top level.
 * componentName: (optional) human-readable name for the component.
-* componentType: (optional) type of the component. Could be one of:
-  - Pre-defined value from this spec. Pre-defined values include: 
-* metricName:
-* metricValue:
-* metricUnit:
-* status:
-* output:
-
-
+* componentType: (optional) SHOULD be present if componentName is present. Type
+  of the component. Could be one of:
+  * Pre-defined value from this spec. Pre-defined values include: 
+    * component
+    * datastore
+    * system
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
+* metricName: (optional) Could be one of:
+  * Pre-defined value from this spec. Pre-defined values include: 
+    * utilization
+    * responseTime
+    * connections
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
+* metricValue: (optional) could be any valid JSON value, such as: string, number,
+  object, array or literal.
+* metricUnit: (optional) SHOULD be present if metricValue is present. Could be
+  one of:
+  * Pre-defined value from this spec. Pre-defined values include: 
+    * data size abbreviations: kb, mb, gb, tb, or pb that respectively stand
+      for: kilobyte, megabyte, gigabyte, terabyte and petabyte.
+    * time abbreviations: ns, ms, s, hr, min, d, yr that respectively stand for:
+      nanosecond, millisecond, second, hour, day, and year.
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
+* output: (optional) raw error output, in case of "fail" or "warn" states. This
+  field SHOULD be omitted for "pass" state.
 
 # Security Considerations
 
