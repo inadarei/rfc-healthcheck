@@ -487,7 +487,7 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">The vast majority of modern APIs driving data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as a transport protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
+<p id="rfc.section.1.p.1">The vast majority of modern APIs driving data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as their protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
 <p id="rfc.section.1.p.2">There exists a wide variety of operational software that relies on the ability to read health check response of APIs. There is currently no standard for the health check output response, however, so most applications either rely on the basic level of information included in HTTP status codes <a href="#RFC7231" class="xref">[RFC7231]</a> or use task-specific formats.</p>
 <p id="rfc.section.1.p.3">Usage of task-specific or application-specific rformats creates significant challenges, disallowing any meaningful interoprerability across different implementations and between different tooling.</p>
 <p id="rfc.section.1.p.4">Standardizing a format for health checks can provide any of a number of benefits, including:</p>
@@ -497,7 +497,7 @@
 <li>Flexible deployment - since operational tooling and API clients can rely on rich, uniform format, they can be safely combined and substituted as needed.</li>
 <li>Evolvability - new APIs, conforming to the standard, can safely be introduced in any environment and ecosystem that also conforms to the same standard, without costly coordination and testing requirements.</li>
 </ul>
-<p id="rfc.section.1.p.6">This document defines a &#8220;health check&#8221; format using the JSON format <a href="#RFC7159" class="xref">[RFC7159]</a> for APIs to use as a standard point for the health information they offer.  Having a well-defined format for this purpose promotes good practice and tooling.</p>
+<p id="rfc.section.1.p.6">This document defines a &#8220;health check&#8221; format using the JSON format <a href="#RFC8259" class="xref">[RFC8259]</a> for APIs to use as a standard point for the health information they offer.  Having a well-defined format for this purpose promotes good practice and tooling.</p>
 <h1 id="rfc.section.2">
 <a href="#rfc.section.2">2.</a> <a href="#notational-conventions" id="notational-conventions">Notational Conventions</a>
 </h1>
@@ -505,7 +505,7 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
 </h1>
-<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in JSON <a href="#RFC7159" class="xref">[RFC7159]</a> encoding and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in JSON <a href="#RFC8259" class="xref">[RFC8259]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
 <p id="rfc.section.3.p.2">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 
@@ -704,14 +704,14 @@
 <a>Nottingham, M.</a>, "<a href="https://tools.ietf.org/html/rfc5988">Web Linking</a>", RFC 5988, DOI 10.17487/RFC5988, October 2010.</td>
 </tr>
 <tr>
-<td class="reference"><b id="RFC7159">[RFC7159]</b></td>
-<td class="top">
-<a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>", RFC 7159, DOI 10.17487/RFC7159, March 2014.</td>
-</tr>
-<tr>
 <td class="reference"><b id="RFC7234">[RFC7234]</b></td>
 <td class="top">
 <a>Fielding, R.</a>, <a>Nottingham, M.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7234">Hypertext Transfer Protocol (HTTP/1.1): Caching</a>", RFC 7234, DOI 10.17487/RFC7234, June 2014.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC8259">[RFC8259]</b></td>
+<td class="top">
+<a>Bray, T.</a>, "<a href="https://tools.ietf.org/html/rfc8259">The JavaScript Object Notation (JSON) Data Interchange Format</a>", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017.</td>
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
@@ -755,7 +755,7 @@
 <p id="rfc.section.C.p.1">Clients might use health check responses in a variety of ways.</p>
 <p id="rfc.section.C.p.2">Note that the health check response is a &#8220;living&#8221; document; links from the health check response MUST NOT be assumed to be valid beyond the freshness lifetime of the health check response, as per HTTP&#8217;s caching model <a href="#RFC7234" class="xref">[RFC7234]</a>.</p>
 <p id="rfc.section.C.p.3">As a result, clients ought to cache the health check response (as per <a href="#RFC7234" class="xref">[RFC7234]</a>), to avoid fetching it before every interaction (which would otherwise be required).</p>
-<p id="rfc.section.C.p.4">Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain a fresh copy of the health check response, to assure that it is up-to-date.</p>
+<p id="rfc.section.C.p.4">Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain a fresh copy of the health check response, to assure that it is up-to-date.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
   <address class="vcard">
