@@ -58,7 +58,7 @@ See also the draft's current status in the IETF datatracker, at
 # Introduction
 
 The vast majority of modern APIs driving data to web and mobile applications
-use HTTP {{RFC7230}} as a transport protocol. The health and uptime of these
+use HTTP {{RFC7230}} as their protocol. The health and uptime of these
 APIs determine availability of the applications themselves. In distributed
 systems built with a number of APIs, understanding the health status of the APIs
 and making corresponding decisions, for failover or circuit-breaking, are
@@ -251,5 +251,5 @@ As a result, clients ought to cache the health check response (as per
 {{RFC7234}}), to avoid fetching it before every interaction (which would
 otherwise be required).
 
-Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain
+Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain
 a fresh copy of the health check response, to assure that it is up-to-date.
