@@ -21,7 +21,7 @@ author:
     city: New York
     country: United States
     email: irakli@gmail.com
-    uri: http://www.freshblurbs.com/
+    uri: http://www.freshblurbs.com
 
 normative:
   RFC2119:
