@@ -28,8 +28,8 @@ normative:
   RFC3986:
   #RFC5226:
   RFC5988:
-  RFC7159:
   RFC7234:
+  RFC8259:
 
 informative:
   RFC7230:
@@ -58,7 +58,7 @@ See also the draft's current status in the IETF datatracker, at
 # Introduction
 
 The vast majority of modern APIs driving data to web and mobile applications
-use HTTP {{RFC7230}} as a transport protocol. The health and uptime of these
+use HTTP {{RFC7230}} as their protocol. The health and uptime of these
 APIs determine availability of the applications themselves. In distributed
 systems built with a number of APIs, understanding the health status of the APIs
 and making corresponding decisions, for failover or circuit-breaking, are
@@ -84,7 +84,7 @@ benefits, including:
   in any environment and ecosystem that also conforms to the same standard,
   without costly coordination and testing requirements.
 
-This document defines a "health check" format using the JSON format {{RFC7159}}
+This document defines a "health check" format using the JSON format {{RFC8259}}
 for APIs to use as a standard point for the health information they offer.
 Having a well-defined format for this purpose promotes good practice and
 tooling.
@@ -98,7 +98,7 @@ interpreted as described in {{RFC2119}}.
 # API Health Response
 
 An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in JSON {{RFC7159}} encoding and has the media type
+uses the format described in JSON {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 Its content consists of a single mandatory root field ("status") and several
@@ -347,5 +347,5 @@ As a result, clients ought to cache the health check response (as per
 {{RFC7234}}), to avoid fetching it before every interaction (which would
 otherwise be required).
 
-Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain
+Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain
 a fresh copy of the health check response, to assure that it is up-to-date.
