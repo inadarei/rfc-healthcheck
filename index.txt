@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                          January 16, 2018
+Internet-Draft                                          January 17, 2018
 Intended status: Informational
-Expires: July 20, 2018
+Expires: July 21, 2018
 
 
                Health Check Response Format for HTTP APIs
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 20, 2018.
+   This Internet-Draft will expire on July 21, 2018.
 
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 1]
+Nadareishvili             Expires July 21, 2018                 [Page 1]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -93,8 +93,8 @@ Table of Contents
 1.  Introduction
 
    The vast majority of modern APIs driving data to web and mobile
-   applications use HTTP [RFC7230] as a transport protocol.  The health
-   and uptime of these APIs determine availability of the applications
+   applications use HTTP [RFC7230] as their protocol.  The health and
+   uptime of these APIs determine availability of the applications
    themselves.  In distributed systems built with a number of APIs,
    understanding the health status of the APIs and making corresponding
    decisions, for failover or circuit-breaking, are essential for
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 2]
+Nadareishvili             Expires July 21, 2018                 [Page 2]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -131,7 +131,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
       requirements.
 
    This document defines a "health check" format using the JSON format
-   [RFC7159] for APIs to use as a standard point for the health
+   [RFC8259] for APIs to use as a standard point for the health
    information they offer.  Having a well-defined format for this
    purpose promotes good practice and tooling.
 
@@ -144,11 +144,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 3.  API Health Response
 
    An API Health Response Format (or, interchangeably, "health check
-   response") uses the format described in [RFC7159] and has the media
+   response") uses the format described in [RFC8259] and has the media
    type "application/vnd.health+json".
-
-   *Note: this media type is not final, and will change before final
-   publication.*
 
    Its content consists of a single mandatory root field ("status") and
    several optional fields:
@@ -163,15 +160,16 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
       *  "warn": healthy, with some concerns.
 
+      For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
+      range MUST be used. for "fail" status HTTP response code in the
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 3]
+
+Nadareishvili             Expires July 21, 2018                 [Page 3]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-      For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
-      range MUST be used. for "fail" status HTTP response code in the
       4xx - 5xx range MUST be used.  In case of the "warn" status,
       additional information SHOULD be provided, utilizing optional
       fields of the response.
@@ -218,16 +216,15 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
       standards [RFC5988] a link relationship SHOULD either be a common/
       registered one or be indicated as a URI, to avoid name clashes.
 
+   o  serviceID: (optional) unique identifier of the service, in the
+      application scope.
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 4]
+Nadareishvili             Expires July 21, 2018                 [Page 4]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
-
-   o  serviceID: (optional) unique identifier of the service, in the
-      application scope.
 
    o  description: (optional) human-friendly description of the service.
 
@@ -277,7 +274,10 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 5]
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 5]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -333,7 +333,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 6]
+Nadareishvili             Expires July 21, 2018                 [Page 6]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -370,14 +370,15 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
 
-   [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
-              Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <https://www.rfc-editor.org/info/rfc7159>.
-
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
               <https://www.rfc-editor.org/info/rfc7234>.
+
+   [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
+              Interchange Format", STD 90, RFC 8259,
+              DOI 10.17487/RFC8259, December 2017,
+              <https://www.rfc-editor.org/info/rfc8259>.
 
 6.2.  Informative References
 
@@ -388,8 +389,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-
-Nadareishvili             Expires July 20, 2018                 [Page 7]
+Nadareishvili             Expires July 21, 2018                 [Page 7]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -445,7 +445,7 @@ Appendix B.  Creating and Serving Health Responses
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 8]
+Nadareishvili             Expires July 21, 2018                 [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -464,7 +464,7 @@ Appendix C.  Consuming Health Check Responses
    would otherwise be required).
 
    Likewise, a client encountering a 404 (Not Found) on a link is
-   encouraged obtain a fresh copy of the health check response, to
+   encouraged to obtain a fresh copy of the health check response, to
    assure that it is up-to-date.
 
 Author's Address
@@ -501,4 +501,4 @@ Author's Address
 
 
 
-Nadareishvili             Expires July 20, 2018                 [Page 9]
+Nadareishvili             Expires July 21, 2018                 [Page 9]
