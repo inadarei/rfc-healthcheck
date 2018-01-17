@@ -505,9 +505,8 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
 </h1>
-<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in <a href="#RFC7159" class="xref">[RFC7159]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
-<p><strong>Note: this media type is not final, and will change before final publication.</strong></p>
-<p id="rfc.section.3.p.3">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
+<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in JSON <a href="#RFC7159" class="xref">[RFC7159]</a> encoding and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.3.p.2">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 
 <ul>
@@ -529,7 +528,7 @@
 <li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
 <li>description: (optional) human-friendly description of the service.</li>
 </ul>
-<p id="rfc.section.3.p.5">For example:</p>
+<p id="rfc.section.3.p.4">For example:</p>
 <pre>
   GET /health HTTP/1.1
   Host: example.org
@@ -553,7 +552,7 @@
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentName": "Cassandra",
         "componentType" : "datastore",
-        "metricName" : "response",
+        "metricName" : "responseTime",
         "metricValue": 250,
         "metricUnit" : "milliseconds",
         "status": "pass",
@@ -631,28 +630,47 @@
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#details-object" id="details-object">Details Object</a>
 </h1>
-<p id="rfc.section.4.p.1">Following fields and rules SHOULD be used for the details objects of the reponse.</p>
+<p id="rfc.section.4.p.1">Following fields MAY appear and rules SHOULD be used for the details objects of the reponse.</p>
 <p></p>
 
 <ul>
 <li>componentId: (required) unique identifier of an instance of a specific sub-component/dependency of a service. Multiple objects with the same componentId MAY appear in the details, if they are from different nodes.</li>
+<li>status: (required) &#8220;pass&#8221;, &#8220;fail&#8221; or &#8220;warn&#8221;. Same semantic meaning as at  the top level.</li>
 <li>componentName: (optional) human-readable name for the component.</li>
-<li>componentType: (optional) type of the component. Could be one of: <ul>
+<li>componentType: (optional) SHOULD be present if componentName is present. Type of the component. Could be one of: <ul>
 <li>Pre-defined value from this spec. Pre-defined values include: <ul>
 <li>component</li>
 <li>datastore</li>
 <li>system</li>
 </ul>
 </li>
-<li>A common and standard term from IANA or microformats</li>
+<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
 <li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
 </ul>
 </li>
-<li>metricName:</li>
-<li>metricValue:</li>
-<li>metricUnit:</li>
-<li>status:</li>
-<li>output:</li>
+<li>metricName: (optional) Could be one of: <ul>
+<li>Pre-defined value from this spec. Pre-defined values include: <ul>
+<li>utilization</li>
+<li>responseTime</li>
+<li>connections</li>
+</ul>
+</li>
+<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
+<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
+</ul>
+</li>
+<li>metricValue: (optional) could be any valid JSON value, such as: string, number, object, array or literal.</li>
+<li>metricUnit: (optional) SHOULD be present if metricValue is present. Could be one of: <ul>
+<li>Pre-defined value from this spec. Pre-defined values include: <ul>
+<li>data size abbreviations: kb, mb, gb, tb, or pb that respectively stand for: kilobyte, megabyte, gigabyte, terabyte and petabyte.</li>
+<li>time abbreviations: ns, ms, s, hr, min, d, yr that respectively stand for: nanosecond, millisecond, second, hour, day, and year.</li>
+</ul>
+</li>
+<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
+<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
+</ul>
+</li>
+<li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
 </ul>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>

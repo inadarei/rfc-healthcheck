@@ -78,18 +78,18 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Notational Conventions  . . . . . . . . . . . . . . . . . . .   3
    3.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Details Object  . . . . . . . . . . . . . . . . . . . . . . .   7
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   4.  Details Object  . . . . . . . . . . . . . . . . . . . . . . .   6
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
      6.1.  Media Type Registration . . . . . . . . . . . . . . . . .   8
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   9
-   Appendix B.  Creating and Serving Health Responses  . . . . . . .   9
-   Appendix C.  Consuming Health Check Responses . . . . . . . . . .   9
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
+     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
+     7.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   Appendix B.  Creating and Serving Health Responses  . . . . . . .  10
+   Appendix C.  Consuming Health Check Responses . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -144,11 +144,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 3.  API Health Response
 
    An API Health Response Format (or, interchangeably, "health check
-   response") uses the format described in [RFC7159] and has the media
-   type "application/vnd.health+json".
-
-   *Note: this media type is not final, and will change before final
-   publication.*
+   response") uses the format described in JSON [RFC7159] encoding and
+   has the media type "application/vnd.health+json".
 
    Its content consists of a single mandatory root field ("status") and
    several optional fields:
@@ -163,6 +160,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
       *  "warn": healthy, with some concerns.
 
+      For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
+      range MUST be used. for "fail" status HTTP response code in the
+
 
 
 Nadareishvili             Expires July 21, 2018                 [Page 3]
@@ -170,8 +170,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 3]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-      For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx
-      range MUST be used. for "fail" status HTTP response code in the
       4xx - 5xx range MUST be used.  In case of the "warn" status,
       additional information SHOULD be provided, utilizing optional
       fields of the response.
@@ -218,6 +216,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
      Host: example.org
      Accept: application/vnd.health+json
 
+     HTTP/1.1 200 OK
+     Content-Type: application/vnd.health+json
 
 
 
@@ -226,8 +226,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 4]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-     HTTP/1.1 200 OK
-     Content-Type: application/vnd.health+json
      Cache-Control: max-age=3600
      Connection: close
 
@@ -244,7 +242,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
            "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
            "componentName": "Cassandra",
            "componentType" : "datastore",
-           "metricName" : "response",
+           "metricName" : "responseTime",
            "metricValue": 250,
            "metricUnit" : "milliseconds",
            "status": "pass",
@@ -274,6 +272,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          },
          {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "cpu",
+           "type" : "system",
 
 
 
@@ -282,8 +282,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 5]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-           "componentName": "cpu",
-           "type" : "system",
            "metricName" : "utilization",
            "metricValue": 85,
            "metricUnit" : "percent",
@@ -327,8 +325,10 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
        "description": "health of authz service"
      }
 
+4.  Details Object
 
-
+   Following fields MAY appear and rules SHOULD be used for the details
+   objects of the reponse.
 
 
 
@@ -338,19 +338,18 @@ Nadareishvili             Expires July 21, 2018                 [Page 6]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-4.  Details Object
-
-   Following fields and rules SHOULD be used for the details objects of
-   the reponse.
-
    o  componentId: (required) unique identifier of an instance of a
       specific sub-component/dependency of a service.  Multiple objects
       with the same componentId MAY appear in the details, if they are
       from different nodes.
 
+   o  status: (required) "pass", "fail" or "warn".  Same semantic
+      meaning as at the top level.
+
    o  componentName: (optional) human-readable name for the component.
 
-   o  componentType: (optional) type of the component.  Could be one of:
+   o  componentType: (optional) SHOULD be present if componentName is
+      present.  Type of the component.  Could be one of:
 
       *  Pre-defined value from this spec.  Pre-defined values include:
 
@@ -360,7 +359,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
          +  system
 
-      *  A common and standard term from IANA or microformats
+      *  A common and standard term from a well-known source such as
+         schema.org, IANA or microformats.
 
       *  A URI that indicates extra semantics and processing rules that
          MAY be provided by a resource at the other end of the URI.
@@ -369,23 +369,23 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          any convenient means (e.g. publishing an RFC, Swagger document
          or a nicely printed book).
 
-   o  metricName:
+   o  metricName: (optional) Could be one of:
 
-   o  metricValue:
+      *  Pre-defined value from this spec.  Pre-defined values include:
 
-   o  metricUnit:
+         +  utilization
 
-   o  status:
+         +  responseTime
 
-   o  output:
+         +  connections
 
-5.  Security Considerations
+      *  A common and standard term from a well-known source such as
+         schema.org, IANA or microformats.
 
-   Clients need to exercise care when reporting health information.
-   Malicious actors could use this information for orchestrating
-   attacks.  In some cases the health check endpoints may need to be
-   authenticated and institute role-based access control.
-
+      *  A URI that indicates extra semantics and processing rules that
+         MAY be provided by a resource at the other end of the URI.
+         URIs do not have to be dereferenceable, however.  They are just
+         a namespace, and the meaning of a namespace CAN be provided by
 
 
 
@@ -394,12 +394,61 @@ Nadareishvili             Expires July 21, 2018                 [Page 7]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
+         any convenient means (e.g. publishing an RFC, Swagger document
+         or a nicely printed book).
+
+   o  metricValue: (optional) could be any valid JSON value, such as:
+      string, number, object, array or literal.
+
+   o  metricUnit: (optional) SHOULD be present if metricValue is
+      present.  Could be one of:
+
+      *  Pre-defined value from this spec.  Pre-defined values include:
+
+         +  data size abbreviations: kb, mb, gb, tb, or pb that
+            respectively stand for: kilobyte, megabyte, gigabyte,
+            terabyte and petabyte.
+
+         +  time abbreviations: ns, ms, s, hr, min, d, yr that
+            respectively stand for: nanosecond, millisecond, second,
+            hour, day, and year.
+
+      *  A common and standard term from a well-known source such as
+         schema.org, IANA or microformats.
+
+      *  A URI that indicates extra semantics and processing rules that
+         MAY be provided by a resource at the other end of the URI.
+         URIs do not have to be dereferenceable, however.  They are just
+         a namespace, and the meaning of a namespace CAN be provided by
+         any convenient means (e.g. publishing an RFC, Swagger document
+         or a nicely printed book).
+
+   o  output: (optional) raw error output, in case of "fail" or "warn"
+      states.  This field SHOULD be omitted for "pass" state.
+
+5.  Security Considerations
+
+   Clients need to exercise care when reporting health information.
+   Malicious actors could use this information for orchestrating
+   attacks.  In some cases the health check endpoints may need to be
+   authenticated and institute role-based access control.
+
 6.  IANA Considerations
 
 6.1.  Media Type Registration
 
    TODO: application/vnd.health+json is being submitted for registration
    per [RFC6838]
+
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 8]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
 
 7.  References
 
@@ -440,20 +489,22 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
               <https://www.rfc-editor.org/info/rfc7230>.
 
-
-
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 8]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
+
+
+
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 9]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
 
 7.3.  URIs
 
@@ -497,19 +548,19 @@ Appendix C.  Consuming Health Check Responses
 
    Clients might use health check responses in a variety of ways.
 
-
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 9]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
    Note that the health check response is a "living" document; links
    from the health check response MUST NOT be assumed to be valid beyond
    the freshness lifetime of the health check response, as per HTTP's
    caching model [RFC7234].
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
 
    As a result, clients ought to cache the health check response (as per
    [RFC7234]), to avoid fetching it before every interaction (which
@@ -557,4 +608,9 @@ Author's Address
 
 
 
-Nadareishvili             Expires July 21, 2018                [Page 10]
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                [Page 11]
