@@ -28,8 +28,8 @@ normative:
   RFC3986:
   #RFC5226:
   RFC5988:
-  RFC7159:
   RFC7234:
+  RFC8259:
 
 informative:
   RFC7230:
@@ -51,7 +51,7 @@ The most recent draft is at <https://inadarei.github.io/rfc-healthcheck/>.
 Recent changes are listed at <https://github.com/inadarei/rfc-healthcheck/commits/master>.
 
 See also the draft's current status in the IETF datatracker, at
-<https://datatracker.ietf.org/doc/draft-inadarei-api-healthcheck/>.
+<https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/>.
 
 --- middle
 
@@ -84,12 +84,12 @@ benefits, including:
   in any environment and ecosystem that also conforms to the same standard,
   without costly coordination and testing requirements.
 
-This document defines a "health check" format using the JSON format {{RFC7159}}
+This document defines a "health check" format using the JSON format {{RFC8259}}
 for APIs to use as a standard point for the health information they offer.
 Having a well-defined format for this purpose promotes good practice and
 tooling.
 
-## Notational Conventions
+# Notational Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -98,7 +98,7 @@ interpreted as described in {{RFC2119}}.
 # API Health Response
 
 An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in {{RFC7159}} and has the media type
+uses the format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 **Note: this media type is not final, and will change before final publication.**
@@ -115,10 +115,8 @@ optional fields:
   
   For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx range MUST
   be used. for "fail" status HTTP response code in the 4xx - 5xx range MUST be
-  used.
-
-  In case of "warn" status, additional information SHOULD be provided, utilizing
-  optional fields of the response.
+  used. In case of the "warn" status, additional information SHOULD be provided,
+  utilizing optional fields of the response.
 
 * version: (optional) public version of the service.
 * release_id: (optional) in well-designed APIs, backwards-compatible changes in
@@ -127,9 +125,6 @@ optional fields:
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "release_id" that is
   different from the public version of the API.
-* serviceID: (optional) unique identifier of the service, in the application
-  scope.
-* description: (optional) human-friendly description of the service.
 * memory: (optional) array of sizes for the  currently utilized resident memory
   (in kilobytes) on each of the logical nodes backing the service. Logical node
   can be a physical server, VM, a container or any other logical unit that makes
@@ -149,6 +144,9 @@ optional fields:
   health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
   SHOULD either be a common/registered one or be indicated as a URI, to avoid
   name clashes. 
+* serviceID: (optional) unique identifier of the service, in the application
+  scope.
+* description: (optional) human-friendly description of the service.
 
 For example:
 
@@ -163,14 +161,12 @@ For example:
   Connection: close
 
   {
-    "serviceID": "service:authz",
-    "description": "health of authz service",
     "status": "pass",
     "version" : "1",
     "release_id" : "1.2.2",
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
-    "uptime": "1209600",
+    "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
     "output": "",
@@ -196,7 +192,9 @@ For example:
         "rel": "http://api.example.com/rel/thresholds",
         "uri": "http://api.example.com/about/authz/thresholds"
       }
-    ]
+    ],
+    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+    "description": "health of authz service"
   }
 ~~~
 

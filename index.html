@@ -375,14 +375,14 @@
 
   <link href="#rfc.toc" rel="Contents">
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
-<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Notational Conventions">
-<link href="#rfc.section.2" rel="Chapter" title="2 API Health Response">
-<link href="#rfc.section.3" rel="Chapter" title="3 Security Considerations">
-<link href="#rfc.section.4" rel="Chapter" title="4 IANA Considerations">
-<link href="#rfc.section.4.1" rel="Chapter" title="4.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="5 References">
-<link href="#rfc.references.1" rel="Chapter" title="5.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="5.2 Informative References">
+<link href="#rfc.section.2" rel="Chapter" title="2 Notational Conventions">
+<link href="#rfc.section.3" rel="Chapter" title="3 API Health Response">
+<link href="#rfc.section.4" rel="Chapter" title="4 Security Considerations">
+<link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Media Type Registration">
+<link href="#rfc.references" rel="Chapter" title="6 References">
+<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
@@ -394,7 +394,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-15" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-16" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -411,14 +411,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">January 15, 2018</td>
+<td class="right">January 16, 2018</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: July 19, 2018</td>
+<td class="left">Expires: July 20, 2018</td>
 <td class="right"></td>
 </tr>
 
@@ -436,12 +436,12 @@
 <p>The issues list for this draft can be found at <a href="https://github.com/inadarei/rfc-healthcheck/issues">https://github.com/inadarei/rfc-healthcheck/issues</a>.</p>
 <p>The most recent draft is at <a href="https://inadarei.github.io/rfc-healthcheck/">https://inadarei.github.io/rfc-healthcheck/</a>.</p>
 <p>Recent changes are listed at <a href="https://github.com/inadarei/rfc-healthcheck/commits/master">https://github.com/inadarei/rfc-healthcheck/commits/master</a>.</p>
-<p>See also the draft&#8217;s current status in the IETF datatracker, at <a href="https://datatracker.ietf.org/doc/draft-inadarei-api-healthcheck/">https://datatracker.ietf.org/doc/draft-inadarei-api-healthcheck/</a>.</p>
+<p>See also the draft&#8217;s current status in the IETF datatracker, at <a href="https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/">https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/</a>.</p>
 <h1 id="rfc.status"><a href="#rfc.status">Status of This Memo</a></h1>
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 19, 2018.</p>
+<p>This Internet-Draft will expire on July 20, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -453,21 +453,21 @@
 
   	<li>1.   <a href="#rfc.section.1">Introduction</a>
 </li>
-<ul><li>1.1.   <a href="#rfc.section.1.1">Notational Conventions</a>
+<li>2.   <a href="#rfc.section.2">Notational Conventions</a>
 </li>
-</ul><li>2.   <a href="#rfc.section.2">API Health Response</a>
+<li>3.   <a href="#rfc.section.3">API Health Response</a>
 </li>
-<li>3.   <a href="#rfc.section.3">Security Considerations</a>
+<li>4.   <a href="#rfc.section.4">Security Considerations</a>
 </li>
-<li>4.   <a href="#rfc.section.4">IANA Considerations</a>
+<li>5.   <a href="#rfc.section.5">IANA Considerations</a>
 </li>
-<ul><li>4.1.   <a href="#rfc.section.4.1">Media Type Registration</a>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Media Type Registration</a>
 </li>
-</ul><li>5.   <a href="#rfc.references">References</a>
+</ul><li>6.   <a href="#rfc.references">References</a>
 </li>
-<ul><li>5.1.   <a href="#rfc.references.1">Normative References</a>
+<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<li>5.2.   <a href="#rfc.references.2">Informative References</a>
+<li>6.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
 </li>
@@ -484,7 +484,7 @@
   <h1 id="rfc.section.1">
 <a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a>
 </h1>
-<p id="rfc.section.1.p.1">The vast majority of modern APIs, that drive data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as a transport protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
+<p id="rfc.section.1.p.1">The vast majority of modern APIs driving data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as a transport protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
 <p id="rfc.section.1.p.2">There exists a wide variety of operational software that relies on the ability to read health check response of APIs. There is currently no standard for the health check output response, however, so most applications either rely on the basic level of information included in HTTP status codes <a href="#RFC7231" class="xref">[RFC7231]</a> or use task-specific formats.</p>
 <p id="rfc.section.1.p.3">Usage of task-specific or application-specific rformats creates significant challenges, disallowing any meaningful interoprerability across different implementations and between different tooling.</p>
 <p id="rfc.section.1.p.4">Standardizing a format for health checks can provide any of a number of benefits, including:</p>
@@ -495,16 +495,16 @@
 <li>Evolvability - new APIs, conforming to the standard, can safely be introduced in any environment and ecosystem that also conforms to the same standard, without costly coordination and testing requirements.</li>
 </ul>
 <p id="rfc.section.1.p.6">This document defines a &#8220;health check&#8221; format using the JSON format <a href="#RFC7159" class="xref">[RFC7159]</a> for APIs to use as a standard point for the health information they offer.  Having a well-defined format for this purpose promotes good practice and tooling.</p>
-<h1 id="rfc.section.1.1">
-<a href="#rfc.section.1.1">1.1.</a> <a href="#notational-conventions" id="notational-conventions">Notational Conventions</a>
-</h1>
-<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
 <h1 id="rfc.section.2">
-<a href="#rfc.section.2">2.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
+<a href="#rfc.section.2">2.</a> <a href="#notational-conventions" id="notational-conventions">Notational Conventions</a>
 </h1>
-<p id="rfc.section.2.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in <a href="#RFC7159" class="xref">[RFC7159]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.2.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in <a href="#RFC2119" class="xref">[RFC2119]</a>.</p>
+<h1 id="rfc.section.3">
+<a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
+</h1>
+<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in <a href="#RFC7159" class="xref">[RFC7159]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
 <p><strong>Note: this media type is not final, and will change before final publication.</strong></p>
-<p id="rfc.section.2.p.3">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
+<p id="rfc.section.3.p.3">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 
 <ul>
@@ -513,8 +513,8 @@
 <li>&#8220;fail&#8221;: unhealthy, and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
-<p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 4xx - 5xx range MUST be used.  </p>
-<br><br> In case of &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</li>
+<p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 4xx - 5xx range MUST be used. In case of the &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</p>
+</li>
 <li>version: (optional) public version of the service.</li>
 <li>release_id: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;release_id&#8221; that is different from the public version of the API.</li>
 <li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
@@ -528,7 +528,7 @@
 <li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.</li>
 <li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.</li>
 </ul>
-<p id="rfc.section.2.p.5">For example:</p>
+<p id="rfc.section.3.p.5">For example:</p>
 <pre>
   GET /health HTTP/1.1
   Host: example.org
@@ -547,7 +547,7 @@
     "release_id" : "1.2.2",
     "memory": [4096, 1024, 3456],
     "cpu": [20, 40, 50],
-    "uptime": "1209600",
+    "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
     "output": "",
@@ -576,21 +576,21 @@
     ]
   }
 </pre>
-<h1 id="rfc.section.3">
-<a href="#rfc.section.3">3.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
-</h1>
-<p id="rfc.section.3.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<a href="#rfc.section.4">4.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<h1 id="rfc.section.4.1">
-<a href="#rfc.section.4.1">4.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+<p id="rfc.section.4.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.4.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+</h1>
+<p id="rfc.section.5.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
-<a href="#rfc.references">5.</a> References</h1>
+<a href="#rfc.references">6.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">5.1.</a> Normative References</h1>
+<a href="#rfc.references.1">6.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -619,7 +619,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">5.2.</a> Informative References</h1>
+<a href="#rfc.references.2">6.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC6838">[RFC6838]</b></td>
