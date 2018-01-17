@@ -28,8 +28,8 @@ normative:
   RFC3986:
   #RFC5226:
   RFC5988:
-  RFC7159:
   RFC7234:
+  RFC8259:
 
 informative:
   RFC7230:
@@ -84,7 +84,7 @@ benefits, including:
   in any environment and ecosystem that also conforms to the same standard,
   without costly coordination and testing requirements.
 
-This document defines a "health check" format using the JSON format {{RFC7159}}
+This document defines a "health check" format using the JSON format {{RFC8259}}
 for APIs to use as a standard point for the health information they offer.
 Having a well-defined format for this purpose promotes good practice and
 tooling.
@@ -98,7 +98,7 @@ interpreted as described in {{RFC2119}}.
 # API Health Response
 
 An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in {{RFC7159}} and has the media type
+uses the format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 **Note: this media type is not final, and will change before final publication.**
