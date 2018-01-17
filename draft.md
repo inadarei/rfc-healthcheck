@@ -253,5 +253,5 @@ As a result, clients ought to cache the health check response (as per
 {{RFC7234}}), to avoid fetching it before every interaction (which would
 otherwise be required).
 
-Likewise, a client encountering a 404 (Not Found) on a link is encouraged obtain
+Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain
 a fresh copy of the health check response, to assure that it is up-to-date.
