@@ -224,7 +224,10 @@ For example:
         "time" : "2018-01-17T03:36:48Z",
         "output": "",
         "links": [
-          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
+          {
+            "rel": "self",
+            "uri": "http://api.example.com/dbnode/dfd6cf2b/health"
+          }
         ]
       },
       {
