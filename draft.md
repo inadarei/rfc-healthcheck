@@ -71,8 +71,8 @@ health check output response, however, so most applications either rely on the
 basic level of information included in HTTP status codes {{RFC7231}} or use
 task-specific formats.
 
-Usage of task-specific or application-specific rformats creates significant
-challenges, disallowing any meaningful interoprerability across different
+Usage of task-specific or application-specific formats creates significant
+challenges, disallowing any meaningful interoperability across different
 implementations and between different tooling.
 
 Standardizing a format for health checks can provide any of a number of
