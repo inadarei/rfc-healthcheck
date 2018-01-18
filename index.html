@@ -516,7 +516,6 @@
 </li>
 <li>version: (optional) public version of the service.</li>
 <li>releaseID: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</li>
-<li>uptime: (optional) current uptime in seconds since the last restart</li>
 <li>notes: (optional) array of notes relevant to current state of health</li>
 <li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
 <li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.  A details object SHOULD be a health check response object.</li>
@@ -541,6 +540,7 @@
 <li>utilization</li>
 <li>responseTime</li>
 <li>connections</li>
+<li>uptime</li>
 </ul>
 </li>
 <li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
@@ -569,8 +569,6 @@
     "status": "pass",
     "version" : "1",
     "releaseID" : "1.2.2",
-    "uptime": "1209600.245",
-    "connections" : 25,
     "notes": [""],
     "output": "",
     "details": [
@@ -580,7 +578,7 @@
         "componentType" : "datastore",
         "metricName" : "responseTime",
         "metricValue": 250,
-        "metricUnit" : "milliseconds",
+        "metricUnit" : "ms",
         "status": "pass",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -604,7 +602,7 @@
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
         "metricUnit" : "percent",
@@ -613,9 +611,17 @@
         "output": ""
       },
       {
+        "componentType" : "system",
+        "metricName" : "uptime",
+        "metricValue": 1209600.245,
+        "metricUnit" : "s",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+      },
+      {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
         "metricUnit" : "percent",
@@ -626,7 +632,7 @@
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
-        "type" : "system",
+        "componentType" : "system",
         "node" : 1,
         "metricName" : "utilization",
         "metricValue": 8.5,
@@ -639,7 +645,7 @@
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
         "node" : 2,
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 5500,
         "metricUnit" : "MiB",

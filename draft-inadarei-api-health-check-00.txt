@@ -184,9 +184,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
       having separate "release number" or "releaseID" that is different
       from the public version of the API.
 
-   o  uptime: (optional) current uptime in seconds since the last
-      restart
-
    o  notes: (optional) array of notes relevant to current state of
       health
 
@@ -218,6 +215,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    o  componentName: (optional) human-readable name for the component.
 
+   o  componentType: (optional) SHOULD be present if componentName is
+      present.  Type of the component.  Could be one of:
+
 
 
 
@@ -225,9 +225,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 4]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
-
-   o  componentType: (optional) SHOULD be present if componentName is
-      present.  Type of the component.  Could be one of:
 
       *  Pre-defined value from this spec.  Pre-defined values include:
 
@@ -257,6 +254,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
          +  connections
 
+         +  uptime
+
       *  A common and standard term from a well-known source such as
          schema.org, IANA or microformats.
 
@@ -272,6 +271,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    o  metricUnit: (optional) SHOULD be present if metricValue is
       present.  Could be one of:
+
 
 
 
@@ -308,8 +308,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
        "status": "pass",
        "version" : "1",
        "releaseID" : "1.2.2",
-       "uptime": "1209600.245",
-       "connections" : 25,
        "notes": [""],
        "output": "",
        "details": [
@@ -319,7 +317,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
            "componentType" : "datastore",
            "metricName" : "responseTime",
            "metricValue": 250,
-           "metricUnit" : "milliseconds",
+           "metricUnit" : "ms",
            "status": "pass",
            "time" : "2018-01-17T03:36:48Z",
            "output": ""
@@ -330,6 +328,8 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
            "type" : "datastore",
            "metricName" : "connections",
            "metricValue": 75,
+           "status": "warn",
+           "time" : "2018-01-17T03:36:48Z",
 
 
 
@@ -338,8 +338,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 6]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-           "status": "warn",
-           "time" : "2018-01-17T03:36:48Z",
            "output": "",
            "links": [
              {
@@ -351,7 +349,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "componentName": "cpu",
-           "type" : "system",
+           "componentType" : "system",
            "metricName" : "utilization",
            "metricValue": 85,
            "metricUnit" : "percent",
@@ -360,9 +358,17 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
            "output": ""
          },
          {
+           "componentType" : "system",
+           "metricName" : "uptime",
+           "metricValue": 1209600.245,
+           "metricUnit" : "s",
+           "status": "pass",
+           "time" : "2018-01-17T03:36:48Z",
+         },
+         {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "componentName": "cpu",
-           "type" : "system",
+           "componentType" : "system",
            "metricName" : "utilization",
            "metricValue": 85,
            "metricUnit" : "percent",
@@ -373,19 +379,13 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "componentName": "memory",
-           "type" : "system",
+           "componentType" : "system",
            "node" : 1,
            "metricName" : "utilization",
            "metricValue": 8.5,
            "metricUnit" : "GiB",
            "status": "warn",
            "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "componentName": "memory",
-           "node" : 2,
 
 
 
@@ -394,7 +394,13 @@ Nadareishvili             Expires July 21, 2018                 [Page 7]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-           "type" : "system",
+           "output": ""
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "memory",
+           "node" : 2,
+           "componentType" : "system",
            "metricName" : "utilization",
            "metricValue": 5500,
            "metricUnit" : "MiB",
@@ -437,18 +443,17 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
-
-
 
 
 Nadareishvili             Expires July 21, 2018                 [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
+
+   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
+              Resource Identifier (URI): Generic Syntax", STD 66,
+              RFC 3986, DOI 10.17487/RFC3986, January 2005,
+              <https://www.rfc-editor.org/info/rfc3986>.
 
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
               DOI 10.17487/RFC5988, October 2010,
@@ -493,11 +498,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    [3] https://github.com/inadarei/rfc-healthcheck/commits/master
 
-   [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
-
-
-
-
 
 
 
@@ -505,6 +505,8 @@ Nadareishvili             Expires July 21, 2018                 [Page 9]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
+
+   [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
 
 Appendix A.  Acknowledgements
 
@@ -550,8 +552,6 @@ Appendix C.  Consuming Health Check Responses
    Likewise, a client encountering a 404 (Not Found) on a link is
    encouraged to obtain a fresh copy of the health check response, to
    assure that it is up-to-date.
-
-
 
 
 
