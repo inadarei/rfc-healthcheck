@@ -85,10 +85,10 @@ Table of Contents
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
      6.2.  Informative References  . . . . . . . . . . . . . . . . .   9
      6.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
    Appendix B.  Creating and Serving Health Responses  . . . . . . .  10
    Appendix C.  Consuming Health Check Responses . . . . . . . . . .  10
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
 
 1.  Introduction
 
@@ -295,41 +295,41 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    For example:
 
-  GET /health HTTP/1.1
-  Host: example.org
-  Accept: application/vnd.health+json
+     GET /health HTTP/1.1
+     Host: example.org
+     Accept: application/vnd.health+json
 
-  HTTP/1.1 200 OK
-  Content-Type: application/vnd.health+json
-  Cache-Control: max-age=3600
-  Connection: close
+     HTTP/1.1 200 OK
+     Content-Type: application/vnd.health+json
+     Cache-Control: max-age=3600
+     Connection: close
 
-  {
-    "status": "pass",
-    "version" : "1",
-    "releaseID" : "1.2.2",
-    "uptime": "1209600.245",
-    "connections" : 25,
-    "notes": [""],
-    "output": "",
-    "details": [
-      {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "componentType" : "datastore",
-        "metricName" : "responseTime",
-        "metricValue": 250,
-        "metricUnit" : "milliseconds",
-        "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "type" : "datastore",
-        "metricName" : "connections",
-        "metricValue": 75,
+     {
+       "status": "pass",
+       "version" : "1",
+       "releaseID" : "1.2.2",
+       "uptime": "1209600.245",
+       "connections" : 25,
+       "notes": [""],
+       "output": "",
+       "details": [
+         {
+           "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+           "componentName": "Cassandra",
+           "componentType" : "datastore",
+           "metricName" : "responseTime",
+           "metricValue": 250,
+           "metricUnit" : "milliseconds",
+           "status": "pass",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": ""
+         },
+         {
+           "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+           "componentName": "Cassandra",
+           "type" : "datastore",
+           "metricName" : "connections",
+           "metricValue": 75,
 
 
 
@@ -338,54 +338,54 @@ Nadareishvili             Expires July 21, 2018                 [Page 6]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": "",
-        "links": [
-          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
-        ]
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "type" : "system",
-        "node" : 1,
-        "metricName" : "utilization",
-        "metricValue": 8.5,
-        "metricUnit" : "GiB",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "node" : 2,
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 5500,
+           "status": "warn",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": "",
+           "links": [
+             {
+               "rel": "self",
+               "uri": "http://api.example.com/dbnode/dfd6cf2b/health"
+             }
+           ]
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "cpu",
+           "type" : "system",
+           "metricName" : "utilization",
+           "metricValue": 85,
+           "metricUnit" : "percent",
+           "status": "warn",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": ""
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "cpu",
+           "type" : "system",
+           "metricName" : "utilization",
+           "metricValue": 85,
+           "metricUnit" : "percent",
+           "status": "warn",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": ""
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "memory",
+           "type" : "system",
+           "node" : 1,
+           "metricName" : "utilization",
+           "metricValue": 8.5,
+           "metricUnit" : "GiB",
+           "status": "warn",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": ""
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "componentName": "memory",
+           "node" : 2,
 
 
 
@@ -394,22 +394,25 @@ Nadareishvili             Expires July 21, 2018                 [Page 7]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-        "metricUnit" : "MiB",
-        "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      }
-    ],
-    "links": [
-      {"rel": "about", "uri": "http://api.example.com/about/authz"},
-      {
-        "rel": "http://api.example.com/rel/thresholds",
-        "uri": "http://api.example.com/about/authz/thresholds"
-      }
-    ],
-    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-    "description": "health of authz service"
-  }
+           "type" : "system",
+           "metricName" : "utilization",
+           "metricValue": 5500,
+           "metricUnit" : "MiB",
+           "status": "pass",
+           "time" : "2018-01-17T03:36:48Z",
+           "output": ""
+         }
+       ],
+       "links": [
+         {"rel": "about", "uri": "http://api.example.com/about/authz"},
+         {
+           "rel": "http://api.example.com/rel/thresholds",
+           "uri": "http://api.example.com/about/authz/thresholds"
+         }
+       ],
+       "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+       "description": "health of authz service"
+     }
 
 4.  Security Considerations
 
@@ -439,9 +442,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
 
-   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
-              DOI 10.17487/RFC5988, October 2010,
-              <https://www.rfc-editor.org/info/rfc5988>.
 
 
 
@@ -449,6 +449,10 @@ Nadareishvili             Expires July 21, 2018                 [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
+
+   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
+              DOI 10.17487/RFC5988, October 2010,
+              <https://www.rfc-editor.org/info/rfc5988>.
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -491,11 +495,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
 
-Appendix A.  Acknowledgements
 
-   Thanks to Mike Amundsen, Erik Wilde, Justin Bachorik and Randall
-   Randall for their suggestions and feedback.  And to Mark Nottingham
-   for blueprint for authoring RFCs easily.
 
 
 
@@ -505,6 +505,12 @@ Nadareishvili             Expires July 21, 2018                 [Page 9]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
+
+Appendix A.  Acknowledgements
+
+   Thanks to Mike Amundsen, Erik Wilde, Justin Bachorik and Randall
+   Randall for their suggestions and feedback.  And to Mark Nottingham
+   for blueprint for authoring RFCs easily.
 
 Appendix B.  Creating and Serving Health Responses
 
@@ -545,6 +551,17 @@ Appendix C.  Consuming Health Check Responses
    encouraged to obtain a fresh copy of the health check response, to
    assure that it is up-to-date.
 
+
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
+
 Author's Address
 
    Irakli Nadareishvili
@@ -557,4 +574,43 @@ Author's Address
 
 
 
-Nadareishvili             Expires July 21, 2018                [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                [Page 11]
