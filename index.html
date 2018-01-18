@@ -394,7 +394,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-17" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-18" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -411,14 +411,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">January 17, 2018</td>
+<td class="right">January 18, 2018</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: July 21, 2018</td>
+<td class="left">Expires: July 22, 2018</td>
 <td class="right"></td>
 </tr>
 
@@ -441,7 +441,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 21, 2018.</p>
+<p>This Internet-Draft will expire on July 22, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -486,7 +486,7 @@
 </h1>
 <p id="rfc.section.1.p.1">The vast majority of modern APIs driving data to web and mobile applications use HTTP <a href="#RFC7230" class="xref">[RFC7230]</a> as their protocol. The health and uptime of these APIs determine availability of the applications themselves. In distributed systems built with a number of APIs, understanding the health status of the APIs and making corresponding decisions, for failover or circuit-breaking, are essential for providing highly available solutions.</p>
 <p id="rfc.section.1.p.2">There exists a wide variety of operational software that relies on the ability to read health check response of APIs. There is currently no standard for the health check output response, however, so most applications either rely on the basic level of information included in HTTP status codes <a href="#RFC7231" class="xref">[RFC7231]</a> or use task-specific formats.</p>
-<p id="rfc.section.1.p.3">Usage of task-specific or application-specific rformats creates significant challenges, disallowing any meaningful interoprerability across different implementations and between different tooling.</p>
+<p id="rfc.section.1.p.3">Usage of task-specific or application-specific formats creates significant challenges, disallowing any meaningful interoperability across different implementations and between different tooling.</p>
 <p id="rfc.section.1.p.4">Standardizing a format for health checks can provide any of a number of benefits, including:</p>
 <p></p>
 
@@ -502,7 +502,7 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
 </h1>
-<p id="rfc.section.3.p.1">An API Health Response Format (or, interchangeably, &#8220;health check response&#8221;) uses the format described in JSON <a href="#RFC8259" class="xref">[RFC8259]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.3.p.1">The API Health Response Format (or, interchangeably, &#8220;health check response format&#8221;) uses the JSON format described in <a href="#RFC8259" class="xref">[RFC8259]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
 <p id="rfc.section.3.p.2">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 

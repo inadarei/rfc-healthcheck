@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                          January 17, 2018
+Internet-Draft                                          January 18, 2018
 Intended status: Informational
-Expires: July 21, 2018
+Expires: July 22, 2018
 
 
                Health Check Response Format for HTTP APIs
@@ -48,12 +48,12 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 21, 2018.
+   This Internet-Draft will expire on July 22, 2018.
 
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 1]
+Nadareishvili             Expires July 22, 2018                 [Page 1]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -109,13 +109,13 @@ Table of Contents
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 2]
+Nadareishvili             Expires July 22, 2018                 [Page 2]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-   Usage of task-specific or application-specific rformats creates
-   significant challenges, disallowing any meaningful interoprerability
+   Usage of task-specific or application-specific formats creates
+   significant challenges, disallowing any meaningful interoperability
    across different implementations and between different tooling.
 
    Standardizing a format for health checks can provide any of a number
@@ -143,9 +143,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 3.  API Health Response
 
-   An API Health Response Format (or, interchangeably, "health check
-   response") uses the format described in JSON [RFC8259] and has the
-   media type "application/vnd.health+json".
+   The API Health Response Format (or, interchangeably, "health check
+   response format") uses the JSON format described in [RFC8259] and has
+   the media type "application/vnd.health+json".
 
    Its content consists of a single mandatory root field ("status") and
    several optional fields:
@@ -165,7 +165,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 3]
+Nadareishvili             Expires July 22, 2018                 [Page 3]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -221,7 +221,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 4]
+Nadareishvili             Expires July 22, 2018                 [Page 4]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -277,7 +277,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 5]
+Nadareishvili             Expires July 22, 2018                 [Page 5]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -333,7 +333,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 6]
+Nadareishvili             Expires July 22, 2018                 [Page 6]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -389,7 +389,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 7]
+Nadareishvili             Expires July 22, 2018                 [Page 7]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -445,7 +445,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 8]
+Nadareishvili             Expires July 22, 2018                 [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -501,7 +501,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
 
-Nadareishvili             Expires July 21, 2018                 [Page 9]
+Nadareishvili             Expires July 22, 2018                 [Page 9]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -557,7 +557,7 @@ Appendix C.  Consuming Health Check Responses
 
 
 
-Nadareishvili             Expires July 21, 2018                [Page 10]
+Nadareishvili             Expires July 22, 2018                [Page 10]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
@@ -613,4 +613,4 @@ Author's Address
 
 
 
-Nadareishvili             Expires July 21, 2018                [Page 11]
+Nadareishvili             Expires July 22, 2018                [Page 11]
