@@ -140,9 +140,9 @@ optional fields:
 * serviceID: (optional) unique identifier of the service, in the application
   scope.
 * description: (optional) human-friendly description of the service.
-* componentId: (optional) unique identifier of an instance of a specific
+* componentID: (optional) unique identifier of an instance of a specific
   sub-component/dependency of a service. Multiple objects with the same
-  componentId MAY appear in the details, if they are from different nodes.
+  componentID MAY appear in the details, if they are from different nodes.
 * componentName: (optional) human-readable name for the component.
 * componentType: (optional) SHOULD be present if componentName is present. Type
   of the component. Could be one of:
@@ -202,7 +202,7 @@ For example:
     "output": "",
     "details": [
       {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentID": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentName": "Cassandra",
         "componentType" : "datastore",
         "metricName" : "responseTime",
@@ -213,7 +213,7 @@ For example:
         "output": ""
       },
       {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentID": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentName": "Cassandra",
         "type" : "datastore",
         "metricName" : "connections",
@@ -229,7 +229,7 @@ For example:
         ]
       },
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
         "componentType" : "system",
         "metricName" : "utilization",
@@ -248,7 +248,7 @@ For example:
         "time" : "2018-01-17T03:36:48Z",
       },
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
         "componentType" : "system",
         "metricName" : "utilization",
@@ -259,7 +259,7 @@ For example:
         "output": ""
       },
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
         "componentType" : "system",
         "node" : 1,
@@ -271,7 +271,7 @@ For example:
         "output": ""
       },
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
         "node" : 2,
         "componentType" : "system",
