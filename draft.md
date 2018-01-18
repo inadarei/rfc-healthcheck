@@ -35,6 +35,7 @@ informative:
   RFC7230:
   RFC6838:
   RFC7231:
+  RFC3339:
 
 --- abstract
 
@@ -106,38 +107,80 @@ optional fields:
 
 * status: (required) indicates whether the service status is acceptable or not.
   API publishers SHOULD use following values for the field:
-  
-  - "pass": healthy, 
+
+  - "pass": healthy,
   - "fail": unhealthy, and
-  - "warn": healthy, with some concerns. 
-  
+  - "warn": healthy, with some concerns.
+
   For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx range MUST
-  be used. for "fail" status HTTP response code in the 4xx - 5xx range MUST be
+  be used. for "fail" status HTTP response code in the 5xx range MUST be
   used. In case of the "warn" status, additional information SHOULD be provided,
   utilizing optional fields of the response.
 
 * version: (optional) public version of the service.
-* release_id: (optional) in well-designed APIs, backwards-compatible changes in
+* releaseID: (optional) in well-designed APIs, backwards-compatible changes in
   the service should not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
   However implementation of an API may change much more frequently, which leads
-  to the importance of having separate "release number" or "release_id" that is
+  to the importance of having separate "release number" or "releaseID" that is
   different from the public version of the API.
 * uptime: (optional) current uptime in seconds since the last restart
-* connections: (optional) current number of active connections
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
 * details: (optional) an array of objects optionally providing additional
-  information regarding the various sub-components of the service.
-* links: (optional) an array of objects containing link relations and URIs 
-  {{RFC3986}} for external links that MAY contain more information about the 
+  information regarding the various sub-components of the service.  A details
+  object SHOULD be a health check response object.
+* links: (optional) an array of objects containing link relations and URIs
+  {{RFC3986}} for external links that MAY contain more information about the
   health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
   SHOULD either be a common/registered one or be indicated as a URI, to avoid
-  name clashes. 
+  name clashes.  If a "self" link is provided, it MAY be used by clients to
+  check health via HTTP response code, as mentioned above.
+
 * serviceID: (optional) unique identifier of the service, in the application
   scope.
 * description: (optional) human-friendly description of the service.
+* componentId: (optional) unique identifier of an instance of a specific
+  sub-component/dependency of a service. Multiple objects with the same
+  componentId MAY appear in the details, if they are from different nodes.
+* componentName: (optional) human-readable name for the component.
+* componentType: (optional) SHOULD be present if componentName is present. Type
+  of the component. Could be one of:
+  * Pre-defined value from this spec. Pre-defined values include:
+    * component
+    * datastore
+    * system
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
+* metricName: (optional) Could be one of:
+  * Pre-defined value from this spec. Pre-defined values include:
+    * utilization
+    * responseTime
+    * connections
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
+* metricValue: (optional) could be any valid JSON value, such as: string, number,
+  object, array or literal.
+* metricUnit: (optional) SHOULD be present if metricValue is present. Could be
+  one of:
+  * A common and standard term from a well-known source such as schema.org, IANA,
+    microformats, or a standards document such as {{RFC3339}}.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).
 
 For example:
 
@@ -154,7 +197,7 @@ For example:
   {
     "status": "pass",
     "version" : "1",
-    "release_id" : "1.2.2",
+    "releaseID" : "1.2.2",
     "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
@@ -179,7 +222,10 @@ For example:
         "metricValue": 75,
         "status": "warn",
         "time" : "2018-01-17T03:36:48Z",
-        "output": ""
+        "output": "",
+        "links": [
+          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
+        ]
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
@@ -210,7 +256,7 @@ For example:
         "node" : 1,
         "metricName" : "utilization",
         "metricValue": 8.5,
-        "metricUnit" : "gb",
+        "metricUnit" : "GiB",
         "status": "warn",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -222,7 +268,7 @@ For example:
         "type" : "system",
         "metricName" : "utilization",
         "metricValue": 5500,
-        "metricUnit" : "mb",
+        "metricUnit" : "MiB",
         "status": "pass",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -239,60 +285,6 @@ For example:
     "description": "health of authz service"
   }
 ~~~
-
-# Details Object
-
-Following fields MAY appear and rules SHOULD be used for the details objects of the reponse.
-
-* componentId: (required) unique identifier of an instance of a specific
-  sub-component/dependency of a service. Multiple objects with the same
-  componentId MAY appear in the details, if they are from different nodes.
-* status: (required) "pass", "fail" or "warn". Same semantic meaning as at  the
-  top level.
-* componentName: (optional) human-readable name for the component.
-* componentType: (optional) SHOULD be present if componentName is present. Type
-  of the component. Could be one of:
-  * Pre-defined value from this spec. Pre-defined values include: 
-    * component
-    * datastore
-    * system
-  * A common and standard term from a well-known source such as schema.org, IANA
-    or microformats.
-  * A URI that indicates extra semantics and processing rules that MAY be
-    provided by a resource at the other end of the URI. URIs do not have to be
-    dereferenceable, however. They are just a namespace, and the meaning of a
-    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).
-* metricName: (optional) Could be one of:
-  * Pre-defined value from this spec. Pre-defined values include: 
-    * utilization
-    * responseTime
-    * connections
-  * A common and standard term from a well-known source such as schema.org, IANA
-    or microformats.
-  * A URI that indicates extra semantics and processing rules that MAY be
-    provided by a resource at the other end of the URI. URIs do not have to be
-    dereferenceable, however. They are just a namespace, and the meaning of a
-    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).
-* metricValue: (optional) could be any valid JSON value, such as: string, number,
-  object, array or literal.
-* metricUnit: (optional) SHOULD be present if metricValue is present. Could be
-  one of:
-  * Pre-defined value from this spec. Pre-defined values include: 
-    * data size abbreviations: kb, mb, gb, tb, or pb that respectively stand
-      for: kilobyte, megabyte, gigabyte, terabyte and petabyte.
-    * time abbreviations: ns, ms, s, hr, min, d, yr that respectively stand for:
-      nanosecond, millisecond, second, hour, day, and year.
-  * A common and standard term from a well-known source such as schema.org, IANA
-    or microformats.
-  * A URI that indicates extra semantics and processing rules that MAY be
-    provided by a resource at the other end of the URI. URIs do not have to be
-    dereferenceable, however. They are just a namespace, and the meaning of a
-    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).
-* output: (optional) raw error output, in case of "fail" or "warn" states. This
-  field SHOULD be omitted for "pass" state.
 
 # Security Considerations
 
@@ -326,11 +318,11 @@ in mind:
   URI, such as "health" because it will help self-discoverability by clients.
 * Health check responses can be personalized. For example, you could advertise
   different URIs, and/or different kinds of link relations, to afford different
-  clients access to additional health check information. 
+  clients access to additional health check information.
 * Health check responses must be assigned a freshness lifetime (e.g.,
   "Cache-Control: max-age=3600") so that clients can determine how long they
   could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
-  the service. 
+  the service.
 * Custom link relation types, as well as the URIs for variables, should lead to
   documentation for those constructs.
 
