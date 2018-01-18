@@ -70,8 +70,8 @@ health check output response, however, so most applications either rely on the
 basic level of information included in HTTP status codes {{RFC7231}} or use
 task-specific formats.
 
-Usage of task-specific or application-specific rformats creates significant
-challenges, disallowing any meaningful interoprerability across different
+Usage of task-specific or application-specific formats creates significant
+challenges, disallowing any meaningful interoperability across different
 implementations and between different tooling.
 
 Standardizing a format for health checks can provide any of a number of
@@ -97,8 +97,8 @@ interpreted as described in {{RFC2119}}.
 
 # API Health Response
 
-An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in {{RFC8259}} and has the media type
+The API Health Response Format (or, interchangeably, "health check response format")
+uses the JSON format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 Its content consists of a single mandatory root field ("status") and several
@@ -127,7 +127,7 @@ optional fields:
   (in kilobytes) on each of the logical nodes backing the service. Logical node
   can be a physical server, VM, a container or any other logical unit that makes
   sense for service publisher.
-* cpu: (optional) array of cpu utiliation percentage on each of the logical
+* cpu: (optional) array of cpu utilization percentage on each of the logical
   nodes backing the service. Logical node can be a physical server, VM, a
   container or any other logical unit that makes sense for service publisher.
 * uptime: (optional) current uptime in seconds since the last restart
