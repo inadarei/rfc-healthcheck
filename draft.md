@@ -124,7 +124,6 @@ optional fields:
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "releaseID" that is
   different from the public version of the API.
-* uptime: (optional) current uptime in seconds since the last restart
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
@@ -163,6 +162,7 @@ optional fields:
     * utilization
     * responseTime
     * connections
+    * uptime
   * A common and standard term from a well-known source such as schema.org, IANA
     or microformats.
   * A URI that indicates extra semantics and processing rules that MAY be
@@ -198,8 +198,6 @@ For example:
     "status": "pass",
     "version" : "1",
     "releaseID" : "1.2.2",
-    "uptime": "1209600.245",
-    "connections" : 25,
     "notes": [""],
     "output": "",
     "details": [
@@ -209,7 +207,7 @@ For example:
         "componentType" : "datastore",
         "metricName" : "responseTime",
         "metricValue": 250,
-        "metricUnit" : "milliseconds",
+        "metricUnit" : "ms",
         "status": "pass",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -233,7 +231,7 @@ For example:
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
         "metricUnit" : "percent",
@@ -242,9 +240,17 @@ For example:
         "output": ""
       },
       {
+        "componentType" : "system",
+        "metricName" : "uptime",
+        "metricValue": 1209600.245,
+        "metricUnit" : "s",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+      },
+      {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "cpu",
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 85,
         "metricUnit" : "percent",
@@ -255,7 +261,7 @@ For example:
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
-        "type" : "system",
+        "componentType" : "system",
         "node" : 1,
         "metricName" : "utilization",
         "metricValue": 8.5,
@@ -268,7 +274,7 @@ For example:
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "componentName": "memory",
         "node" : 2,
-        "type" : "system",
+        "componentType" : "system",
         "metricName" : "utilization",
         "metricValue": 5500,
         "metricUnit" : "MiB",
