@@ -78,18 +78,17 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Notational Conventions  . . . . . . . . . . . . . . . . . . .   3
    3.  API Health Response . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Details Object  . . . . . . . . . . . . . . . . . . . . . . .   6
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
-     6.1.  Media Type Registration . . . . . . . . . . . . . . . . .   8
-   7.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     7.2.  Informative References  . . . . . . . . . . . . . . . . .   9
-     7.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  Media Type Registration . . . . . . . . . . . . . . . . .   8
+   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     6.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+     6.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .   9
    Appendix B.  Creating and Serving Health Responses  . . . . . . .  10
    Appendix C.  Consuming Health Check Responses . . . . . . . . . .  10
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
@@ -106,6 +105,7 @@ Table of Contents
    currently no standard for the health check output response, however,
    so most applications either rely on the basic level of information
    included in HTTP status codes [RFC7231] or use task-specific formats.
+
 
 
 
@@ -170,24 +170,22 @@ Nadareishvili             Expires July 21, 2018                 [Page 3]
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
 
-      4xx - 5xx range MUST be used.  In case of the "warn" status,
-      additional information SHOULD be provided, utilizing optional
-      fields of the response.
+      5xx range MUST be used.  In case of the "warn" status, additional
+      information SHOULD be provided, utilizing optional fields of the
+      response.
 
    o  version: (optional) public version of the service.
 
-   o  release_id: (optional) in well-designed APIs, backwards-compatible
+   o  releaseID: (optional) in well-designed APIs, backwards-compatible
       changes in the service should not update a version number.  APIs
       usually change their version number as infrequently as possible,
       to preserve stable interface.  However implementation of an API
       may change much more frequently, which leads to the importance of
-      having separate "release number" or "release_id" that is different
+      having separate "release number" or "releaseID" that is different
       from the public version of the API.
 
    o  uptime: (optional) current uptime in seconds since the last
       restart
-
-   o  connections: (optional) current number of active connections
 
    o  notes: (optional) array of notes relevant to current state of
       health
@@ -197,27 +195,29 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
    o  details: (optional) an array of objects optionally providing
       additional information regarding the various sub-components of the
-      service.
+      service.  A details object SHOULD be a health check response
+      object.
 
    o  links: (optional) an array of objects containing link relations
       and URIs [RFC3986] for external links that MAY contain more
       information about the health of the endpoint.  Per web-linking
       standards [RFC5988] a link relationship SHOULD either be a common/
       registered one or be indicated as a URI, to avoid name clashes.
+      If a "self" link is provided, it MAY be used by clients to check
+      health via HTTP response code, as mentioned above.
 
    o  serviceID: (optional) unique identifier of the service, in the
       application scope.
 
    o  description: (optional) human-friendly description of the service.
 
-   For example:
+   o  componentId: (optional) unique identifier of an instance of a
+      specific sub-component/dependency of a service.  Multiple objects
+      with the same componentId MAY appear in the details, if they are
+      from different nodes.
 
-     GET /health HTTP/1.1
-     Host: example.org
-     Accept: application/vnd.health+json
+   o  componentName: (optional) human-readable name for the component.
 
-     HTTP/1.1 200 OK
-     Content-Type: application/vnd.health+json
 
 
 
@@ -225,128 +225,6 @@ Nadareishvili             Expires July 21, 2018                 [Page 4]
 
 Internet-Draft Health Check Response Format for HTTP APIs   January 2018
 
-
-     Cache-Control: max-age=3600
-     Connection: close
-
-     {
-       "status": "pass",
-       "version" : "1",
-       "release_id" : "1.2.2",
-       "uptime": "1209600.245",
-       "connections" : 25,
-       "notes": [""],
-       "output": "",
-       "details": [
-         {
-           "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-           "componentName": "Cassandra",
-           "componentType" : "datastore",
-           "metricName" : "responseTime",
-           "metricValue": 250,
-           "metricUnit" : "milliseconds",
-           "status": "pass",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-           "componentName": "Cassandra",
-           "type" : "datastore",
-           "metricName" : "connections",
-           "metricValue": 75,
-           "status": "warn",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "componentName": "cpu",
-           "type" : "system",
-           "metricName" : "utilization",
-           "metricValue": 85,
-           "metricUnit" : "percent",
-           "status": "warn",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "componentName": "cpu",
-           "type" : "system",
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 5]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
-           "metricName" : "utilization",
-           "metricValue": 85,
-           "metricUnit" : "percent",
-           "status": "warn",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "componentName": "memory",
-           "type" : "system",
-           "node" : 1,
-           "metricName" : "utilization",
-           "metricValue": 8.5,
-           "metricUnit" : "gb",
-           "status": "warn",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "componentName": "memory",
-           "node" : 2,
-           "type" : "system",
-           "metricName" : "utilization",
-           "metricValue": 5500,
-           "metricUnit" : "mb",
-           "status": "pass",
-           "time" : "2018-01-17T03:36:48Z",
-           "output": ""
-         }
-       ],
-       "links": [
-         {"rel": "about", "uri": "http://api.example.com/about/authz"},
-         {
-           "rel": "http://api.example.com/rel/thresholds",
-           "uri": "http://api.example.com/about/authz/thresholds"
-         }
-       ],
-       "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-       "description": "health of authz service"
-     }
-
-4.  Details Object
-
-   Following fields MAY appear and rules SHOULD be used for the details
-   objects of the reponse.
-
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 6]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
-   o  componentId: (required) unique identifier of an instance of a
-      specific sub-component/dependency of a service.  Multiple objects
-      with the same componentId MAY appear in the details, if they are
-      from different nodes.
-
-   o  status: (required) "pass", "fail" or "warn".  Same semantic
-      meaning as at the top level.
-
-   o  componentName: (optional) human-readable name for the component.
 
    o  componentType: (optional) SHOULD be present if componentName is
       present.  Type of the component.  Could be one of:
@@ -386,14 +264,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          MAY be provided by a resource at the other end of the URI.
          URIs do not have to be dereferenceable, however.  They are just
          a namespace, and the meaning of a namespace CAN be provided by
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 7]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
          any convenient means (e.g. publishing an RFC, Swagger document
          or a nicely printed book).
 
@@ -403,18 +273,18 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
    o  metricUnit: (optional) SHOULD be present if metricValue is
       present.  Could be one of:
 
-      *  Pre-defined value from this spec.  Pre-defined values include:
 
-         +  data size abbreviations: kb, mb, gb, tb, or pb that
-            respectively stand for: kilobyte, megabyte, gigabyte,
-            terabyte and petabyte.
 
-         +  time abbreviations: ns, ms, s, hr, min, d, yr that
-            respectively stand for: nanosecond, millisecond, second,
-            hour, day, and year.
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 5]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
 
       *  A common and standard term from a well-known source such as
-         schema.org, IANA or microformats.
+         schema.org, IANA, microformats, or a standards document such as
+         [RFC3339].
 
       *  A URI that indicates extra semantics and processing rules that
          MAY be provided by a resource at the other end of the URI.
@@ -423,36 +293,141 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
          any convenient means (e.g. publishing an RFC, Swagger document
          or a nicely printed book).
 
-   o  output: (optional) raw error output, in case of "fail" or "warn"
-      states.  This field SHOULD be omitted for "pass" state.
+   For example:
 
-5.  Security Considerations
+  GET /health HTTP/1.1
+  Host: example.org
+  Accept: application/vnd.health+json
+
+  HTTP/1.1 200 OK
+  Content-Type: application/vnd.health+json
+  Cache-Control: max-age=3600
+  Connection: close
+
+  {
+    "status": "pass",
+    "version" : "1",
+    "releaseID" : "1.2.2",
+    "uptime": "1209600.245",
+    "connections" : 25,
+    "notes": [""],
+    "output": "",
+    "details": [
+      {
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
+        "componentType" : "datastore",
+        "metricName" : "responseTime",
+        "metricValue": 250,
+        "metricUnit" : "milliseconds",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
+        "type" : "datastore",
+        "metricName" : "connections",
+        "metricValue": 75,
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 6]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
+
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": "",
+        "links": [
+          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
+        ]
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
+        "type" : "system",
+        "node" : 1,
+        "metricName" : "utilization",
+        "metricValue": 8.5,
+        "metricUnit" : "GiB",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
+        "node" : 2,
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 5500,
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 7]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
+
+        "metricUnit" : "MiB",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      }
+    ],
+    "links": [
+      {"rel": "about", "uri": "http://api.example.com/about/authz"},
+      {
+        "rel": "http://api.example.com/rel/thresholds",
+        "uri": "http://api.example.com/about/authz/thresholds"
+      }
+    ],
+    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+    "description": "health of authz service"
+  }
+
+4.  Security Considerations
 
    Clients need to exercise care when reporting health information.
    Malicious actors could use this information for orchestrating
    attacks.  In some cases the health check endpoints may need to be
    authenticated and institute role-based access control.
 
-6.  IANA Considerations
+5.  IANA Considerations
 
-6.1.  Media Type Registration
+5.1.  Media Type Registration
 
    TODO: application/vnd.health+json is being submitted for registration
    per [RFC6838]
 
+6.  References
 
-
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 8]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
-7.  References
-
-7.1.  Normative References
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -468,6 +443,13 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
 
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 8]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
+
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
@@ -478,7 +460,11 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-7.2.  Informative References
+6.2.  Informative References
+
+   [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
+              Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
+              <https://www.rfc-editor.org/info/rfc3339>.
 
    [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
               Specifications and Registration Procedures", BCP 13,
@@ -495,18 +481,7 @@ Internet-Draft Health Check Response Format for HTTP APIs   January 2018
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
 
-
-
-
-
-
-
-Nadareishvili             Expires July 21, 2018                 [Page 9]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
-7.3.  URIs
+6.3.  URIs
 
    [1] https://github.com/inadarei/rfc-healthcheck/issues
 
@@ -521,6 +496,15 @@ Appendix A.  Acknowledgements
    Thanks to Mike Amundsen, Erik Wilde, Justin Bachorik and Randall
    Randall for their suggestions and feedback.  And to Mark Nottingham
    for blueprint for authoring RFCs easily.
+
+
+
+
+
+Nadareishvili             Expires July 21, 2018                 [Page 9]
+
+Internet-Draft Health Check Response Format for HTTP APIs   January 2018
+
 
 Appendix B.  Creating and Serving Health Responses
 
@@ -553,15 +537,6 @@ Appendix C.  Consuming Health Check Responses
    the freshness lifetime of the health check response, as per HTTP's
    caching model [RFC7234].
 
-
-
-
-
-Nadareishvili             Expires July 21, 2018                [Page 10]
-
-Internet-Draft Health Check Response Format for HTTP APIs   January 2018
-
-
    As a result, clients ought to cache the health check response (as per
    [RFC7234]), to avoid fetching it before every interaction (which
    would otherwise be required).
@@ -582,35 +557,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Nadareishvili             Expires July 21, 2018                [Page 11]
+Nadareishvili             Expires July 21, 2018                [Page 10]

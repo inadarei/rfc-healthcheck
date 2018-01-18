@@ -377,13 +377,12 @@
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.2" rel="Chapter" title="2 Notational Conventions">
 <link href="#rfc.section.3" rel="Chapter" title="3 API Health Response">
-<link href="#rfc.section.4" rel="Chapter" title="4 Details Object">
-<link href="#rfc.section.5" rel="Chapter" title="5 Security Considerations">
-<link href="#rfc.section.6" rel="Chapter" title="6 IANA Considerations">
-<link href="#rfc.section.6.1" rel="Chapter" title="6.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="7 References">
-<link href="#rfc.references.1" rel="Chapter" title="7.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="7.2 Informative References">
+<link href="#rfc.section.4" rel="Chapter" title="4 Security Considerations">
+<link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
+<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Media Type Registration">
+<link href="#rfc.references" rel="Chapter" title="6 References">
+<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
@@ -458,19 +457,17 @@
 </li>
 <li>3.   <a href="#rfc.section.3">API Health Response</a>
 </li>
-<li>4.   <a href="#rfc.section.4">Details Object</a>
+<li>4.   <a href="#rfc.section.4">Security Considerations</a>
 </li>
-<li>5.   <a href="#rfc.section.5">Security Considerations</a>
+<li>5.   <a href="#rfc.section.5">IANA Considerations</a>
 </li>
-<li>6.   <a href="#rfc.section.6">IANA Considerations</a>
+<ul><li>5.1.   <a href="#rfc.section.5.1">Media Type Registration</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.section.6.1">Media Type Registration</a>
+</ul><li>6.   <a href="#rfc.references">References</a>
 </li>
-</ul><li>7.   <a href="#rfc.references">References</a>
+<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<ul><li>7.1.   <a href="#rfc.references.1">Normative References</a>
-</li>
-<li>7.2.   <a href="#rfc.references.2">Informative References</a>
+<li>6.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
 </li>
@@ -515,18 +512,47 @@
 <li>&#8220;fail&#8221;: unhealthy, and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
-<p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 4xx - 5xx range MUST be used. In case of the &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</p>
+<p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 5xx range MUST be used. In case of the &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</p>
 </li>
 <li>version: (optional) public version of the service.</li>
-<li>release_id: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;release_id&#8221; that is different from the public version of the API.</li>
+<li>releaseID: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</li>
 <li>uptime: (optional) current uptime in seconds since the last restart</li>
-<li>connections: (optional) current number of active connections</li>
 <li>notes: (optional) array of notes relevant to current state of health</li>
 <li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
-<li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.</li>
-<li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.</li>
+<li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.  A details object SHOULD be a health check response object.</li>
+<li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.  If a &#8220;self&#8221; link is provided, it MAY be used by clients to check health via HTTP response code, as mentioned above.</li>
 <li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
 <li>description: (optional) human-friendly description of the service.</li>
+<li>componentId: (optional) unique identifier of an instance of a specific sub-component/dependency of a service. Multiple objects with the same componentId MAY appear in the details, if they are from different nodes.</li>
+<li>componentName: (optional) human-readable name for the component.</li>
+<li>componentType: (optional) SHOULD be present if componentName is present. Type of the component. Could be one of: <ul>
+<li>Pre-defined value from this spec. Pre-defined values include: <ul>
+<li>component</li>
+<li>datastore</li>
+<li>system</li>
+</ul>
+</li>
+<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
+<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
+</ul>
+</li>
+<li>metricName: (optional) Could be one of: <ul>
+<li>Pre-defined value from this spec. Pre-defined values include: <ul>
+<li>utilization</li>
+<li>responseTime</li>
+<li>connections</li>
+</ul>
+</li>
+<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
+<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
+</ul>
+</li>
+<li>metricValue: (optional) could be any valid JSON value, such as: string, number, object, array or literal.</li>
+<li>metricUnit: (optional) SHOULD be present if metricValue is present. Could be one of: <ul>
+<li>A common and standard term from a well-known source such as schema.org, IANA, microformats, or a standards document such as <a href="#RFC3339" class="xref">[RFC3339]</a>.</li>
+<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
+</ul>
+</li>
 </ul>
 <p id="rfc.section.3.p.4">For example:</p>
 <pre>
@@ -542,7 +568,7 @@
   {
     "status": "pass",
     "version" : "1",
-    "release_id" : "1.2.2",
+    "releaseID" : "1.2.2",
     "uptime": "1209600.245",
     "connections" : 25,
     "notes": [""],
@@ -567,7 +593,10 @@
         "metricValue": 75,
         "status": "warn",
         "time" : "2018-01-17T03:36:48Z",
-        "output": ""
+        "output": "",
+        "links": [
+          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
+        ]
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
@@ -598,7 +627,7 @@
         "node" : 1,
         "metricName" : "utilization",
         "metricValue": 8.5,
-        "metricUnit" : "gb",
+        "metricUnit" : "GiB",
         "status": "warn",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -610,7 +639,7 @@
         "type" : "system",
         "metricName" : "utilization",
         "metricValue": 5500,
-        "metricUnit" : "mb",
+        "metricUnit" : "MiB",
         "status": "pass",
         "time" : "2018-01-17T03:36:48Z",
         "output": ""
@@ -628,65 +657,20 @@
   }
 </pre>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#details-object" id="details-object">Details Object</a>
+<a href="#rfc.section.4">4.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.4.p.1">Following fields MAY appear and rules SHOULD be used for the details objects of the reponse.</p>
-<p></p>
-
-<ul>
-<li>componentId: (required) unique identifier of an instance of a specific sub-component/dependency of a service. Multiple objects with the same componentId MAY appear in the details, if they are from different nodes.</li>
-<li>status: (required) &#8220;pass&#8221;, &#8220;fail&#8221; or &#8220;warn&#8221;. Same semantic meaning as at  the top level.</li>
-<li>componentName: (optional) human-readable name for the component.</li>
-<li>componentType: (optional) SHOULD be present if componentName is present. Type of the component. Could be one of: <ul>
-<li>Pre-defined value from this spec. Pre-defined values include: <ul>
-<li>component</li>
-<li>datastore</li>
-<li>system</li>
-</ul>
-</li>
-<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
-<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
-</ul>
-</li>
-<li>metricName: (optional) Could be one of: <ul>
-<li>Pre-defined value from this spec. Pre-defined values include: <ul>
-<li>utilization</li>
-<li>responseTime</li>
-<li>connections</li>
-</ul>
-</li>
-<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
-<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
-</ul>
-</li>
-<li>metricValue: (optional) could be any valid JSON value, such as: string, number, object, array or literal.</li>
-<li>metricUnit: (optional) SHOULD be present if metricValue is present. Could be one of: <ul>
-<li>Pre-defined value from this spec. Pre-defined values include: <ul>
-<li>data size abbreviations: kb, mb, gb, tb, or pb that respectively stand for: kilobyte, megabyte, gigabyte, terabyte and petabyte.</li>
-<li>time abbreviations: ns, ms, s, hr, min, d, yr that respectively stand for: nanosecond, millisecond, second, hour, day, and year.</li>
-</ul>
-</li>
-<li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
-<li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
-</ul>
-</li>
-<li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
-</ul>
+<p id="rfc.section.4.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
 <h1 id="rfc.section.5">
-<a href="#rfc.section.5">5.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<p id="rfc.section.5.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
-<h1 id="rfc.section.6">
-<a href="#rfc.section.6">6.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<h1 id="rfc.section.5.1">
+<a href="#rfc.section.5.1">5.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
 </h1>
-<h1 id="rfc.section.6.1">
-<a href="#rfc.section.6.1">6.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
-</h1>
-<p id="rfc.section.6.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.5.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
-<a href="#rfc.references">7.</a> References</h1>
+<a href="#rfc.references">6.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">7.1.</a> Normative References</h1>
+<a href="#rfc.references.1">6.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -715,8 +699,13 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">7.2.</a> Informative References</h1>
+<a href="#rfc.references.2">6.2.</a> Informative References</h1>
 <table><tbody>
+<tr>
+<td class="reference"><b id="RFC3339">[RFC3339]</b></td>
+<td class="top">
+<a>Klyne, G.</a> and <a>C. Newman</a>, "<a href="https://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a>", RFC 3339, DOI 10.17487/RFC3339, July 2002.</td>
+</tr>
 <tr>
 <td class="reference"><b id="RFC6838">[RFC6838]</b></td>
 <td class="top">

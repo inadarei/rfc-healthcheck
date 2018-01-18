@@ -131,145 +131,35 @@ API publishers SHOULD use following values for the field:  <list style="symbols"
       <t>“warn”: healthy, with some concerns.</t>
     </list>
 For “pass” and “warn” statuses HTTP response code in the 2xx - 3xx range MUST
-be used. for “fail” status HTTP response code in the 4xx - 5xx range MUST be
+be used. for “fail” status HTTP response code in the 5xx range MUST be
 used. In case of the “warn” status, additional information SHOULD be provided,
 utilizing optional fields of the response.</t>
   <t>version: (optional) public version of the service.</t>
-  <t>release_id: (optional) in well-designed APIs, backwards-compatible changes in
+  <t>releaseID: (optional) in well-designed APIs, backwards-compatible changes in
 the service should not update a version number. APIs usually change their
 version number as infrequently as possible, to preserve stable interface.
 However implementation of an API may change much more frequently, which leads
-to the importance of having separate “release number” or “release_id” that is
+to the importance of having separate “release number” or “releaseID” that is
 different from the public version of the API.</t>
   <t>uptime: (optional) current uptime in seconds since the last restart</t>
-  <t>connections: (optional) current number of active connections</t>
   <t>notes: (optional) array of notes relevant to current state of health</t>
   <t>output: (optional) raw error output, in case of “fail” or “warn” states. This
 field SHOULD be omitted for “pass” state.</t>
   <t>details: (optional) an array of objects optionally providing additional
-information regarding the various sub-components of the service.</t>
-  <t>links: (optional) an array of objects containing link relations and URIs 
-<xref target="RFC3986"/> for external links that MAY contain more information about the 
+information regarding the various sub-components of the service.  A details
+object SHOULD be a health check response object.</t>
+  <t>links: (optional) an array of objects containing link relations and URIs
+<xref target="RFC3986"/> for external links that MAY contain more information about the
 health of the endpoint. Per web-linking standards <xref target="RFC5988"/> a link relationship
 SHOULD either be a common/registered one or be indicated as a URI, to avoid
-name clashes.</t>
+name clashes.  If a “self” link is provided, it MAY be used by clients to
+check health via HTTP response code, as mentioned above.</t>
   <t>serviceID: (optional) unique identifier of the service, in the application
 scope.</t>
   <t>description: (optional) human-friendly description of the service.</t>
-</list></t>
-
-<t>For example:</t>
-
-<figure><artwork><![CDATA[
-  GET /health HTTP/1.1
-  Host: example.org
-  Accept: application/vnd.health+json
-
-  HTTP/1.1 200 OK
-  Content-Type: application/vnd.health+json
-  Cache-Control: max-age=3600
-  Connection: close
-
-  {
-    "status": "pass",
-    "version" : "1",
-    "release_id" : "1.2.2",
-    "uptime": "1209600.245",
-    "connections" : 25,
-    "notes": [""],
-    "output": "",
-    "details": [
-      {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "componentType" : "datastore",
-        "metricName" : "responseTime",
-        "metricValue": 250,
-        "metricUnit" : "milliseconds",
-        "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "type" : "datastore",
-        "metricName" : "connections",
-        "metricValue": 75,
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "type" : "system",
-        "node" : 1,
-        "metricName" : "utilization",
-        "metricValue": 8.5,
-        "metricUnit" : "gb",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "node" : 2,
-        "type" : "system",
-        "metricName" : "utilization",
-        "metricValue": 5500,
-        "metricUnit" : "mb",
-        "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      }
-    ],
-    "links": [
-      {"rel": "about", "uri": "http://api.example.com/about/authz"},
-      {
-        "rel": "http://api.example.com/rel/thresholds",
-        "uri": "http://api.example.com/about/authz/thresholds"
-      }
-    ],
-    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-    "description": "health of authz service"
-  }
-]]></artwork></figure>
-
-</section>
-<section anchor="details-object" title="Details Object">
-
-<t>Following fields MAY appear and rules SHOULD be used for the details objects of the reponse.</t>
-
-<t><list style="symbols">
-  <t>componentId: (required) unique identifier of an instance of a specific
+  <t>componentId: (optional) unique identifier of an instance of a specific
 sub-component/dependency of a service. Multiple objects with the same
 componentId MAY appear in the details, if they are from different nodes.</t>
-  <t>status: (required) “pass”, “fail” or “warn”. Same semantic meaning as at  the
-top level.</t>
   <t>componentName: (optional) human-readable name for the component.</t>
   <t>componentType: (optional) SHOULD be present if componentName is present. Type
 of the component. Could be one of:
@@ -309,24 +199,119 @@ object, array or literal.</t>
   <t>metricUnit: (optional) SHOULD be present if metricValue is present. Could be
 one of:
   <list style="symbols">
-      <t>Pre-defined value from this spec. Pre-defined values include:
-      <list style="symbols">
-          <t>data size abbreviations: kb, mb, gb, tb, or pb that respectively stand
-for: kilobyte, megabyte, gigabyte, terabyte and petabyte.</t>
-          <t>time abbreviations: ns, ms, s, hr, min, d, yr that respectively stand for:
-nanosecond, millisecond, second, hour, day, and year.</t>
-        </list></t>
-      <t>A common and standard term from a well-known source such as schema.org, IANA
-or microformats.</t>
+      <t>A common and standard term from a well-known source such as schema.org, IANA,
+microformats, or a standards document such as <xref target="RFC3339"/>.</t>
       <t>A URI that indicates extra semantics and processing rules that MAY be
 provided by a resource at the other end of the URI. URIs do not have to be
 dereferenceable, however. They are just a namespace, and the meaning of a
 namespace CAN be provided by any convenient means (e.g. publishing an RFC,
 Swagger document or a nicely printed book).</t>
     </list></t>
-  <t>output: (optional) raw error output, in case of “fail” or “warn” states. This
-field SHOULD be omitted for “pass” state.</t>
 </list></t>
+
+<t>For example:</t>
+
+<figure><artwork><![CDATA[
+  GET /health HTTP/1.1
+  Host: example.org
+  Accept: application/vnd.health+json
+
+  HTTP/1.1 200 OK
+  Content-Type: application/vnd.health+json
+  Cache-Control: max-age=3600
+  Connection: close
+
+  {
+    "status": "pass",
+    "version" : "1",
+    "releaseID" : "1.2.2",
+    "uptime": "1209600.245",
+    "connections" : 25,
+    "notes": [""],
+    "output": "",
+    "details": [
+      {
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
+        "componentType" : "datastore",
+        "metricName" : "responseTime",
+        "metricValue": 250,
+        "metricUnit" : "milliseconds",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentName": "Cassandra",
+        "type" : "datastore",
+        "metricName" : "connections",
+        "metricValue": 75,
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": "",
+        "links": [
+          {"rel": "self", "uri": "http://api.example.com/dbnode/dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2/health"}
+        ]
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "cpu",
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 85,
+        "metricUnit" : "percent",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
+        "type" : "system",
+        "node" : 1,
+        "metricName" : "utilization",
+        "metricValue": 8.5,
+        "metricUnit" : "GiB",
+        "status": "warn",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      },
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "componentName": "memory",
+        "node" : 2,
+        "type" : "system",
+        "metricName" : "utilization",
+        "metricValue": 5500,
+        "metricUnit" : "MiB",
+        "status": "pass",
+        "time" : "2018-01-17T03:36:48Z",
+        "output": ""
+      }
+    ],
+    "links": [
+      {"rel": "about", "uri": "http://api.example.com/about/authz"},
+      {
+        "rel": "http://api.example.com/rel/thresholds",
+        "uri": "http://api.example.com/about/authz/thresholds"
+      }
+    ],
+    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+    "description": "health of authz service"
+  }
+]]></artwork></figure>
 
 </section>
 <section anchor="security-considerations" title="Security Considerations">
@@ -483,6 +468,19 @@ access control.</t>
 
 
 
+<reference  anchor="RFC3339" target='https://www.rfc-editor.org/info/rfc3339'>
+<front>
+<title>Date and Time on the Internet: Timestamps</title>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'><organization /></author>
+<author initials='C.' surname='Newman' fullname='C. Newman'><organization /></author>
+<date year='2002' month='July' />
+</front>
+<seriesInfo name='RFC' value='3339'/>
+<seriesInfo name='DOI' value='10.17487/RFC3339'/>
+</reference>
+
+
+
 
     </references>
 
@@ -535,111 +533,108 @@ a fresh copy of the health check response, to assure that it is up-to-date.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-MwAA
+H4sIAHQbYFoAA+1abXPbOJL+zl+BUj5ckhNlSX7XvdR5nWTivdjO2c5t7W1N
+TUEkKGFMETqAlKLZ8vz2e7oBUJRjJ7O1s3d1W5MPMUUCjUb3069AmqZJretS
+TcR7Jct6Ls7nKrsXN8otTeWUeGfsQtaiMFa8v7v7KM4+XrhETqdWrSZJbrJK
+LjA3t7KoU13JXFqlU7nU6ZzJpRmRS4fDJJc1Bo6Ho5Mkw+PM2M1E6KowSaKX
+diJq27h6PByeDscJiMiJ+E5VysoyWRt7P7OmWU6Se7XBr3wiLqpa2UrV6Rta
+OUlcLav8B1maCotslEuWeiL+VJusL/CfrnJV1X3hjK2tKhyeNovwUFud4VNm
+FksZHhYYjE+6KnWlvk8S2dRzYyeJSBOBf7pyYGAgrvxu3XylS81fvDAurLwv
+9ROfsZZS9USMRgfiEKI+W6mqUfwp0zXEcaXW4o/YrX9lmqomIX2qdK1ycVtD
+bI4/qYXUJaTHC/3bjH4NwDd/ayx2Pq/r5WRvb71eDwqr3HxaNnbqeExSsUb1
+SmFD4ubd+Xg0Og2P+6cnR/T4As+H4/FReH14enISHo/H+wfh8WR8iHkJqXCX
+IMYMw+PRyX5n5igus79PM9M0FXIKoUDuSXI3104AUA1JXyytWRqnnJDCKbvS
+mRIeUIIBJWzEZ/EEPgeedmVq9cMV/VebH26UzJV1SfL6NTgQb99c3F3fTMSy
+VBJUrFqYlRI18eBUVmtTiakCUSWWzbTUQCxevX5NbCqhnWvAWqmdX5insQmI
+TNJEvG2qXICvfyZNOKhiput5MyUN7EUz2bNFFsyEN7Xn6f7rwK+yMCBvVUbi
+8MSxSpdkpDMItLX5giLRuvEksrmsZiRQ7Ik4V385f2QaunZ7C4nplmjfKiVk
+6QxEoDyT/+BE1lhLK8Im68bBXPjrxdu7dwJOQJK+75XtY/mkXb7zYaBVXQyM
+ne0BDXvf8Cy8Q1L2Qud5qZLkBbkGa/KGlegluQK/YiF/NBZWJkwB0QILFWMF
+XOuVrmbMGnyFWKupgC/BmKkusbvlMqrfJQ2gwij7858Dzh8ehHS0P20Js/A1
+phwIWjTAlUg1y1ovFC2MgU4lfl0FGS7gYIRcwX4lVgvckbS6y9KLhVPlSrkB
+didyTU5r2kCFidtAFQsnpo0ua7HWtKKomsVUWSJFK/UFsAjok4ekjdZb5oKG
+wpretdPW5T0NzIz1ZsbTcpVpR+z0GfMFeIbJYBUL52WzRtcpggLP7BPIEuUc
+UKBlyeMhnJVmQnM9m5ebuGuI2Jmy4Y164AOf6jO2SLa/1jmpzwISLBqzRESg
+saDqTFGvCc31XJKhlBroNh5sQZoJ9Ame8md8RxAQ68uSWUfogr3KCJaYtHmw
+cZXsUDFNvWzqllhfzM1arQjXMAe23R0dKqgG0gKbm8BkMpVOZ6LEpJJYaR0p
+PusqK5scJgrjYcAFTWUArmvRNwL6wBpQmdTS3aduCR0VoOkJkTw/OTnzyNsZ
+gFkd7rbvbZgpMogN0UY4Pavoi6zqBB6kLBU5kT5hED/MmhQqq41YKFnhuWhK
+sAxgm6WFpgKmZWaNA+J1USgSb6IX8Lvk54NwCHRTVa+VqrajYIwGAXhGbiZo
+Qv/E63Wdflcnjt2vR5pitrDxjjkkU2QUhfaxnQQMaohDr8W7EogjKOZqWZoN
+R6AUe68QdrqQCxwxv0COyIC5qvbLBs0iwiGhmJPRaWIz8NonjW9ieHCyoNHw
+p1M4gJzpuQahUNcNO2YnKqWg/wFx93ZlylWUJcIakgRv15lhyLBRexccIdvn
+lcIyWFAHnwiPQfkLy0ZVK21NxZslBlRmvDfxBsVuPazgWvpIcLaLgBZ5HFgC
+Brqad4TsDM6aQUxEgaGa+LPqvxttWefezLvBPodSKo71va46e1HPjYt+6/e3
+11fxLVsBJSEPDwkhgb0q+CQnLTlxiPa7NNh/tOKImK65sW4M4W6QvJcrD7K1
+KsvUs5Z3EcfRftlYyk8IbAtDhjIzBgtRKkO5ChZOtvB9IZCFRAydm2pFfpHi
+CUcn5LSCklonepefbu96ff9XXF3z883b//h0cfP2DT3fvj/78KF9iCNu319/
++oDvSXjazjy/vrx8e/XGT748+yP+kFJ61x/vLq6vzj70fHDu6oIdqgFmErZj
+mHEAJBxPhqjjfRLLnhLHhwfeHxlDqB9i5ZAkZ9VT72NF8dLYvvcVPjNBKNj0
+dwHQOtfeKwq9HAijJnbYYVh08MC7nPvADNeUa0T2zVIlvY7T21tV+cCv9o8/
+OlP1sJELsmUDnihfwsIchdiHEALhHxaEqBqli7DGAA5albl42fPeuffKGzJF
+AZQtZhk0zqMcOxo/cCJeBnvIX4H9nDjC7tZzxTGCDS0kvTGHAp6zTC1rDpgA
+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
 
 -->
 
