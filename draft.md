@@ -98,8 +98,8 @@ interpreted as described in {{RFC2119}}.
 
 # API Health Response
 
-An API Health Response Format (or, interchangeably, "health check response")
-uses the format described in JSON {{RFC8259}} and has the media type
+The API Health Response Format (or, interchangeably, "health check response format")
+uses the JSON format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 Its content consists of a single mandatory root field ("status") and several
