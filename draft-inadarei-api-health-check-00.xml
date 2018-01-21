@@ -116,8 +116,8 @@ interpreted as described in <xref target="RFC2119"/>.</t>
 </section>
 <section anchor="api-health-response" title="API Health Response">
 
-<t>The API Health Response Format (or, interchangeably, “health check response format”)
-uses the JSON format described in <xref target="RFC8259"/> and has the media type
+<t>The API Health Response Format (or, interchangeably, “health check response
+format”) uses the JSON format described in <xref target="RFC8259"/> and has the media type
 “application/vnd.health+json”.</t>
 
 <t>Its content consists of a single mandatory root field (“status”) and several
@@ -130,10 +130,9 @@ API publishers SHOULD use following values for the field:  <list style="symbols"
       <t>“fail”: unhealthy, and</t>
       <t>“warn”: healthy, with some concerns.</t>
     </list>
-For “pass” and “warn” statuses HTTP response code in the 2xx - 3xx range MUST
-be used. for “fail” status HTTP response code in the 5xx range MUST be
-used. In case of the “warn” status, additional information SHOULD be provided,
-utilizing optional fields of the response.</t>
+The health endpoint SHOULD always respond with a success (2xx-3xx, typically:
+HTTP 200) response code, for any of the status levels, unless the health
+endpoint itself is malfunctioning.</t>
   <t>version: (optional) public version of the service.</t>
   <t>releaseID: (optional) in well-designed APIs, backwards-compatible changes in
 the service should not update a version number. APIs usually change their
@@ -144,9 +143,9 @@ different from the public version of the API.</t>
   <t>notes: (optional) array of notes relevant to current state of health</t>
   <t>output: (optional) raw error output, in case of “fail” or “warn” states. This
 field SHOULD be omitted for “pass” state.</t>
-  <t>details: (optional) an array of objects optionally providing additional
-information regarding the various sub-components of the service.  A details
-object SHOULD be a health check response object.</t>
+  <t>details: (optional) an object representing status of sub-components of the
+service in question. Please refer to the “The Details Object” section for more
+information.</t>
   <t>links: (optional) an array of objects containing link relations and URIs
 <xref target="RFC3986"/> for external links that MAY contain more information about the
 health of the endpoint. Per web-linking standards <xref target="RFC5988"/> a link relationship
@@ -156,18 +155,34 @@ check health via HTTP response code, as mentioned above.</t>
   <t>serviceID: (optional) unique identifier of the service, in the application
 scope.</t>
   <t>description: (optional) human-friendly description of the service.</t>
-  <t>componentId: (optional) unique identifier of an instance of a specific
-sub-component/dependency of a service. Multiple objects with the same
-componentId MAY appear in the details, if they are from different nodes.</t>
-  <t>componentName: (optional) human-readable name for the component.</t>
-  <t>componentType: (optional) SHOULD be present if componentName is present. Type
-of the component. Could be one of:
+</list></t>
+
+</section>
+<section anchor="the-details-object" title="The Details Object">
+
+<t>The “details” object MAY have a number of unique keyes, one for each logical
+sub-components. Since each sub-component may be backed by several nodes with
+varying health statuses, the key points to an array of objects. In case of a
+single-node sub-component (or if presence of nodes is not relevant), a
+single-element array should be used as the value, for consistency.</t>
+
+<t>The key identifying an element in the object should be a unique string within
+the details section. It MAY have two parts: “{componentName}:{metricName}”, in
+which case the meaning of the parts SHOULD be as follows:</t>
+
+<t><list style="symbols">
+  <t>componentName: (optional) human-readable name for the component. MUST not 
+contain a colon, in the name, since colon is used as a separator.</t>
+  <t>metricName: (optional) name of the metrics that the status is reported for.
+MUST not contain a colon, in the name, since colon is used as a separator and
+can be one of:
   <list style="symbols">
       <t>Pre-defined value from this spec. Pre-defined values include:
       <list style="symbols">
-          <t>component</t>
-          <t>datastore</t>
-          <t>system</t>
+          <t>utilization</t>
+          <t>responseTime</t>
+          <t>connections</t>
+          <t>uptime</t>
         </list></t>
       <t>A common and standard term from a well-known source such as schema.org, IANA
 or microformats.</t>
@@ -177,14 +192,23 @@ dereferenceable, however. They are just a namespace, and the meaning of a
 namespace CAN be provided by any convenient means (e.g. publishing an RFC,
 Swagger document or a nicely printed book).</t>
     </list></t>
-  <t>metricName: (optional) Could be one of:
+</list></t>
+
+<t>On the value eside of the equation, each “component details” object in the array
+MAY have one of the following object keys:</t>
+
+<t><list style="symbols">
+  <t>componentId: (optional) unique identifier of an instance of a specific
+sub-component/dependency of a service. Multiple objects with the same
+componentID MAY appear in the details, if they are from different nodes.</t>
+  <t>componentType: (optional) SHOULD be present if componentName is present. Type
+of the component. Could be one of:
   <list style="symbols">
       <t>Pre-defined value from this spec. Pre-defined values include:
       <list style="symbols">
-          <t>utilization</t>
-          <t>responseTime</t>
-          <t>connections</t>
-          <t>uptime</t>
+          <t>component</t>
+          <t>datastore</t>
+          <t>system</t>
         </list></t>
       <t>A common and standard term from a well-known source such as schema.org, IANA
 or microformats.</t>
@@ -207,9 +231,18 @@ dereferenceable, however. They are just a namespace, and the meaning of a
 namespace CAN be provided by any convenient means (e.g. publishing an RFC,
 Swagger document or a nicely printed book).</t>
     </list></t>
+  <t>time: the date-time, in ISO8601 format, at which the reading of the
+metricValue was recorded. This assumes that the value can be cached and the
+reading typically doesn’t happen in real time, for performance and scalability
+purposes.</t>
+  <t>output: (optional) has the exact same meaning as the top-level “output”
+element, but for the sub-component.</t>
+  <t>links: (optional) has the exact same meaning as the top-level “output”
+element, but for the sub-component.</t>
 </list></t>
 
-<t>For example:</t>
+</section>
+<section anchor="example-output" title="Example Output">
 
 <figure><artwork><![CDATA[
   GET /health HTTP/1.1
@@ -221,105 +254,99 @@ Swagger document or a nicely printed book).</t>
   Cache-Control: max-age=3600
   Connection: close
 
-  {
-    "status": "pass",
-    "version" : "1",
-    "releaseID" : "1.2.2",
-    "notes": [""],
-    "output": "",
-    "details": [
+{
+  "status": "pass",
+  "version": "1",
+  "releaseID": "1.2.2",
+  "notes": [""],
+  "output": "",
+  "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+  "description": "health of authz service",
+  "details": {
+    "cassandra:responseTime": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "componentType" : "datastore",
-        "metricName" : "responseTime",
+        "componentType": "datastore",
         "metricValue": 250,
-        "metricUnit" : "ms",
+        "metricUnit": "ms",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
-      },
+      }
+    ],
+    "cassandra:connections": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "type" : "datastore",
-        "metricName" : "connections",
+        "type": "datastore",
         "metricValue": 75,
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": "",
-        "links": [
-          {
-            "rel": "self",
-            "uri": "http://api.example.com/dbnode/dfd6cf2b/health"
-          }
-        ]
-      },
+        "links": {
+          "self": "http://api.example.com/dbnode/dfd6cf2b/health"
+        }
+      }
+    ],
+    "uptime": [
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentType" : "system",
-        "metricName" : "uptime",
+        "componentType": "system",
         "metricValue": 1209600.245,
-        "metricUnit" : "s",
+        "metricUnit": "s",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-      },
+        "time": "2018-01-17T03:36:48Z"
+      }
+    ],
+    "cpu:utilization": [
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 85,
-        "metricUnit" : "percent",
+        "metricUnit": "percent",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "componentType" : "system",
-        "node" : 1,
-        "metricName" : "utilization",
+        "node": 2,
+        "componentType": "system",
+        "metricValue": 85,
+        "metricUnit": "percent",
+        "status": "warn",
+        "time": "2018-01-17T03:36:48Z",
+        "output": ""
+      }
+    ],
+    "memory:utilization": [
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 8.5,
-        "metricUnit" : "GiB",
+        "metricUnit": "GiB",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "node" : 2,
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "node": 2,
+        "componentType": "system",
         "metricValue": 5500,
-        "metricUnit" : "MiB",
+        "metricUnit": "MiB",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       }
-    ],
-    "links": [
-      {"rel": "about", "uri": "http://api.example.com/about/authz"},
-      {
-        "rel": "http://api.example.com/rel/thresholds",
-        "uri": "http://api.example.com/about/authz/thresholds"
-      }
-    ],
-    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-    "description": "health of authz service"
+    ]
+  },
+  "links": {
+    "about": "http://api.example.com/about/authz",
+    "http://api.x.io/rel/thresholds":
+      "http://api.x.io/about/authz/thresholds"
   }
+}
 ]]></artwork></figure>
 
 </section>
@@ -542,108 +569,118 @@ a fresh copy of the health check response, to assure that it is up-to-date.</t>
   </back>
 
 <!-- ##markdown-source:
-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
-/AN8nDqLsTIAAA==
+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
 
 -->
 

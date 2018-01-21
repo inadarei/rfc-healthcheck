@@ -377,12 +377,14 @@
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction">
 <link href="#rfc.section.2" rel="Chapter" title="2 Notational Conventions">
 <link href="#rfc.section.3" rel="Chapter" title="3 API Health Response">
-<link href="#rfc.section.4" rel="Chapter" title="4 Security Considerations">
-<link href="#rfc.section.5" rel="Chapter" title="5 IANA Considerations">
-<link href="#rfc.section.5.1" rel="Chapter" title="5.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="6 References">
-<link href="#rfc.references.1" rel="Chapter" title="6.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="6.2 Informative References">
+<link href="#rfc.section.4" rel="Chapter" title="4 The Details Object">
+<link href="#rfc.section.5" rel="Chapter" title="5 Example Output">
+<link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
+<link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
+<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Media Type Registration">
+<link href="#rfc.references" rel="Chapter" title="8 References">
+<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References">
 <link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
 <link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
 <link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
@@ -394,7 +396,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-18" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-1-20" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -411,14 +413,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">January 18, 2018</td>
+<td class="right">January 20, 2018</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: July 22, 2018</td>
+<td class="left">Expires: July 24, 2018</td>
 <td class="right"></td>
 </tr>
 
@@ -441,7 +443,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 22, 2018.</p>
+<p>This Internet-Draft will expire on July 24, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -457,17 +459,21 @@
 </li>
 <li>3.   <a href="#rfc.section.3">API Health Response</a>
 </li>
-<li>4.   <a href="#rfc.section.4">Security Considerations</a>
+<li>4.   <a href="#rfc.section.4">The Details Object</a>
 </li>
-<li>5.   <a href="#rfc.section.5">IANA Considerations</a>
+<li>5.   <a href="#rfc.section.5">Example Output</a>
 </li>
-<ul><li>5.1.   <a href="#rfc.section.5.1">Media Type Registration</a>
+<li>6.   <a href="#rfc.section.6">Security Considerations</a>
 </li>
-</ul><li>6.   <a href="#rfc.references">References</a>
+<li>7.   <a href="#rfc.section.7">IANA Considerations</a>
 </li>
-<ul><li>6.1.   <a href="#rfc.references.1">Normative References</a>
+<ul><li>7.1.   <a href="#rfc.section.7.1">Media Type Registration</a>
 </li>
-<li>6.2.   <a href="#rfc.references.2">Informative References</a>
+</ul><li>8.   <a href="#rfc.references">References</a>
+</li>
+<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a>
+</li>
+<li>8.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
 </ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
 </li>
@@ -512,35 +518,49 @@
 <li>&#8220;fail&#8221;: unhealthy, and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
-<p> For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx - 3xx range MUST be used. for &#8220;fail&#8221; status HTTP response code in the 5xx range MUST be used. In case of the &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.</p>
+<p> The health endpoint SHOULD always respond with a success (2xx-3xx, typically: HTTP 200) response code, for any of the status levels, unless the health endpoint itself is malfunctioning.</p>
 </li>
 <li>version: (optional) public version of the service.</li>
 <li>releaseID: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</li>
 <li>notes: (optional) array of notes relevant to current state of health</li>
 <li>output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</li>
-<li>details: (optional) an array of objects optionally providing additional information regarding the various sub-components of the service.  A details object SHOULD be a health check response object.</li>
+<li>details: (optional) an object representing status of sub-components of the service in question. Please refer to the &#8220;The Details Object&#8221; section for more information.</li>
 <li>links: (optional) an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC5988" class="xref">[RFC5988]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.  If a &#8220;self&#8221; link is provided, it MAY be used by clients to check health via HTTP response code, as mentioned above.</li>
 <li>serviceID: (optional) unique identifier of the service, in the application scope.</li>
 <li>description: (optional) human-friendly description of the service.</li>
-<li>componentId: (optional) unique identifier of an instance of a specific sub-component/dependency of a service. Multiple objects with the same componentId MAY appear in the details, if they are from different nodes.</li>
-<li>componentName: (optional) human-readable name for the component.</li>
-<li>componentType: (optional) SHOULD be present if componentName is present. Type of the component. Could be one of: <ul>
+</ul>
+<h1 id="rfc.section.4">
+<a href="#rfc.section.4">4.</a> <a href="#the-details-object" id="the-details-object">The Details Object</a>
+</h1>
+<p id="rfc.section.4.p.1">The &#8220;details&#8221; object MAY have a number of unique keyes, one for each logical sub-components. Since each sub-component may be backed by several nodes with varying health statuses, the key points to an array of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array should be used as the value, for consistency.</p>
+<p id="rfc.section.4.p.2">The key identifying an element in the object should be a unique string within the details section. It MAY have two parts: &#8220;{componentName}:{metricName}&#8221;, in which case the meaning of the parts SHOULD be as follows:</p>
+<p></p>
+
+<ul>
+<li>componentName: (optional) human-readable name for the component. MUST not contain a colon, in the name, since colon is used as a separator.</li>
+<li>metricName: (optional) name of the metrics that the status is reported for.  MUST not contain a colon, in the name, since colon is used as a separator and can be one of: <ul>
 <li>Pre-defined value from this spec. Pre-defined values include: <ul>
-<li>component</li>
-<li>datastore</li>
-<li>system</li>
+<li>utilization</li>
+<li>responseTime</li>
+<li>connections</li>
+<li>uptime</li>
 </ul>
 </li>
 <li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
 <li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
 </ul>
 </li>
-<li>metricName: (optional) Could be one of: <ul>
+</ul>
+<p id="rfc.section.4.p.4">On the value eside of the equation, each &#8220;component details&#8221; object in the array MAY have one of the following object keys:</p>
+<p></p>
+
+<ul>
+<li>componentId: (optional) unique identifier of an instance of a specific sub-component/dependency of a service. Multiple objects with the same componentID MAY appear in the details, if they are from different nodes.</li>
+<li>componentType: (optional) SHOULD be present if componentName is present. Type of the component. Could be one of: <ul>
 <li>Pre-defined value from this spec. Pre-defined values include: <ul>
-<li>utilization</li>
-<li>responseTime</li>
-<li>connections</li>
-<li>uptime</li>
+<li>component</li>
+<li>datastore</li>
+<li>system</li>
 </ul>
 </li>
 <li>A common and standard term from a well-known source such as schema.org, IANA or microformats.</li>
@@ -553,8 +573,13 @@
 <li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
 </ul>
 </li>
+<li>time: the date-time, in ISO8601 format, at which the reading of the metricValue was recorded. This assumes that the value can be cached and the reading typically doesn&#8217;t happen in real time, for performance and scalability purposes.</li>
+<li>output: (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component.</li>
+<li>links: (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component.</li>
 </ul>
-<p id="rfc.section.3.p.4">For example:</p>
+<h1 id="rfc.section.5">
+<a href="#rfc.section.5">5.</a> <a href="#example-output" id="example-output">Example Output</a>
+</h1>
 <pre>
   GET /health HTTP/1.1
   Host: example.org
@@ -565,121 +590,115 @@
   Cache-Control: max-age=3600
   Connection: close
 
-  {
-    "status": "pass",
-    "version" : "1",
-    "releaseID" : "1.2.2",
-    "notes": [""],
-    "output": "",
-    "details": [
+{
+  "status": "pass",
+  "version": "1",
+  "releaseID": "1.2.2",
+  "notes": [""],
+  "output": "",
+  "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+  "description": "health of authz service",
+  "details": {
+    "cassandra:responseTime": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "componentType" : "datastore",
-        "metricName" : "responseTime",
+        "componentType": "datastore",
         "metricValue": 250,
-        "metricUnit" : "ms",
+        "metricUnit": "ms",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
-      },
+      }
+    ],
+    "cassandra:connections": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "type" : "datastore",
-        "metricName" : "connections",
+        "type": "datastore",
         "metricValue": 75,
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": "",
-        "links": [
-          {
-            "rel": "self",
-            "uri": "http://api.example.com/dbnode/dfd6cf2b/health"
-          }
-        ]
-      },
+        "links": {
+          "self": "http://api.example.com/dbnode/dfd6cf2b/health"
+        }
+      }
+    ],
+    "uptime": [
       {
-        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentType" : "system",
-        "metricName" : "uptime",
+        "componentType": "system",
         "metricValue": 1209600.245,
-        "metricUnit" : "s",
+        "metricUnit": "s",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-      },
+        "time": "2018-01-17T03:36:48Z"
+      }
+    ],
+    "cpu:utilization": [
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 85,
-        "metricUnit" : "percent",
+        "metricUnit": "percent",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "componentType" : "system",
-        "node" : 1,
-        "metricName" : "utilization",
+        "node": 2,
+        "componentType": "system",
+        "metricValue": 85,
+        "metricUnit": "percent",
+        "status": "warn",
+        "time": "2018-01-17T03:36:48Z",
+        "output": ""
+      }
+    ],
+    "memory:utilization": [
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 8.5,
-        "metricUnit" : "GiB",
+        "metricUnit": "GiB",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "node" : 2,
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "node": 2,
+        "componentType": "system",
         "metricValue": 5500,
-        "metricUnit" : "MiB",
+        "metricUnit": "MiB",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       }
-    ],
-    "links": [
-      {"rel": "about", "uri": "http://api.example.com/about/authz"},
-      {
-        "rel": "http://api.example.com/rel/thresholds",
-        "uri": "http://api.example.com/about/authz/thresholds"
-      }
-    ],
-    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-    "description": "health of authz service"
+    ]
+  },
+  "links": {
+    "about": "http://api.example.com/about/authz",
+    "http://api.x.io/rel/thresholds":
+      "http://api.x.io/about/authz/thresholds"
   }
+}
 </pre>
-<h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
+<h1 id="rfc.section.6">
+<a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.4.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
-<h1 id="rfc.section.5">
-<a href="#rfc.section.5">5.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
+<p id="rfc.section.6.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
+<h1 id="rfc.section.7">
+<a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<h1 id="rfc.section.5.1">
-<a href="#rfc.section.5.1">5.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+<h1 id="rfc.section.7.1">
+<a href="#rfc.section.7.1">7.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
 </h1>
-<p id="rfc.section.5.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.7.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
-<a href="#rfc.references">6.</a> References</h1>
+<a href="#rfc.references">8.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">6.1.</a> Normative References</h1>
+<a href="#rfc.references.1">8.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -708,7 +727,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">6.2.</a> Informative References</h1>
+<a href="#rfc.references.2">8.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC3339">[RFC3339]</b></td>

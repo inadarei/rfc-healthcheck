@@ -112,10 +112,9 @@ optional fields:
   - "fail": unhealthy, and
   - "warn": healthy, with some concerns.
 
-  For "pass" and "warn" statuses HTTP response code in the 2xx - 3xx range MUST
-  be used. for "fail" status HTTP response code in the 5xx range MUST be
-  used. In case of the "warn" status, additional information SHOULD be provided,
-  utilizing optional fields of the response.
+  The health endpoint SHOULD always respond with a success (2xx-3xx, typically:
+  HTTP 200) response code, for any of the status levels, unless the health
+  endpoint itself is malfunctioning.
 
 * version: (optional) public version of the service.
 * releaseID: (optional) in well-designed APIs, backwards-compatible changes in
@@ -127,8 +126,8 @@ optional fields:
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
-* details: (optional) an object representing status of sub-components of the 
-  service in question. Please refer to the "Details Object" section for more 
+* details: (optional) an object representing status of sub-components of the
+  service in question. Please refer to the "The Details Object" section for more
   information.
 * links: (optional) an array of objects containing link relations and URIs
   {{RFC3986}} for external links that MAY contain more information about the
@@ -250,7 +249,9 @@ MAY have one of the following object keys:
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": "",
-        "links": {"self": "http://api.example.com/dbnode/dfd6cf2b/health"}
+        "links": {
+          "self": "http://api.example.com/dbnode/dfd6cf2b/health"
+        }
       }
     ],
     "uptime": [
@@ -309,7 +310,8 @@ MAY have one of the following object keys:
   },
   "links": {
     "about": "http://api.example.com/about/authz",
-    "http://api.example.com/rel/thresholds": "http://api.example.com/about/authz/thresholds"
+    "http://api.x.io/rel/thresholds":
+      "http://api.x.io/about/authz/thresholds"
   }
 }
 ~~~
