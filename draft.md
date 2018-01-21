@@ -98,8 +98,8 @@ interpreted as described in {{RFC2119}}.
 
 # API Health Response
 
-The API Health Response Format (or, interchangeably, "health check response format")
-uses the JSON format described in {{RFC8259}} and has the media type
+The API Health Response Format (or, interchangeably, "health check response
+format") uses the JSON format described in {{RFC8259}} and has the media type
 "application/vnd.health+json".
 
 Its content consists of a single mandatory root field ("status") and several
@@ -127,9 +127,9 @@ optional fields:
 * notes: (optional) array of notes relevant to current state of health
 * output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
-* details: (optional) an array of objects optionally providing additional
-  information regarding the various sub-components of the service.  A details
-  object SHOULD be a health check response object.
+* details: (optional) an object representing status of sub-components of the 
+  service in question. Please refer to the "Details Object" section for more 
+  information.
 * links: (optional) an array of objects containing link relations and URIs
   {{RFC3986}} for external links that MAY contain more information about the
   health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
@@ -140,24 +140,24 @@ optional fields:
 * serviceID: (optional) unique identifier of the service, in the application
   scope.
 * description: (optional) human-friendly description of the service.
-* componentID: (optional) unique identifier of an instance of a specific
-  sub-component/dependency of a service. Multiple objects with the same
-  componentID MAY appear in the details, if they are from different nodes.
-* componentName: (optional) human-readable name for the component.
-* componentType: (optional) SHOULD be present if componentName is present. Type
-  of the component. Could be one of:
-  * Pre-defined value from this spec. Pre-defined values include:
-    * component
-    * datastore
-    * system
-  * A common and standard term from a well-known source such as schema.org, IANA
-    or microformats.
-  * A URI that indicates extra semantics and processing rules that MAY be
-    provided by a resource at the other end of the URI. URIs do not have to be
-    dereferenceable, however. They are just a namespace, and the meaning of a
-    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).
-* metricName: (optional) Could be one of:
+
+# The Details Object
+
+The "details" object MAY have a number of unique keyes, one for each logical
+sub-components. Since each sub-component may be backed by several nodes with
+varying health statuses, the key points to an array of objects. In case of a
+single-node sub-component (or if presence of nodes is not relevant), a
+single-element array should be used as the value, for consistency.
+
+The key identifying an element in the object should be a unique string within
+the details section. It MAY have two parts: "{componentName}:{metricName}", in
+which case the meaning of the parts SHOULD be as follows:
+
+* componentName: (optional) human-readable name for the component. MUST not 
+  contain a colon, in the name, since colon is used as a separator.
+* metricName: (optional) name of the metrics that the status is reported for.
+  MUST not contain a colon, in the name, since colon is used as a separator and
+  can be one of:
   * Pre-defined value from this spec. Pre-defined values include:
     * utilization
     * responseTime
@@ -170,6 +170,26 @@ optional fields:
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
+
+On the value eside of the equation, each "component details" object in the array
+MAY have one of the following object keys:
+
+* componentId: (optional) unique identifier of an instance of a specific
+  sub-component/dependency of a service. Multiple objects with the same
+  componentID MAY appear in the details, if they are from different nodes.
+* componentType: (optional) SHOULD be present if componentName is present. Type
+  of the component. Could be one of:
+  * Pre-defined value from this spec. Pre-defined values include:
+    * component
+    * datastore
+    * system
+  * A common and standard term from a well-known source such as schema.org, IANA
+    or microformats.
+  * A URI that indicates extra semantics and processing rules that MAY be
+    provided by a resource at the other end of the URI. URIs do not have to be
+    dereferenceable, however. They are just a namespace, and the meaning of a
+    namespace CAN be provided by any convenient means (e.g. publishing an RFC,
+    Swagger document or a nicely printed book).    
 * metricValue: (optional) could be any valid JSON value, such as: string, number,
   object, array or literal.
 * metricUnit: (optional) SHOULD be present if metricValue is present. Could be
@@ -181,8 +201,16 @@ optional fields:
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
+* time: the date-time, in ISO8601 format, at which the reading of the
+  metricValue was recorded. This assumes that the value can be cached and the
+  reading typically doesn't happen in real time, for performance and scalability
+  purposes.
+* output: (optional) has the exact same meaning as the top-level "output"
+  element, but for the sub-component.
+* links: (optional) has the exact same meaning as the top-level "output"
+  element, but for the sub-component.
 
-For example:
+# Example Output
 
 ~~~
   GET /health HTTP/1.1
@@ -194,105 +222,96 @@ For example:
   Cache-Control: max-age=3600
   Connection: close
 
-  {
-    "status": "pass",
-    "version" : "1",
-    "releaseID" : "1.2.2",
-    "notes": [""],
-    "output": "",
-    "details": [
+{
+  "status": "pass",
+  "version": "1",
+  "releaseID": "1.2.2",
+  "notes": [""],
+  "output": "",
+  "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+  "description": "health of authz service",
+  "details": {
+    "cassandra:responseTime": [
       {
-        "componentID": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "componentType" : "datastore",
-        "metricName" : "responseTime",
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "componentType": "datastore",
         "metricValue": 250,
-        "metricUnit" : "ms",
+        "metricUnit": "ms",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
-      },
+      }
+    ],
+    "cassandra:connections": [
       {
-        "componentID": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "componentName": "Cassandra",
-        "type" : "datastore",
-        "metricName" : "connections",
+        "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
+        "type": "datastore",
         "metricValue": 75,
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": "",
-        "links": [
-          {
-            "rel": "self",
-            "uri": "http://api.example.com/dbnode/dfd6cf2b/health"
-          }
-        ]
-      },
+        "links": {"self": "http://api.example.com/dbnode/dfd6cf2b/health"}
+      }
+    ],
+    "uptime": [
       {
-        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
-        "metricValue": 85,
-        "metricUnit" : "percent",
-        "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
-        "output": ""
-      },
-      {
-        "componentType" : "system",
-        "metricName" : "uptime",
+        "componentType": "system",
         "metricValue": 1209600.245,
-        "metricUnit" : "s",
+        "metricUnit": "s",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
-      },
+        "time": "2018-01-17T03:36:48Z"
+      }
+    ],
+    "cpu:utilization": [
       {
-        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "cpu",
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 85,
-        "metricUnit" : "percent",
+        "metricUnit": "percent",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
-        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "componentType" : "system",
-        "node" : 1,
-        "metricName" : "utilization",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 2,
+        "componentType": "system",
+        "metricValue": 85,
+        "metricUnit": "percent",
+        "status": "warn",
+        "time": "2018-01-17T03:36:48Z",
+        "output": ""
+      }
+    ],
+    "memory:utilization": [
+      {
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 1,
+        "componentType": "system",
         "metricValue": 8.5,
-        "metricUnit" : "GiB",
+        "metricUnit": "GiB",
         "status": "warn",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       },
       {
-        "componentID": "6fd416e0-8920-410f-9c7b-c479000f7227",
-        "componentName": "memory",
-        "node" : 2,
-        "componentType" : "system",
-        "metricName" : "utilization",
+        "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+        "node": 2,
+        "componentType": "system",
         "metricValue": 5500,
-        "metricUnit" : "MiB",
+        "metricUnit": "MiB",
         "status": "pass",
-        "time" : "2018-01-17T03:36:48Z",
+        "time": "2018-01-17T03:36:48Z",
         "output": ""
       }
-    ],
-    "links": [
-      {"rel": "about", "uri": "http://api.example.com/about/authz"},
-      {
-        "rel": "http://api.example.com/rel/thresholds",
-        "uri": "http://api.example.com/about/authz/thresholds"
-      }
-    ],
-    "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
-    "description": "health of authz service"
+    ]
+  },
+  "links": {
+    "about": "http://api.example.com/about/authz",
+    "http://api.example.com/rel/thresholds": "http://api.example.com/about/authz/thresholds"
   }
+}
 ~~~
 
 # Security Considerations
