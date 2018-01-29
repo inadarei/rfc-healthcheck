@@ -518,8 +518,8 @@
 <li>&#8220;fail&#8221;: unhealthy, and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
-<p> The value of the status field is tightly related with the HTTP response code returned by the health endpoint. For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx range MUST be used. For &#8220;fail&#8221; status HTTP response code in the 4xx range MUST be used. In case of the &#8220;warn&#8221; status, additional information SHOULD be provided, utilizing optional fields of the response.  </p>
-<br><br> A health endpoint is only meaningful in the context of the component it indicates the health of. It has no other meaning or purpose. As such, its health is a conduit to the health of the component. Clients SHOULD assume that the HTTP response code returned by the health endpoint is applicable to the entire component (e.g. a larger API or a microservice). This is compatible with the behavior that current infrastructural tooling expects: load-balancers, service discoveries and others utilizing health-checks.</li>
+<p> The health endpoint SHOULD always respond with a success (2xx-3xx, typically: HTTP 200) response code, for any of the status levels, unless the health endpoint itself is malfunctioning.</p>
+</li>
 <li>version: (optional) public version of the service.</li>
 <li>releaseID: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</li>
 <li>notes: (optional) array of notes relevant to current state of health</li>
