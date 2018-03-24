@@ -508,7 +508,7 @@
 <h1 id="rfc.section.3">
 <a href="#rfc.section.3">3.</a> <a href="#api-health-response" id="api-health-response">API Health Response</a>
 </h1>
-<p id="rfc.section.3.p.1">The API Health Response Format (or, interchangeably, &#8220;health check response format&#8221;) uses the JSON format described in <a href="#RFC8259" class="xref">[RFC8259]</a> and has the media type &#8220;application/vnd.health+json&#8221;.</p>
+<p id="rfc.section.3.p.1">The API Health Response Format (or, interchangeably, &#8220;health check response format&#8221;) uses the JSON format described in <a href="#RFC8259" class="xref">[RFC8259]</a> and has the media type &#8220;application/health+json&#8221;.</p>
 <p id="rfc.section.3.p.2">Its content consists of a single mandatory root field (&#8220;status&#8221;) and several optional fields:</p>
 <p></p>
 
@@ -583,10 +583,10 @@
 <pre>
   GET /health HTTP/1.1
   Host: example.org
-  Accept: application/vnd.health+json
+  Accept: application/health+json
 
   HTTP/1.1 200 OK
-  Content-Type: application/vnd.health+json
+  Content-Type: application/health+json
   Cache-Control: max-age=3600
   Connection: close
 
@@ -694,7 +694,7 @@
 <h1 id="rfc.section.7.1">
 <a href="#rfc.section.7.1">7.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
 </h1>
-<p id="rfc.section.7.1.p.1">TODO: application/vnd.health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.7.1.p.1">TODO: application/health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
 <h1 id="rfc.references">
 <a href="#rfc.references">8.</a> References</h1>
 <h1 id="rfc.references.1">
