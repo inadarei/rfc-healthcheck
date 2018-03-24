@@ -396,7 +396,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-1-29" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-3-24" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -413,14 +413,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">January 29, 2018</td>
+<td class="right">March 24, 2018</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: August 2, 2018</td>
+<td class="left">Expires: September 25, 2018</td>
 <td class="right"></td>
 </tr>
 
@@ -443,7 +443,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on August 2, 2018.</p>
+<p>This Internet-Draft will expire on September 25, 2018.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -518,8 +518,8 @@
 <li>&#8220;fail&#8221;: unhealthy, and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
-<p> The health endpoint SHOULD always respond with a success (2xx-3xx, typically: HTTP 200) response code, for any of the status levels, unless the health endpoint itself is malfunctioning.</p>
-</li>
+<p> The value of the status field is tightly related with the HTTP response code returned by the health endpoint. For &#8220;pass&#8221; and &#8220;warn&#8221; statuses HTTP response code in the 2xx-3xx range MUST be used. For &#8220;fail&#8221; status HTTP response code in the 4xx-5xx range MUST be used. In case of the &#8220;warn&#8221; status, endpoint SHOULD return HTTP status in the 2xx-3xx range and additional information SHOULD be provided, utilizing optional fields of the response.  </p>
+<br><br> A health endpoint is only meaningful in the context of the component it indicates the health of. It has no other meaning or purpose. As such, its health is a conduit to the health of the component. Clients SHOULD assume that the HTTP response code returned by the health endpoint is applicable to the entire component (e.g. a larger API or a microservice). This is compatible with the behavior that current infrastructural tooling expects: load-balancers, service discoveries and others, utilizing health-checks.</li>
 <li>version: (optional) public version of the service.</li>
 <li>releaseID: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</li>
 <li>notes: (optional) array of notes relevant to current state of health</li>
