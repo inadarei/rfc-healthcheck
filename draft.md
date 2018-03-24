@@ -100,7 +100,7 @@ interpreted as described in {{RFC2119}}.
 
 The API Health Response Format (or, interchangeably, "health check response
 format") uses the JSON format described in {{RFC8259}} and has the media type
-"application/vnd.health+json".
+"application/health+json".
 
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
@@ -225,10 +225,10 @@ MAY have one of the following object keys:
 ~~~
   GET /health HTTP/1.1
   Host: example.org
-  Accept: application/vnd.health+json
+  Accept: application/health+json
 
   HTTP/1.1 200 OK
-  Content-Type: application/vnd.health+json
+  Content-Type: application/health+json
   Cache-Control: max-age=3600
   Connection: close
 
@@ -338,7 +338,7 @@ access control.
 
 ## Media Type Registration
 
-TODO: application/vnd.health+json is being submitted for registration per
+TODO: application/health+json is being submitted for registration per
 {{RFC6838}}
 
 
