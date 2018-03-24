@@ -473,31 +473,31 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
    The media type for health check response is application/health+json.
 
-   Media type name: application Media subtype name: health+json Required
-   parameters: n/a Optional parameters: n/a Encoding considerations:
-   binary Security considerations: Health+JSON shares security issues
-   common to all JSON content types.  See RFC 8259 Section #12 for
-   additional information.
+   o  Media type name: application
 
-   Health+JSON allows utilization of Uniform Resource Identifiers (URIs)
-   and as such shares security issues common to URI usage.  See RFC 3986
-   Section #7 for additional information.
+   o  Media subtype name: health+json
 
-   Since Hyper+JSON can carry wide variety of data, some data may
-   require privacy or integrity services.  This specification does not
-   prescribe any specific solution and assumes that concrete
-   implementations will utilize common, trusted approaches such as TLS/
-   HTTPS, OAuth2 etc.
+   o  Required parameters: n/a
 
-   Interoperability considerations: None Published specification: this
-   RFC draft Applications which use this media: Various
+   o  Optional parameters: n/a
 
-   Fragment identifier considerations: Health+JSON follows RFC6901 for
-   implementing URI Fragment Identification standard to JSON content
-   types.
+   o  Encoding considerations: binary
 
-   Restrictions on usage: None
+   o  Security considerations: Health+JSON shares security issues common
+      to all JSON content types.  See RFC 8259 Section #12 for
+      additional information.
 
+      Health+JSON allows utilization of Uniform Resource Identifiers
+      (URIs) and as such shares security issues common to URI usage.
+      See RFC 3986 Section #7 for additional information.
+
+      Since Hyper+JSON can carry wide variety of data, some data may
+      require privacy or integrity services.  This specification does
+      not prescribe any specific solution and assumes that concrete
+      implementations will utilize common, trusted approaches such as
+      TLS/HTTPS, OAuth2 etc.
+
+   o  Interoperability considerations: None
 
 
 
@@ -506,27 +506,39 @@ Nadareishvili          Expires September 25, 2018               [Page 9]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-   Additional information:
+   o  Published specification: this RFC draft
 
-   1.  Deprecated alias names for this type: n/a
+   o  Applications which use this media: Various
 
-   2.  Magic number(s): n/a
+   o  Fragment identifier considerations: Health+JSON follows RFC6901
+      for implementing URI Fragment Identification standard to JSON
+      content types.
 
-   3.  File extension(s): .json
+   o  Restrictions on usage: None
 
-   4.  Macintosh file type code: TEXT
+   o  Additional information:
 
-   5.  Object Identifiers: n/a
+      1.  Deprecated alias names for this type: n/a
 
-   General Comments:
+      2.  Magic number(s): n/a
 
-   Person to contact for further information:
+      3.  File extension(s): .json
 
-   1.  Name: Irakli Nadareishvili
+      4.  Macintosh file type code: TEXT
 
-   2.  Email: irakli@gmail.com
+      5.  Object Identifiers: n/a
 
-   Intended usage: Common Author/Change controller: Irakli Nadareishvili
+   o  General Comments:
+
+   o  Person to contact for further information:
+
+      1.  Name: Irakli Nadareishvili
+
+      2.  Email: irakli@gmail.com
+
+   o  Intended usage: Common
+
+   o  Author/Change controller: Irakli Nadareishvili
 
 8.  Acknowledgements
 
@@ -543,6 +555,13 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
       commonly-used URI, such as "health" because it will help self-
       discoverability by clients.
 
+
+
+Nadareishvili          Expires September 25, 2018              [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
    o  Health check responses can be personalized.  For example, you
       could advertise different URIs, and/or different kinds of link
       relations, to afford different clients access to additional health
@@ -552,15 +571,6 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
       (e.g., "Cache-Control: max-age=3600") so that clients can
       determine how long they could cache them, to avoid overly frequent
       fetching and unintended DDOS-ing of the service.
-
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 10]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    o  Custom link relation types, as well as the URIs for variables,
       should lead to documentation for those constructs.
@@ -600,6 +610,14 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
 
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 11]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
@@ -609,14 +627,6 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 11]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
 11.2.  Informative References
 
@@ -651,6 +661,19 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 Author's Address
 
+
+
+
+
+
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 12]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
    Irakli Nadareishvili
    114 5th Avenue
    New York
@@ -669,4 +692,37 @@ Author's Address
 
 
 
-Nadareishvili          Expires September 25, 2018              [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 13]

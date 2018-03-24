@@ -689,31 +689,37 @@
 <a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
 <p id="rfc.section.7.p.1">The media type for health check response is application/health+json.</p>
-<p id="rfc.section.7.p.2">Media type name: application Media subtype name: health+json Required parameters: n/a Optional parameters: n/a Encoding considerations: binary Security considerations: Health+JSON shares security issues common to all JSON content types. See RFC 8259 Section #12 for additional information.</p>
-<p id="rfc.section.7.p.3">Health+JSON allows utilization of Uniform Resource Identifiers (URIs) and as such shares security issues common to URI usage. See RFC 3986 Section #7 for additional information.</p>
-<p id="rfc.section.7.p.4">Since Hyper+JSON can carry wide variety of data, some data may require privacy or integrity services. This specification does not prescribe any specific solution and assumes that concrete implementations will utilize common, trusted approaches such as TLS/HTTPS, OAuth2 etc.</p>
-<p id="rfc.section.7.p.5">Interoperability considerations: None Published specification: this RFC draft Applications which use this media: Various</p>
-<p id="rfc.section.7.p.6">Fragment identifier considerations: Health+JSON follows RFC6901 for implementing URI Fragment Identification standard to JSON content types.</p>
-<p id="rfc.section.7.p.7">Restrictions on usage: None</p>
-<p id="rfc.section.7.p.8">Additional information:</p>
 <p></p>
 
-<ol>
+<ul>
+<li>Media type name: application</li>
+<li>Media subtype name: health+json</li>
+<li>Required parameters: n/a</li>
+<li>Optional parameters: n/a</li>
+<li>Encoding considerations: binary</li>
+<li>Security considerations: Health+JSON shares security issues common to all JSON content types. See RFC 8259 Section #12 for additional information.  <br><br> Health+JSON allows utilization of Uniform Resource Identifiers (URIs) and as such shares security issues common to URI usage. See RFC 3986 Section #7 for additional information.  <br><br> Since Hyper+JSON can carry wide variety of data, some data may require privacy or integrity services. This specification does not prescribe any specific solution and assumes that concrete implementations will utilize common, trusted approaches such as TLS/HTTPS, OAuth2 etc.</li>
+<li>Interoperability considerations: None</li>
+<li>Published specification: this RFC draft</li>
+<li>Applications which use this media: Various</li>
+<li>Fragment identifier considerations: Health+JSON follows RFC6901 for implementing URI Fragment Identification standard to JSON content types.</li>
+<li>Restrictions on usage: None</li>
+<li>Additional information: <ol>
 <li>Deprecated alias names for this type: n/a</li>
 <li>Magic number(s): n/a</li>
 <li>File extension(s): .json</li>
 <li>Macintosh file type code: TEXT</li>
 <li>Object Identifiers: n/a</li>
 </ol>
-<p id="rfc.section.7.p.10">General Comments:</p>
-<p id="rfc.section.7.p.11">Person to contact for further information:</p>
-<p></p>
-
-<ol>
+</li>
+<li>General Comments:</li>
+<li>Person to contact for further information: <ol>
 <li>Name: Irakli Nadareishvili</li>
 <li>Email: irakli@gmail.com</li>
 </ol>
-<p id="rfc.section.7.p.13">Intended usage: Common Author/Change controller: Irakli Nadareishvili</p>
+</li>
+<li>Intended usage: Common</li>
+<li>Author/Change controller: Irakli Nadareishvili</li>
+</ul>
 <h1 id="rfc.section.8">
 <a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
 </h1>
