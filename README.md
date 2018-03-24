@@ -2,7 +2,7 @@
 
 Health Check Response RFC Draft for HTTP APIs
 
-RFC Draft: https://tools.ietf.org/html/draft-inadarei-api-health-check-00
+RFC Draft: https://tools.ietf.org/html/draft-inadarei-api-health-check-01
 
 ## Workspace Setup 
 
@@ -13,6 +13,7 @@ RFC Draft: https://tools.ietf.org/html/draft-inadarei-api-health-check-00
 > sudo pip install xml2rfc
 > .githooks/install.sh # to enable automated rebuilds on git push
 ```
+
 ## Using
 
 1. Edit draft.md
