@@ -336,13 +336,51 @@ access control.
 
 # IANA Considerations
 
-## Media Type Registration
+The media type for health check response is application/health+json.
 
-TODO: application/health+json is being submitted for registration per
-{{RFC6838}}
+Media type name: application
+Media subtype name: health+json
+Required parameters: n/a
+Optional parameters: n/a
+Encoding considerations: binary
+Security considerations: Health+JSON shares security issues common to all JSON
+content types. See RFC 8259 Section #12 for additional information.
 
+Health+JSON allows utilization of Uniform Resource Identifiers (URIs) and as such
+shares security issues common to URI usage. See RFC 3986 Section #7
+for additional information.
 
---- back
+Since Hyper+JSON can carry wide variety of data, some data may require privacy
+or integrity services. This specification does not prescribe any specific
+solution and assumes that concrete implementations will utilize common, trusted
+approaches such as TLS/HTTPS, OAuth2 etc.
+
+Interoperability considerations: None
+Published specification: this RFC draft
+Applications which use this media: Various
+
+Fragment identifier considerations: Health+JSON follows RFC6901 for implementing
+URI Fragment Identification standard to JSON content types.
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: n/a
+2. Magic number(s): n/a
+3. File extension(s): .json
+4. Macintosh file type code: TEXT
+5. Object Identifiers: n/a
+
+General Comments:
+
+Person to contact for further information:
+
+1. Name: Irakli Nadareishvili
+2. Email: irakli@gmail.com
+
+Intended usage: Common
+Author/Change controller: Irakli Nadareishvili
 
 # Acknowledgements
 
