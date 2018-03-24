@@ -14,7 +14,7 @@
 <?rfc comments="yes"?>
 <?rfc inline="yes"?>
 
-<rfc ipr="trust200902" docName="draft-inadarei-api-health-check-00" category="info">
+<rfc ipr="trust200902" docName="draft-inadarei-api-health-check-01" category="info">
 
   <front>
     <title>Health Check Response Format for HTTP APIs</title>
@@ -370,12 +370,99 @@ access control.</t>
 </section>
 <section anchor="iana-considerations" title="IANA Considerations">
 
-<section anchor="media-type-registration" title="Media Type Registration">
+<t>The media type for health check response is application/health+json.</t>
 
-<t>TODO: application/health+json is being submitted for registration per
-<xref target="RFC6838"/></t>
+<t>Media type name: application
+Media subtype name: health+json
+Required parameters: n/a
+Optional parameters: n/a
+Encoding considerations: binary
+Security considerations: Health+JSON shares security issues common to all JSON
+content types. See RFC 8259 Section #12 for additional information.</t>
+
+<t>Health+JSON allows utilization of Uniform Resource Identifiers (URIs) and as such
+shares security issues common to URI usage. See RFC 3986 Section #7
+for additional information.</t>
+
+<t>Since Hyper+JSON can carry wide variety of data, some data may require privacy
+or integrity services. This specification does not prescribe any specific
+solution and assumes that concrete implementations will utilize common, trusted
+approaches such as TLS/HTTPS, OAuth2 etc.</t>
+
+<t>Interoperability considerations: None
+Published specification: this RFC draft
+Applications which use this media: Various</t>
+
+<t>Fragment identifier considerations: Health+JSON follows RFC6901 for implementing
+URI Fragment Identification standard to JSON content types.</t>
+
+<t>Restrictions on usage: None</t>
+
+<t>Additional information:</t>
+
+<t><list style="numbers">
+  <t>Deprecated alias names for this type: n/a</t>
+  <t>Magic number(s): n/a</t>
+  <t>File extension(s): .json</t>
+  <t>Macintosh file type code: TEXT</t>
+  <t>Object Identifiers: n/a</t>
+</list></t>
+
+<t>General Comments:</t>
+
+<t>Person to contact for further information:</t>
+
+<t><list style="numbers">
+  <t>Name: Irakli Nadareishvili</t>
+  <t>Email: irakli@gmail.com</t>
+</list></t>
+
+<t>Intended usage: Common
+Author/Change controller: Irakli Nadareishvili</t>
 
 </section>
+<section anchor="acknowledgements" title="Acknowledgements">
+
+<t>Thanks to  Mike Amundsen, Erik Wilde, Justin Bachorik and Randall Randall for
+their suggestions and feedback. And to Mark Nottingham for blueprint for
+authoring RFCs easily.</t>
+
+</section>
+<section anchor="creating-and-serving-health-responses" title="Creating and Serving Health Responses">
+
+<t>When making an health check endpoint available, there are a few things to keep
+in mind:</t>
+
+<t><list style="symbols">
+  <t>A health response endpoint is best located at a memorable and commonly-used
+URI, such as “health” because it will help self-discoverability by clients.</t>
+  <t>Health check responses can be personalized. For example, you could advertise
+different URIs, and/or different kinds of link relations, to afford different
+clients access to additional health check information.</t>
+  <t>Health check responses must be assigned a freshness lifetime (e.g.,
+“Cache-Control: max-age=3600”) so that clients can determine how long they
+could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
+the service.</t>
+  <t>Custom link relation types, as well as the URIs for variables, should lead to
+documentation for those constructs.</t>
+</list></t>
+
+</section>
+<section anchor="consuming-health-check-responses" title="Consuming Health Check Responses">
+
+<t>Clients might use health check responses in a variety of ways.</t>
+
+<t>Note that the health check response is a “living” document; links from the
+health check response MUST NOT be assumed to be valid beyond the freshness
+lifetime of the health check response, as per HTTP’s caching model <xref target="RFC7234"/>.</t>
+
+<t>As a result, clients ought to cache the health check response (as per
+<xref target="RFC7234"/>), to avoid fetching it before every interaction (which would
+otherwise be required).</t>
+
+<t>Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain
+a fresh copy of the health check response, to assure that it is up-to-date.</t>
+
 </section>
 
 
@@ -531,172 +618,139 @@ access control.</t>
     </references>
 
 
-<section anchor="acknowledgements" title="Acknowledgements">
-
-<t>Thanks to  Mike Amundsen, Erik Wilde, Justin Bachorik and Randall Randall for
-their suggestions and feedback. And to Mark Nottingham for blueprint for
-authoring RFCs easily.</t>
-
-</section>
-<section anchor="creating-and-serving-health-responses" title="Creating and Serving Health Responses">
-
-<t>When making an health check endpoint available, there are a few things to keep
-in mind:</t>
-
-<t><list style="symbols">
-  <t>A health response endpoint is best located at a memorable and commonly-used
-URI, such as “health” because it will help self-discoverability by clients.</t>
-  <t>Health check responses can be personalized. For example, you could advertise
-different URIs, and/or different kinds of link relations, to afford different
-clients access to additional health check information.</t>
-  <t>Health check responses must be assigned a freshness lifetime (e.g.,
-“Cache-Control: max-age=3600”) so that clients can determine how long they
-could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
-the service.</t>
-  <t>Custom link relation types, as well as the URIs for variables, should lead to
-documentation for those constructs.</t>
-</list></t>
-
-</section>
-<section anchor="consuming-health-check-responses" title="Consuming Health Check Responses">
-
-<t>Clients might use health check responses in a variety of ways.</t>
-
-<t>Note that the health check response is a “living” document; links from the
-health check response MUST NOT be assumed to be valid beyond the freshness
-lifetime of the health check response, as per HTTP’s caching model <xref target="RFC7234"/>.</t>
-
-<t>As a result, clients ought to cache the health check response (as per
-<xref target="RFC7234"/>), to avoid fetching it before every interaction (which would
-otherwise be required).</t>
-
-<t>Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain
-a fresh copy of the health check response, to assure that it is up-to-date.</t>
-
-</section>
-
 
   </back>
 
 <!-- ##markdown-source:
-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
-bQk6ij8jsexFm0VauzTnW0P/A1UN1jsiOQAA
+H4sIAMTLtloAA+1bbXMbuZH+Pr8Cxf0Q2+FQFPXOe6lTZHmtnC35LDm5XGpr
+C5wBSayGA2YwI4rZ8lZ+yN2fyy+5p7uB4VAv61xl96pyl/2wpmaARqPRL083
+etI0TWpbF2as3hpd1HN1NjfZrfpo/NKV3qg3rlroWk1dpd7e3HxQpx8ufKIn
+k8rcjZPcZaVeYG5e6Wmd2lLnujI21UubzplcmhG5dLib5LrGwNFw9zjJ8HPm
+qvVY2XLqksQuq7Gqq8bXo+HwZDhKQESP1demNJUukpWrbmeVa5bj5Nas8Vc+
+VhdlbarS1OlrWjlJfK3L/FtduBKLrI1Plnasfl+7rK/wP1vmpqz7yruqrszU
+49d6EX7Ulc3wKnOLpQ4/FhiMV7YsbGm+SRLd1HNXjROVJgr/2dKDgYG6lN36
++Z0tLL8RYVxU+rawT7zGWsbUY7W7u68OIOrTO1M2hl9ltoY4Ls1K/Q67lUeu
+KWsS0qfS1iZX1zXE5vmVWWhbQHq80L/M6K8B+OZ3TYWdz+t6Od7ZWa1Wg2ll
+/HxSNNXE85ik5BO1dwYbUh/fnI12d0/Cz72T40P6+RV+H4xGh+Hxwcnxcfh5
+NNrbDz+PRweYl9ARbhPEmGH4eXi815m5G5fZ26OZaZoqPYFQIPckuZlbr6BQ
+DUlfLSu3dN54pZU31Z3NjBKFUqxQqor6OX1CPwdCu3S1+faS/le7bz8anZvK
+J8mrV+BAnb++uLn6OFbLwmhQqczC3RlVEw/eZLV1pZoYEDVq2UwKC43Fo1ev
+iE2jrPcNWCusl4V5GpuAyjRNxNOmzBX4+kc6CY+jmNl63kzoBHaimexU0yyY
+CW9qR+j+80BWWTiQr0xG4hDiWKVLMtIZBNrWPaJItD4KiWyuyxkJFHsizs3/
+nD8yDVv7nYXG9IpoXxujdOEdRGCEyV94lTVVRSvCJuvGw1z47cX5zRsFJ6Dp
+vG9N1cfySbt858XAmno6cNVsB9qw8wXPwjukw17YPC9MknxFrqFyecOHKJK8
+A79qob9zFaxMuSlEC10oWVfAtb2z5YxZg69QKzNR8CUYM7EFdrdcxuP3SQNV
+YS37/vug558/K+1pf7YinYWvccVA0aJBXYlUs6ztwtDCGOhNIusayHABB6P0
+HexXY7XAHUmruyw9WHhT3Bk/wO5UbslpTRocYeLXOIqFV5PGFrVaWVpRlc1i
+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
+UNoSzih+mWfZizbLtHZpzo2Y/w2Q4gxpdT4AAA==
 
 -->
 

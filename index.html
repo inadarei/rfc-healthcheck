@@ -381,13 +381,12 @@
 <link href="#rfc.section.5" rel="Chapter" title="5 Example Output">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
-<link href="#rfc.section.7.1" rel="Chapter" title="7.1 Media Type Registration">
-<link href="#rfc.references" rel="Chapter" title="8 References">
-<link href="#rfc.references.1" rel="Chapter" title="8.1 Normative References">
-<link href="#rfc.references.2" rel="Chapter" title="8.2 Informative References">
-<link href="#rfc.appendix.A" rel="Chapter" title="A Acknowledgements">
-<link href="#rfc.appendix.B" rel="Chapter" title="B Creating and Serving Health Responses">
-<link href="#rfc.appendix.C" rel="Chapter" title="C Consuming Health Check Responses">
+<link href="#rfc.section.8" rel="Chapter" title="8 Acknowledgements">
+<link href="#rfc.section.9" rel="Chapter" title="9 Creating and Serving Health Responses">
+<link href="#rfc.section.10" rel="Chapter" title="10 Consuming Health Check Responses">
+<link href="#rfc.references" rel="Chapter" title="11 References">
+<link href="#rfc.references.1" rel="Chapter" title="11.1 Normative References">
+<link href="#rfc.references.2" rel="Chapter" title="11.2 Informative References">
 <link href="#rfc.authors" rel="Chapter">
 
 
@@ -395,7 +394,7 @@
   <link rel="schema.dct" href="http://purl.org/dc/terms/" />
 
   <meta name="dct.creator" content="Nadareishvili, I." />
-  <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-00" />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-01" />
   <meta name="dct.issued" scheme="ISO8601" content="2018-3-24" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
@@ -429,7 +428,7 @@
   </table>
 
   <p class="title">Health Check Response Format for HTTP APIs<br />
-  <span class="filename">draft-inadarei-api-health-check-00</span></p>
+  <span class="filename">draft-inadarei-api-health-check-01</span></p>
   
   <h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1>
 <p>This document proposes a service health check response format for HTTP APIs.</p>
@@ -467,21 +466,19 @@
 </li>
 <li>7.   <a href="#rfc.section.7">IANA Considerations</a>
 </li>
-<ul><li>7.1.   <a href="#rfc.section.7.1">Media Type Registration</a>
+<li>8.   <a href="#rfc.section.8">Acknowledgements</a>
 </li>
-</ul><li>8.   <a href="#rfc.references">References</a>
+<li>9.   <a href="#rfc.section.9">Creating and Serving Health Responses</a>
 </li>
-<ul><li>8.1.   <a href="#rfc.references.1">Normative References</a>
+<li>10.   <a href="#rfc.section.10">Consuming Health Check Responses</a>
 </li>
-<li>8.2.   <a href="#rfc.references.2">Informative References</a>
+<li>11.   <a href="#rfc.references">References</a>
 </li>
-</ul><li>Appendix A.   <a href="#rfc.appendix.A">Acknowledgements</a>
+<ul><li>11.1.   <a href="#rfc.references.1">Normative References</a>
 </li>
-<li>Appendix B.   <a href="#rfc.appendix.B">Creating and Serving Health Responses</a>
+<li>11.2.   <a href="#rfc.references.2">Informative References</a>
 </li>
-<li>Appendix C.   <a href="#rfc.appendix.C">Consuming Health Check Responses</a>
-</li>
-<li><a href="#rfc.authors">Author's Address</a>
+</ul><li><a href="#rfc.authors">Author's Address</a>
 </li>
 
 
@@ -691,14 +688,59 @@
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
-<h1 id="rfc.section.7.1">
-<a href="#rfc.section.7.1">7.1.</a> <a href="#media-type-registration" id="media-type-registration">Media Type Registration</a>
+<p id="rfc.section.7.p.1">The media type for health check response is application/health+json.</p>
+<p id="rfc.section.7.p.2">Media type name: application Media subtype name: health+json Required parameters: n/a Optional parameters: n/a Encoding considerations: binary Security considerations: Health+JSON shares security issues common to all JSON content types. See RFC 8259 Section #12 for additional information.</p>
+<p id="rfc.section.7.p.3">Health+JSON allows utilization of Uniform Resource Identifiers (URIs) and as such shares security issues common to URI usage. See RFC 3986 Section #7 for additional information.</p>
+<p id="rfc.section.7.p.4">Since Hyper+JSON can carry wide variety of data, some data may require privacy or integrity services. This specification does not prescribe any specific solution and assumes that concrete implementations will utilize common, trusted approaches such as TLS/HTTPS, OAuth2 etc.</p>
+<p id="rfc.section.7.p.5">Interoperability considerations: None Published specification: this RFC draft Applications which use this media: Various</p>
+<p id="rfc.section.7.p.6">Fragment identifier considerations: Health+JSON follows RFC6901 for implementing URI Fragment Identification standard to JSON content types.</p>
+<p id="rfc.section.7.p.7">Restrictions on usage: None</p>
+<p id="rfc.section.7.p.8">Additional information:</p>
+<p></p>
+
+<ol>
+<li>Deprecated alias names for this type: n/a</li>
+<li>Magic number(s): n/a</li>
+<li>File extension(s): .json</li>
+<li>Macintosh file type code: TEXT</li>
+<li>Object Identifiers: n/a</li>
+</ol>
+<p id="rfc.section.7.p.10">General Comments:</p>
+<p id="rfc.section.7.p.11">Person to contact for further information:</p>
+<p></p>
+
+<ol>
+<li>Name: Irakli Nadareishvili</li>
+<li>Email: irakli@gmail.com</li>
+</ol>
+<p id="rfc.section.7.p.13">Intended usage: Common Author/Change controller: Irakli Nadareishvili</p>
+<h1 id="rfc.section.8">
+<a href="#rfc.section.8">8.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
 </h1>
-<p id="rfc.section.7.1.p.1">TODO: application/health+json is being submitted for registration per <a href="#RFC6838" class="xref">[RFC6838]</a></p>
+<p id="rfc.section.8.p.1">Thanks to  Mike Amundsen, Erik Wilde, Justin Bachorik and Randall Randall for their suggestions and feedback. And to Mark Nottingham for blueprint for authoring RFCs easily.</p>
+<h1 id="rfc.section.9">
+<a href="#rfc.section.9">9.</a> <a href="#creating-and-serving-health-responses" id="creating-and-serving-health-responses">Creating and Serving Health Responses</a>
+</h1>
+<p id="rfc.section.9.p.1">When making an health check endpoint available, there are a few things to keep in mind:</p>
+<p></p>
+
+<ul>
+<li>A health response endpoint is best located at a memorable and commonly-used URI, such as &#8220;health&#8221; because it will help self-discoverability by clients.</li>
+<li>Health check responses can be personalized. For example, you could advertise different URIs, and/or different kinds of link relations, to afford different clients access to additional health check information.</li>
+<li>Health check responses must be assigned a freshness lifetime (e.g., &#8220;Cache-Control: max-age=3600&#8221;) so that clients can determine how long they could cache them, to avoid overly frequent fetching and unintended DDOS-ing of the service.</li>
+<li>Custom link relation types, as well as the URIs for variables, should lead to documentation for those constructs.</li>
+</ul>
+<h1 id="rfc.section.10">
+<a href="#rfc.section.10">10.</a> <a href="#consuming-health-check-responses" id="consuming-health-check-responses">Consuming Health Check Responses</a>
+</h1>
+<p id="rfc.section.10.p.1">Clients might use health check responses in a variety of ways.</p>
+<p id="rfc.section.10.p.2">Note that the health check response is a &#8220;living&#8221; document; links from the health check response MUST NOT be assumed to be valid beyond the freshness lifetime of the health check response, as per HTTP&#8217;s caching model <a href="#RFC7234" class="xref">[RFC7234]</a>.</p>
+<p id="rfc.section.10.p.3">As a result, clients ought to cache the health check response (as per <a href="#RFC7234" class="xref">[RFC7234]</a>), to avoid fetching it before every interaction (which would otherwise be required).</p>
+<p id="rfc.section.10.p.4">Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain a fresh copy of the health check response, to assure that it is up-to-date.</p>
 <h1 id="rfc.references">
-<a href="#rfc.references">8.</a> References</h1>
+<a href="#rfc.references">11.</a> References</h1>
 <h1 id="rfc.references.1">
-<a href="#rfc.references.1">8.1.</a> Normative References</h1>
+<a href="#rfc.references.1">11.1.</a> Normative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC2119">[RFC2119]</b></td>
@@ -727,7 +769,7 @@
 </tr>
 </tbody></table>
 <h1 id="rfc.references.2">
-<a href="#rfc.references.2">8.2.</a> Informative References</h1>
+<a href="#rfc.references.2">11.2.</a> Informative References</h1>
 <table><tbody>
 <tr>
 <td class="reference"><b id="RFC3339">[RFC3339]</b></td>
@@ -750,29 +792,6 @@
 <a>Fielding, R.</a> and <a>J. Reschke</a>, "<a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>", RFC 7231, DOI 10.17487/RFC7231, June 2014.</td>
 </tr>
 </tbody></table>
-<h1 id="rfc.appendix.A">
-<a href="#rfc.appendix.A">Appendix A.</a> <a href="#acknowledgements" id="acknowledgements">Acknowledgements</a>
-</h1>
-<p id="rfc.section.A.p.1">Thanks to  Mike Amundsen, Erik Wilde, Justin Bachorik and Randall Randall for their suggestions and feedback. And to Mark Nottingham for blueprint for authoring RFCs easily.</p>
-<h1 id="rfc.appendix.B">
-<a href="#rfc.appendix.B">Appendix B.</a> <a href="#creating-and-serving-health-responses" id="creating-and-serving-health-responses">Creating and Serving Health Responses</a>
-</h1>
-<p id="rfc.section.B.p.1">When making an health check endpoint available, there are a few things to keep in mind:</p>
-<p></p>
-
-<ul>
-<li>A health response endpoint is best located at a memorable and commonly-used URI, such as &#8220;health&#8221; because it will help self-discoverability by clients.</li>
-<li>Health check responses can be personalized. For example, you could advertise different URIs, and/or different kinds of link relations, to afford different clients access to additional health check information.</li>
-<li>Health check responses must be assigned a freshness lifetime (e.g., &#8220;Cache-Control: max-age=3600&#8221;) so that clients can determine how long they could cache them, to avoid overly frequent fetching and unintended DDOS-ing of the service.</li>
-<li>Custom link relation types, as well as the URIs for variables, should lead to documentation for those constructs.</li>
-</ul>
-<h1 id="rfc.appendix.C">
-<a href="#rfc.appendix.C">Appendix C.</a> <a href="#consuming-health-check-responses" id="consuming-health-check-responses">Consuming Health Check Responses</a>
-</h1>
-<p id="rfc.section.C.p.1">Clients might use health check responses in a variety of ways.</p>
-<p id="rfc.section.C.p.2">Note that the health check response is a &#8220;living&#8221; document; links from the health check response MUST NOT be assumed to be valid beyond the freshness lifetime of the health check response, as per HTTP&#8217;s caching model <a href="#RFC7234" class="xref">[RFC7234]</a>.</p>
-<p id="rfc.section.C.p.3">As a result, clients ought to cache the health check response (as per <a href="#RFC7234" class="xref">[RFC7234]</a>), to avoid fetching it before every interaction (which would otherwise be required).</p>
-<p id="rfc.section.C.p.4">Likewise, a client encountering a 404 (Not Found) on a link is encouraged to obtain a fresh copy of the health check response, to assure that it is up-to-date.</p>
 <h1 id="rfc.authors"><a href="#rfc.authors">Author's Address</a></h1>
 <div class="avoidbreak">
   <address class="vcard">

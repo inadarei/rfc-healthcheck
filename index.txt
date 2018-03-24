@@ -9,7 +9,7 @@ Expires: September 25, 2018
 
 
                Health Check Response Format for HTTP APIs
-                   draft-inadarei-api-health-check-00
+                   draft-inadarei-api-health-check-01
 
 Abstract
 
@@ -82,15 +82,14 @@ Table of Contents
    5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   7
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  Media Type Registration . . . . . . . . . . . . . . . . .   9
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   9
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   9
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-     8.3.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-   Appendix A.  Acknowledgements . . . . . . . . . . . . . . . . . .  10
-   Appendix B.  Creating and Serving Health Responses  . . . . . . .  11
-   Appendix C.  Consuming Health Check Responses . . . . . . . . . .  11
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  11
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   9.  Creating and Serving Health Responses . . . . . . . . . . . .  10
+   10. Consuming Health Check Responses  . . . . . . . . . . . . . .  11
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  11
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  12
+     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
 
 1.  Introduction
 
@@ -105,7 +104,8 @@ Table of Contents
    There exists a wide variety of operational software that relies on
    the ability to read health check response of APIs.  There is
    currently no standard for the health check output response, however,
-
+   so most applications either rely on the basic level of information
+   included in HTTP status codes [RFC7231] or use task-specific formats.
 
 
 
@@ -113,9 +113,6 @@ Nadareishvili          Expires September 25, 2018               [Page 2]
 
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
-
-   so most applications either rely on the basic level of information
-   included in HTTP status codes [RFC7231] or use task-specific formats.
 
    Usage of task-specific or application-specific formats creates
    significant challenges, disallowing any meaningful interoperability
@@ -163,6 +160,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
       *  "warn": healthy, with some concerns.
 
+      The value of the status field is tightly related with the HTTP
+      response code returned by the health endpoint.  For "pass" and
+
 
 
 Nadareishvili          Expires September 25, 2018               [Page 3]
@@ -170,8 +170,6 @@ Nadareishvili          Expires September 25, 2018               [Page 3]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-      The value of the status field is tightly related with the HTTP
-      response code returned by the health endpoint.  For "pass" and
       "warn" statuses HTTP response code in the 2xx-3xx range MUST be
       used.  For "fail" status HTTP response code in the 4xx-5xx range
       MUST be used.  In case of the "warn" status, endpoint SHOULD
@@ -219,14 +217,14 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    o  serviceID: (optional) unique identifier of the service, in the
       application scope.
 
+   o  description: (optional) human-friendly description of the service.
+
 
 
 Nadareishvili          Expires September 25, 2018               [Page 4]
 
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
-
-   o  description: (optional) human-friendly description of the service.
 
 4.  The Details Object
 
@@ -273,6 +271,8 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    On the value eside of the equation, each "component details" object
    in the array MAY have one of the following object keys:
 
+   o  componentId: (optional) unique identifier of an instance of a
+      specific sub-component/dependency of a service.  Multiple objects
 
 
 
@@ -282,8 +282,6 @@ Nadareishvili          Expires September 25, 2018               [Page 5]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-   o  componentId: (optional) unique identifier of an instance of a
-      specific sub-component/dependency of a service.  Multiple objects
       with the same componentID MAY appear in the details, if they are
       from different nodes.
 
@@ -330,6 +328,8 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
       cached and the reading typically doesn't happen in real time, for
       performance and scalability purposes.
 
+   o  output: (optional) has the exact same meaning as the top-level
+      "output" element, but for the sub-component.
 
 
 
@@ -337,9 +337,6 @@ Nadareishvili          Expires September 25, 2018               [Page 6]
 
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
-
-   o  output: (optional) has the exact same meaning as the top-level
-      "output" element, but for the sub-component.
 
    o  links: (optional) has the exact same meaning as the top-level
       "output" element, but for the sub-component.
@@ -386,6 +383,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
            "links": {
              "self": "http://api.example.com/dbnode/dfd6cf2b/health"
            }
+         }
+       ],
+       "uptime": [
 
 
 
@@ -394,9 +394,6 @@ Nadareishvili          Expires September 25, 2018               [Page 7]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-         }
-       ],
-       "uptime": [
          {
            "componentType": "system",
            "metricValue": 1209600.245,
@@ -442,6 +439,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "node": 2,
            "componentType": "system",
+           "metricValue": 5500,
+           "metricUnit": "MiB",
+           "status": "pass",
 
 
 
@@ -450,9 +450,6 @@ Nadareishvili          Expires September 25, 2018               [Page 8]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-           "metricValue": 5500,
-           "metricUnit": "MiB",
-           "status": "pass",
            "time": "2018-01-17T03:36:48Z",
            "output": ""
          }
@@ -474,14 +471,120 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 7.  IANA Considerations
 
-7.1.  Media Type Registration
+   The media type for health check response is application/health+json.
 
-   TODO: application/health+json is being submitted for registration per
-   [RFC6838]
+   Media type name: application Media subtype name: health+json Required
+   parameters: n/a Optional parameters: n/a Encoding considerations:
+   binary Security considerations: Health+JSON shares security issues
+   common to all JSON content types.  See RFC 8259 Section #12 for
+   additional information.
 
-8.  References
+   Health+JSON allows utilization of Uniform Resource Identifiers (URIs)
+   and as such shares security issues common to URI usage.  See RFC 3986
+   Section #7 for additional information.
 
-8.1.  Normative References
+   Since Hyper+JSON can carry wide variety of data, some data may
+   require privacy or integrity services.  This specification does not
+   prescribe any specific solution and assumes that concrete
+   implementations will utilize common, trusted approaches such as TLS/
+   HTTPS, OAuth2 etc.
+
+   Interoperability considerations: None Published specification: this
+   RFC draft Applications which use this media: Various
+
+   Fragment identifier considerations: Health+JSON follows RFC6901 for
+   implementing URI Fragment Identification standard to JSON content
+   types.
+
+   Restrictions on usage: None
+
+
+
+
+Nadareishvili          Expires September 25, 2018               [Page 9]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
+   Additional information:
+
+   1.  Deprecated alias names for this type: n/a
+
+   2.  Magic number(s): n/a
+
+   3.  File extension(s): .json
+
+   4.  Macintosh file type code: TEXT
+
+   5.  Object Identifiers: n/a
+
+   General Comments:
+
+   Person to contact for further information:
+
+   1.  Name: Irakli Nadareishvili
+
+   2.  Email: irakli@gmail.com
+
+   Intended usage: Common Author/Change controller: Irakli Nadareishvili
+
+8.  Acknowledgements
+
+   Thanks to Mike Amundsen, Erik Wilde, Justin Bachorik and Randall
+   Randall for their suggestions and feedback.  And to Mark Nottingham
+   for blueprint for authoring RFCs easily.
+
+9.  Creating and Serving Health Responses
+
+   When making an health check endpoint available, there are a few
+   things to keep in mind:
+
+   o  A health response endpoint is best located at a memorable and
+      commonly-used URI, such as "health" because it will help self-
+      discoverability by clients.
+
+   o  Health check responses can be personalized.  For example, you
+      could advertise different URIs, and/or different kinds of link
+      relations, to afford different clients access to additional health
+      check information.
+
+   o  Health check responses must be assigned a freshness lifetime
+      (e.g., "Cache-Control: max-age=3600") so that clients can
+      determine how long they could cache them, to avoid overly frequent
+      fetching and unintended DDOS-ing of the service.
+
+
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
+   o  Custom link relation types, as well as the URIs for variables,
+      should lead to documentation for those constructs.
+
+10.  Consuming Health Check Responses
+
+   Clients might use health check responses in a variety of ways.
+
+   Note that the health check response is a "living" document; links
+   from the health check response MUST NOT be assumed to be valid beyond
+   the freshness lifetime of the health check response, as per HTTP's
+   caching model [RFC7234].
+
+   As a result, clients ought to cache the health check response (as per
+   [RFC7234]), to avoid fetching it before every interaction (which
+   would otherwise be required).
+
+   Likewise, a client encountering a 404 (Not Found) on a link is
+   encouraged to obtain a fresh copy of the health check response, to
+   assure that it is up-to-date.
+
+11.  References
+
+11.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -497,15 +600,6 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               DOI 10.17487/RFC5988, October 2010,
               <https://www.rfc-editor.org/info/rfc5988>.
 
-
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 9]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
-
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
               RFC 7234, DOI 10.17487/RFC7234, June 2014,
@@ -516,7 +610,15 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-8.2.  Informative References
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 11]
+
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+
+
+11.2.  Informative References
 
    [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
               Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
@@ -537,7 +639,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
 
-8.3.  URIs
+11.3.  URIs
 
    [1] https://github.com/inadarei/rfc-healthcheck/issues
 
@@ -546,60 +648,6 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    [3] https://github.com/inadarei/rfc-healthcheck/commits/master
 
    [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
-
-Appendix A.  Acknowledgements
-
-   Thanks to Mike Amundsen, Erik Wilde, Justin Bachorik and Randall
-   Randall for their suggestions and feedback.  And to Mark Nottingham
-   for blueprint for authoring RFCs easily.
-
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 10]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
-
-Appendix B.  Creating and Serving Health Responses
-
-   When making an health check endpoint available, there are a few
-   things to keep in mind:
-
-   o  A health response endpoint is best located at a memorable and
-      commonly-used URI, such as "health" because it will help self-
-      discoverability by clients.
-
-   o  Health check responses can be personalized.  For example, you
-      could advertise different URIs, and/or different kinds of link
-      relations, to afford different clients access to additional health
-      check information.
-
-   o  Health check responses must be assigned a freshness lifetime
-      (e.g., "Cache-Control: max-age=3600") so that clients can
-      determine how long they could cache them, to avoid overly frequent
-      fetching and unintended DDOS-ing of the service.
-
-   o  Custom link relation types, as well as the URIs for variables,
-      should lead to documentation for those constructs.
-
-Appendix C.  Consuming Health Check Responses
-
-   Clients might use health check responses in a variety of ways.
-
-   Note that the health check response is a "living" document; links
-   from the health check response MUST NOT be assumed to be valid beyond
-   the freshness lifetime of the health check response, as per HTTP's
-   caching model [RFC7234].
-
-   As a result, clients ought to cache the health check response (as per
-   [RFC7234]), to avoid fetching it before every interaction (which
-   would otherwise be required).
-
-   Likewise, a client encountering a 404 (Not Found) on a link is
-   encouraged to obtain a fresh copy of the health check response, to
-   assure that it is up-to-date.
 
 Author's Address
 
@@ -613,4 +661,12 @@ Author's Address
 
 
 
-Nadareishvili          Expires September 25, 2018              [Page 11]
+
+
+
+
+
+
+
+
+Nadareishvili          Expires September 25, 2018              [Page 12]
