@@ -112,9 +112,20 @@ optional fields:
   - "fail": unhealthy, and
   - "warn": healthy, with some concerns.
 
-  The health endpoint SHOULD always respond with a success (2xx-3xx, typically:
-  HTTP 200) response code, for any of the status levels, unless the health
-  endpoint itself is malfunctioning.
+  The value of the status field is tightly related with the HTTP response code
+  returned by the health endpoint. For “pass” and “warn” statuses HTTP response
+  code in the 2xx-3xx range MUST be used. For “fail” status HTTP response code
+  in the 4xx-5xx range MUST be used. In case of the “warn” status, endpoint
+  SHOULD return HTTP status in the 2xx-3xx range and additional information
+  SHOULD be provided, utilizing optional fields of the response.
+
+  A health endpoint is only meaningful in the context of the component it
+  indicates the health of. It has no other meaning or purpose. As such, its
+  health is a conduit to the health of the component. Clients SHOULD assume that
+  the HTTP response code returned by the health endpoint is applicable to the
+  entire component (e.g. a larger API or a microservice). This is compatible
+  with the behavior that current infrastructural tooling expects:
+  load-balancers, service discoveries and others, utilizing health-checks.
 
 * version: (optional) public version of the service.
 * releaseID: (optional) in well-designed APIs, backwards-compatible changes in
