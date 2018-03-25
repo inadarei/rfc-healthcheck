@@ -27,7 +27,7 @@ normative:
   RFC2119:
   RFC3986:
   #RFC5226:
-  RFC5988:
+  RFC8288:
   RFC7234:
   RFC8259:
 
@@ -113,10 +113,10 @@ optional fields:
   - "warn": healthy, with some concerns.
 
   The value of the status field is tightly related with the HTTP response code
-  returned by the health endpoint. For “pass” and “warn” statuses HTTP response
-  code in the 2xx-3xx range MUST be used. For “fail” status HTTP response code
-  in the 4xx-5xx range MUST be used. In case of the “warn” status, endpoint
-  SHOULD return HTTP status in the 2xx-3xx range and additional information
+  returned by the health endpoint. For “pass” and “warn” statuses, HTTP response
+  code in the 2xx-3xx range MUST be used. For “fail” status, HTTP response code
+  in the 4xx-5xx range MUST be used. In case of the “warn” status, endpoints
+  SHOULD return HTTP status in the 2xx-3xx range, and additional information
   SHOULD be provided, utilizing optional fields of the response.
 
   A health endpoint is only meaningful in the context of the component it
@@ -142,7 +142,7 @@ optional fields:
   information.
 * links: (optional) an array of objects containing link relations and URIs
   {{RFC3986}} for external links that MAY contain more information about the
-  health of the endpoint. Per web-linking standards {{RFC5988}} a link relationship
+  health of the endpoint. Per web-linking standards {{RFC8288}} a link relationship
   SHOULD either be a common/registered one or be indicated as a URI, to avoid
   name clashes.  If a "self" link is provided, it MAY be used by clients to
   check health via HTTP response code, as mentioned above.
