@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                            March 24, 2018
+Internet-Draft                                            April 28, 2018
 Intended status: Informational
-Expires: September 25, 2018
+Expires: October 30, 2018
 
 
                Health Check Response Format for HTTP APIs
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 25, 2018.
+   This Internet-Draft will expire on October 30, 2018.
 
 
 
 
-Nadareishvili          Expires September 25, 2018               [Page 1]
+Nadareishvili           Expires October 30, 2018                [Page 1]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
 
 
 Copyright Notice
@@ -83,13 +83,13 @@ Table of Contents
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .   9
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   9
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
-   9.  Creating and Serving Health Responses . . . . . . . . . . . .  10
+   9.  Creating and Serving Health Responses . . . . . . . . . . . .  11
    10. Consuming Health Check Responses  . . . . . . . . . . . . . .  11
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  11
      11.2.  Informative References . . . . . . . . . . . . . . . . .  12
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  12
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Nadareishvili          Expires September 25, 2018               [Page 2]
+Nadareishvili           Expires October 30, 2018                [Page 2]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
 
 
    Usage of task-specific or application-specific formats creates
@@ -165,16 +165,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili          Expires September 25, 2018               [Page 3]
+Nadareishvili           Expires October 30, 2018                [Page 3]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
 
 
-      "warn" statuses HTTP response code in the 2xx-3xx range MUST be
-      used.  For "fail" status HTTP response code in the 4xx-5xx range
-      MUST be used.  In case of the "warn" status, endpoint SHOULD
-      return HTTP status in the 2xx-3xx range and additional information
-      SHOULD be provided, utilizing optional fields of the response.
+      "warn" statuses, HTTP response code in the 2xx-3xx range MUST be
+      used.  For "fail" status, HTTP response code in the 4xx-5xx range
+      MUST be used.  In case of the "warn" status, endpoints SHOULD
+      return HTTP status in the 2xx-3xx range, and additional
+      information SHOULD be provided, utilizing optional fields of the
+      response.
 
       A health endpoint is only meaningful in the context of the
       component it indicates the health of.  It has no other meaning or
@@ -209,7 +210,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    o  links: (optional) an array of objects containing link relations
       and URIs [RFC3986] for external links that MAY contain more
       information about the health of the endpoint.  Per web-linking
-      standards [RFC5988] a link relationship SHOULD either be a common/
+      standards [RFC8288] a link relationship SHOULD either be a common/
       registered one or be indicated as a URI, to avoid name clashes.
       If a "self" link is provided, it MAY be used by clients to check
       health via HTTP response code, as mentioned above.
@@ -217,14 +218,15 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    o  serviceID: (optional) unique identifier of the service, in the
       application scope.
 
-   o  description: (optional) human-friendly description of the service.
 
 
 
-Nadareishvili          Expires September 25, 2018               [Page 4]
+Nadareishvili           Expires October 30, 2018                [Page 4]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
 
+
+   o  description: (optional) human-friendly description of the service.
 
 4.  The Details Object
 
@@ -271,17 +273,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    On the value eside of the equation, each "component details" object
    in the array MAY have one of the following object keys:
 
+
+
+
+
+Nadareishvili           Expires October 30, 2018                [Page 5]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
    o  componentId: (optional) unique identifier of an instance of a
       specific sub-component/dependency of a service.  Multiple objects
-
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 5]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
-
       with the same componentID MAY appear in the details, if they are
       from different nodes.
 
@@ -328,15 +330,16 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
       cached and the reading typically doesn't happen in real time, for
       performance and scalability purposes.
 
+
+
+
+Nadareishvili           Expires October 30, 2018                [Page 6]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
    o  output: (optional) has the exact same meaning as the top-level
       "output" element, but for the sub-component.
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 6]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    o  links: (optional) has the exact same meaning as the top-level
       "output" element, but for the sub-component.
@@ -383,17 +386,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
            "links": {
              "self": "http://api.example.com/dbnode/dfd6cf2b/health"
            }
+
+
+
+Nadareishvili           Expires October 30, 2018                [Page 7]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
          }
        ],
        "uptime": [
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 7]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
-
          {
            "componentType": "system",
            "metricValue": 1209600.245,
@@ -439,17 +442,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "node": 2,
            "componentType": "system",
+
+
+
+Nadareishvili           Expires October 30, 2018                [Page 8]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
            "metricValue": 5500,
            "metricUnit": "MiB",
            "status": "pass",
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 8]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
-
            "time": "2018-01-17T03:36:48Z",
            "output": ""
          }
@@ -491,20 +494,22 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
       (URIs) and as such shares security issues common to URI usage.
       See RFC 3986 Section #7 for additional information.
 
-      Since Hyper+JSON can carry wide variety of data, some data may
+      Since health+json can carry wide variety of data, some data may
       require privacy or integrity services.  This specification does
       not prescribe any specific solution and assumes that concrete
+
+
+
+
+Nadareishvili           Expires October 30, 2018                [Page 9]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
       implementations will utilize common, trusted approaches such as
       TLS/HTTPS, OAuth2 etc.
 
    o  Interoperability considerations: None
-
-
-
-Nadareishvili          Expires September 25, 2018               [Page 9]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    o  Published specification: this RFC draft
 
@@ -546,6 +551,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    Randall for their suggestions and feedback.  And to Mark Nottingham
    for blueprint for authoring RFCs easily.
 
+
+
+
+
+
+
+Nadareishvili           Expires October 30, 2018               [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
 9.  Creating and Serving Health Responses
 
    When making an health check endpoint available, there are a few
@@ -554,13 +570,6 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    o  A health response endpoint is best located at a memorable and
       commonly-used URI, such as "health" because it will help self-
       discoverability by clients.
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 10]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    o  Health check responses can be personalized.  For example, you
       could advertise different URIs, and/or different kinds of link
@@ -601,22 +610,18 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+Nadareishvili           Expires October 30, 2018               [Page 11]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
               <https://www.rfc-editor.org/info/rfc3986>.
-
-   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
-              DOI 10.17487/RFC5988, October 2010,
-              <https://www.rfc-editor.org/info/rfc5988>.
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 11]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -627,6 +632,10 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
               Interchange Format", STD 90, RFC 8259,
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
+
+   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
+              DOI 10.17487/RFC8288, October 2017,
+              <https://www.rfc-editor.org/info/rfc8288>.
 
 11.2.  Informative References
 
@@ -657,22 +666,17 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
    [3] https://github.com/inadarei/rfc-healthcheck/commits/master
 
+
+
+
+Nadareishvili           Expires October 30, 2018               [Page 12]
+
+Internet-Draft Health Check Response Format for HTTP APIs     April 2018
+
+
    [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
 
 Author's Address
-
-
-
-
-
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 12]
-
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
-
 
    Irakli Nadareishvili
    114 5th Avenue
@@ -721,8 +725,4 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-
-
-
-
-Nadareishvili          Expires September 25, 2018              [Page 13]
+Nadareishvili           Expires October 30, 2018               [Page 13]

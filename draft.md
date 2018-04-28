@@ -350,7 +350,7 @@ The media type for health check response is application/health+json.
     shares security issues common to URI usage. See RFC 3986 Section #7
     for additional information.
 
-    Since Hyper+JSON can carry wide variety of data, some data may require privacy
+    Since health+json can carry wide variety of data, some data may require privacy
     or integrity services. This specification does not prescribe any specific
     solution and assumes that concrete implementations will utilize common, trusted
     approaches such as TLS/HTTPS, OAuth2 etc.
