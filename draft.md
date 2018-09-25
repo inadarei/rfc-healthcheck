@@ -1,7 +1,7 @@
 ---
 title: Health Check Response Format for HTTP APIs
 abbrev:
-docname: draft-inadarei-api-health-check-01
+docname: draft-inadarei-api-health-check-02
 date: 2018
 category: info
 
@@ -58,12 +58,12 @@ See also the draft's current status in the IETF datatracker, at
 
 # Introduction
 
-The vast majority of modern APIs driving data to web and mobile applications
-use HTTP {{RFC7230}} as their protocol. The health and uptime of these
-APIs determine availability of the applications themselves. In distributed
-systems built with a number of APIs, understanding the health status of the APIs
-and making corresponding decisions, for failover or circuit-breaking, are
-essential for providing highly available solutions.
+The vast majority of modern APIs driving data to web and mobile applications use
+HTTP {{RFC7230}} as their protocol. The health and uptime of these APIs
+determine availability of the applications themselves. In distributed systems
+built with a number of APIs, understanding the health status of the APIs and
+making corresponding decisions, for failover or circuit-breaking, are essential
+for providing highly available solutions.
 
 There exists a wide variety of operational software that relies on the ability
 to read health check response of APIs. There is currently no standard for the
@@ -105,8 +105,10 @@ format") uses the JSON format described in {{RFC8259}} and has the media type
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
 
-* status: (required) indicates whether the service status is acceptable or not.
-  API publishers SHOULD use following values for the field:
+## status 
+
+status: (required) indicates whether the service status is acceptable or not.
+API publishers SHOULD use following values for the field:
 
   - "pass": healthy,
   - "fail": unhealthy, and
@@ -127,37 +129,61 @@ optional fields:
   with the behavior that current infrastructural tooling expects:
   load-balancers, service discoveries and others, utilizing health-checks.
 
-* version: (optional) public version of the service.
-* releaseID: (optional) in well-designed APIs, backwards-compatible changes in
+## version 
+
+version: (optional) public version of the service.
+
+## releaseId
+
+releaseId: (optional) in well-designed APIs, backwards-compatible changes in
   the service should not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "releaseID" that is
   different from the public version of the API.
-* notes: (optional) array of notes relevant to current state of health
-* output: (optional) raw error output, in case of "fail" or "warn" states. This
-  field SHOULD be omitted for "pass" state.
-* details: (optional) an object representing status of sub-components of the
-  service in question. Please refer to the "The Details Object" section for more
-  information.
-* links: (optional) an array of objects containing link relations and URIs
-  {{RFC3986}} for external links that MAY contain more information about the
-  health of the endpoint. Per web-linking standards {{RFC8288}} a link relationship
-  SHOULD either be a common/registered one or be indicated as a URI, to avoid
-  name clashes.  If a "self" link is provided, it MAY be used by clients to
-  check health via HTTP response code, as mentioned above.
 
-* serviceID: (optional) unique identifier of the service, in the application
-  scope.
-* description: (optional) human-friendly description of the service.
+## notes
+
+notes: (optional) array of notes relevant to current state of health
+
+## output
+
+output: (optional) raw error output, in case of "fail" or "warn" states. This
+  field SHOULD be omitted for "pass" state.
+
+## details
+
+details (optional) is an object that provides more details about the status of
+the service as it pertains to the information about the downstream dependencies
+of the service in question. Please refer to the "The Details Object" section
+for more information.
+
+## links
+
+links (optional) is an array of objects containing link relations and URIs
+{{RFC3986}} for external links that MAY contain more information about the
+health of the endpoint. Per web-linking standards {{RFC8288}} a link
+relationship SHOULD either be a common/registered one or be indicated as a URI,
+to avoid name clashes.  If a "self" link is provided, it MAY be used by clients
+to check health via HTTP response code, as mentioned above.
+
+## serviceId
+
+serviceId (optional) is a unique identifier of the service, in the application
+scope.
+
+## description
+
+description (optional) is a human-friendly description of the service.
 
 # The Details Object
 
 The "details" object MAY have a number of unique keyes, one for each logical
-sub-components. Since each sub-component may be backed by several nodes with
-varying health statuses, the key points to an array of objects. In case of a
-single-node sub-component (or if presence of nodes is not relevant), a
-single-element array should be used as the value, for consistency.
+downstream dependencies or sub-components. Since each sub-component may be
+backed by several nodes with varying health statuses, these keys point to arrays
+of objects. In case of a single-node sub-component (or if presence of nodes is
+not relevant), a single-element array should be used as the value, for
+consistency.
 
 The key identifying an element in the object should be a unique string within
 the details section. It MAY have two parts: "{componentName}:{metricName}", in
@@ -184,11 +210,17 @@ which case the meaning of the parts SHOULD be as follows:
 On the value eside of the equation, each "component details" object in the array
 MAY have one of the following object keys:
 
-* componentId: (optional) unique identifier of an instance of a specific
-  sub-component/dependency of a service. Multiple objects with the same
-  componentID MAY appear in the details, if they are from different nodes.
-* componentType: (optional) SHOULD be present if componentName is present. Type
-  of the component. Could be one of:
+## componentId
+
+componentId: (optional) is a unique identifier of an instance of a specific
+sub-component/dependency of a service. Multiple objects with the same
+componentID MAY appear in the details, if they are from different nodes.
+
+## componentType
+
+componentType: (optional) SHOULD be present if componentName is present. It's
+a type of the component and could be one of:
+
   * Pre-defined value from this spec. Pre-defined values include:
     * component
     * datastore
@@ -199,11 +231,18 @@ MAY have one of the following object keys:
     provided by a resource at the other end of the URI. URIs do not have to be
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).    
-* metricValue: (optional) could be any valid JSON value, such as: string, number,
-  object, array or literal.
-* metricUnit: (optional) SHOULD be present if metricValue is present. Could be
-  one of:
+    Swagger document or a nicely printed book).   
+    
+## metricValue
+
+metricValue: (optional) could be any valid JSON value, such as: string, number,
+object, array or literal.
+
+## metricUnit
+
+metricUnit (optional) SHOULD be present if metricValue is present. Could be
+one of:
+
   * A common and standard term from a well-known source such as schema.org, IANA,
     microformats, or a standards document such as {{RFC3339}}.
   * A URI that indicates extra semantics and processing rules that MAY be
@@ -211,14 +250,31 @@ MAY have one of the following object keys:
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
-* time: the date-time, in ISO8601 format, at which the reading of the
-  metricValue was recorded. This assumes that the value can be cached and the
-  reading typically doesn't happen in real time, for performance and scalability
-  purposes.
-* output: (optional) has the exact same meaning as the top-level "output"
-  element, but for the sub-component.
-* links: (optional) has the exact same meaning as the top-level "output"
-  element, but for the sub-component.
+
+## status 
+
+status (optional) has the exact same meaning as the top-level "output"
+element, but for the sub-component/downstream dependency represented
+by the details object.
+
+## time
+
+time (optional) is the date-time, in ISO8601 format, at which the reading of the
+metricValue was recorded. This assumes that the value can be cached and the
+reading typically doesn't happen in real time, for performance and scalability
+purposes.
+
+## output 
+
+output (optional) has the exact same meaning as the top-level "output"
+element, but for the sub-component/downstream dependency represented
+by the details object.
+
+## links
+
+links (optional) has the exact same meaning as the top-level "output"
+element, but for the sub-component/downstream dependency represented
+by the details object.
 
 # Example Output
 
