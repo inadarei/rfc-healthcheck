@@ -207,7 +207,7 @@ which case the meaning of the parts SHOULD be as follows:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
-On the value eside of the equation, each "component details" object in the array
+On the value side of the equation, each "component details" object in the array
 MAY have one of the following object keys:
 
 ## componentId
