@@ -62,12 +62,12 @@ The vast majority of modern APIs driving data to web and mobile applications use
 HTTP {{RFC7230}} as their protocol. The health and uptime of these APIs
 determine availability of the applications themselves. In distributed systems
 built with a number of APIs, understanding the health status of the APIs and
-making corresponding decisions, for failover or circuit-breaking, are essential
-for providing highly available solutions.
+making corresponding decisions, for caching, failover or circuit-breaking, are
+essential to the ability of providing highly-available solutions.
 
 There exists a wide variety of operational software that relies on the ability
-to read health check response of APIs. There is currently no standard for the
-health check output response, however, so most applications either rely on the
+to read health check response of APIs. However, there is currently no standard
+for the health check output response, so most applications either rely on the
 basic level of information included in HTTP status codes {{RFC7231}} or use
 task-specific formats.
 
@@ -98,9 +98,8 @@ interpreted as described in {{RFC2119}}.
 
 # API Health Response
 
-The API Health Response Format (or, interchangeably, "health check response
-format") uses the JSON format described in {{RFC8259}} and has the media type
-"application/health+json".
+Health Check Response Format for HTTP APIs uses the JSON format described in
+{{RFC8259}} and has the media type "application/health+json".
 
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
@@ -110,16 +109,19 @@ optional fields:
 status: (required) indicates whether the service status is acceptable or not.
 API publishers SHOULD use following values for the field:
 
-  - "pass": healthy,
-  - "fail": unhealthy, and
+  - "pass": healthy (acceptable aliases: "ok" to support Node's Terminius and
+    "up" for Java's SpringBoot),
+  - "fail": unhealthy (acceptable aliases: "error" to support Node's Terminius and
+    "down" for Java's SpringBoot), and
   - "warn": healthy, with some concerns.
 
-  The value of the status field is tightly related with the HTTP response code
-  returned by the health endpoint. For “pass” and “warn” statuses, HTTP response
-  code in the 2xx-3xx range MUST be used. For “fail” status, HTTP response code
-  in the 4xx-5xx range MUST be used. In case of the “warn” status, endpoints
-  SHOULD return HTTP status in the 2xx-3xx range, and additional information
-  SHOULD be provided, utilizing optional fields of the response.
+  The value of the status field is case-insensitive and is tightly related with
+  the HTTP response code returned by the health endpoint. For “pass” and “warn”
+  statuses, HTTP response code in the 2xx-3xx range MUST be used. For “fail”
+  status, HTTP response code in the 4xx-5xx range MUST be used. In case of the
+  “warn” status, endpoints SHOULD return HTTP status in the 2xx-3xx range, and
+  additional information SHOULD be provided, utilizing optional fields of the
+  response.
 
   A health endpoint is only meaningful in the context of the component it
   indicates the health of. It has no other meaning or purpose. As such, its
@@ -186,15 +188,15 @@ not relevant), a single-element array should be used as the value, for
 consistency.
 
 The key identifying an element in the object should be a unique string within
-the details section. It MAY have two parts: "{componentName}:{metricName}", in
-which case the meaning of the parts SHOULD be as follows:
+the details section. It MAY have two parts: "{componentName}:{measurementName}",
+in which case the meaning of the parts SHOULD be as follows:
 
 * componentName: (optional) human-readable name for the component. MUST not 
   contain a colon, in the name, since colon is used as a separator.
-* metricName: (optional) name of the metrics that the status is reported for.
-  MUST not contain a colon, in the name, since colon is used as a separator and
-  can be one of:
-  * Pre-defined value from this spec. Pre-defined values include:
+* measurementName: (optional) name of the measurement type (a data point type)
+  that the status is reported for. MUST not contain a colon, in the name, since
+  colon is used as a separator. The observation's name can be one of:
+  * A pre-defined value from this spec. Pre-defined values include:
     * utilization
     * responseTime
     * connections
@@ -207,7 +209,7 @@ which case the meaning of the parts SHOULD be as follows:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
-On the value eside of the equation, each "component details" object in the array
+On the value side of the equation, each "component details" object in the array
 MAY have one of the following object keys:
 
 ## componentId
@@ -233,15 +235,18 @@ a type of the component and could be one of:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).   
     
-## metricValue
+## observedValue
 
-metricValue: (optional) could be any valid JSON value, such as: string, number,
+observedValue: (optional) could be any valid JSON value, such as: string, number,
 object, array or literal.
 
-## metricUnit
+## observedUnit
 
-metricUnit (optional) SHOULD be present if metricValue is present. Could be
-one of:
+observedUnit (optional) SHOULD be present if observedValue is present. Calrifies
+the unit of measurement in which observedUnit is reported, e.g. for a time-based
+value it is important to know whether the time is reported in seconds, minutes,
+hours or something else. To make sure unit is denoted by a well-understood name
+or an abbreviation, it should be one of:
 
   * A common and standard term from a well-known source such as schema.org, IANA,
     microformats, or a standards document such as {{RFC3339}}.
@@ -260,7 +265,7 @@ by the details object.
 ## time
 
 time (optional) is the date-time, in ISO8601 format, at which the reading of the
-metricValue was recorded. This assumes that the value can be cached and the
+observedValue was recorded. This assumes that the value can be cached and the
 reading typically doesn't happen in real time, for performance and scalability
 purposes.
 
@@ -301,8 +306,8 @@ by the details object.
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentType": "datastore",
-        "metricValue": 250,
-        "metricUnit": "ms",
+        "observedValue": 250,
+        "observedUnit": "ms",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -312,7 +317,7 @@ by the details object.
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "type": "datastore",
-        "metricValue": 75,
+        "observedValue": 75,
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": "",
@@ -324,8 +329,8 @@ by the details object.
     "uptime": [
       {
         "componentType": "system",
-        "metricValue": 1209600.245,
-        "metricUnit": "s",
+        "observedValue": 1209600.245,
+        "observedUnit": "s",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z"
       }
@@ -335,8 +340,8 @@ by the details object.
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 1,
         "componentType": "system",
-        "metricValue": 85,
-        "metricUnit": "percent",
+        "observedValue": 85,
+        "observedUnit": "percent",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -345,8 +350,8 @@ by the details object.
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 2,
         "componentType": "system",
-        "metricValue": 85,
-        "metricUnit": "percent",
+        "observedValue": 85,
+        "observedUnit": "percent",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -357,8 +362,8 @@ by the details object.
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 1,
         "componentType": "system",
-        "metricValue": 8.5,
-        "metricUnit": "GiB",
+        "observedValue": 8.5,
+        "observedUnit": "GiB",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -367,8 +372,8 @@ by the details object.
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 2,
         "componentType": "system",
-        "metricValue": 5500,
-        "metricUnit": "MiB",
+        "observedValue": 5500,
+        "observedUnit": "MiB",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -445,10 +450,11 @@ in mind:
 * Health check responses can be personalized. For example, you could advertise
   different URIs, and/or different kinds of link relations, to afford different
   clients access to additional health check information.
-* Health check responses must be assigned a freshness lifetime (e.g.,
+* Health check responses SHOULD be assigned a freshness lifetime (e.g.,
   "Cache-Control: max-age=3600") so that clients can determine how long they
   could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
-  the service.
+  the service. Any method of cach lifetime negotiation provided by HTTP spec is
+  acceptable (e.g. ETags are just fine).
 * Custom link relation types, as well as the URIs for variables, should lead to
   documentation for those constructs.
 

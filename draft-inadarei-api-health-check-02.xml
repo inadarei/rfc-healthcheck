@@ -77,12 +77,12 @@
 HTTP <xref target="RFC7230"/> as their protocol. The health and uptime of these APIs
 determine availability of the applications themselves. In distributed systems
 built with a number of APIs, understanding the health status of the APIs and
-making corresponding decisions, for failover or circuit-breaking, are essential
-for providing highly available solutions.</t>
+making corresponding decisions, for caching, failover or circuit-breaking, are
+essential to the ability of providing highly-available solutions.</t>
 
 <t>There exists a wide variety of operational software that relies on the ability
-to read health check response of APIs. There is currently no standard for the
-health check output response, however, so most applications either rely on the
+to read health check response of APIs. However, there is currently no standard
+for the health check output response, so most applications either rely on the
 basic level of information included in HTTP status codes <xref target="RFC7231"/> or use
 task-specific formats.</t>
 
@@ -116,9 +116,8 @@ interpreted as described in <xref target="RFC2119"/>.</t>
 </section>
 <section anchor="api-health-response" title="API Health Response">
 
-<t>The API Health Response Format (or, interchangeably, “health check response
-format”) uses the JSON format described in <xref target="RFC8259"/> and has the media type
-“application/health+json”.</t>
+<t>Health Check Response Format for HTTP APIs uses the JSON format described in
+<xref target="RFC8259"/> and has the media type “application/health+json”.</t>
 
 <t>Its content consists of a single mandatory root field (“status”) and several
 optional fields:</t>
@@ -129,17 +128,20 @@ optional fields:</t>
 API publishers SHOULD use following values for the field:</t>
 
 <t><list style="symbols">
-  <t>“pass”: healthy,</t>
-  <t>“fail”: unhealthy, and</t>
+  <t>“pass”: healthy (acceptable aliases: “ok” to support Node’s Terminius and
+“up” for Java’s SpringBoot),</t>
+  <t>“fail”: unhealthy (acceptable aliases: “error” to support Node’s Terminius and
+“down” for Java’s SpringBoot), and</t>
   <t>“warn”: healthy, with some concerns.</t>
 </list></t>
 
-<t>The value of the status field is tightly related with the HTTP response code
-  returned by the health endpoint. For “pass” and “warn” statuses, HTTP response
-  code in the 2xx-3xx range MUST be used. For “fail” status, HTTP response code
-  in the 4xx-5xx range MUST be used. In case of the “warn” status, endpoints
-  SHOULD return HTTP status in the 2xx-3xx range, and additional information
-  SHOULD be provided, utilizing optional fields of the response.</t>
+<t>The value of the status field is case-insensitive and is tightly related with
+  the HTTP response code returned by the health endpoint. For “pass” and “warn”
+  statuses, HTTP response code in the 2xx-3xx range MUST be used. For “fail”
+  status, HTTP response code in the 4xx-5xx range MUST be used. In case of the
+  “warn” status, endpoints SHOULD return HTTP status in the 2xx-3xx range, and
+  additional information SHOULD be provided, utilizing optional fields of the
+  response.</t>
 
 <t>A health endpoint is only meaningful in the context of the component it
   indicates the health of. It has no other meaning or purpose. As such, its
@@ -216,17 +218,17 @@ not relevant), a single-element array should be used as the value, for
 consistency.</t>
 
 <t>The key identifying an element in the object should be a unique string within
-the details section. It MAY have two parts: “{componentName}:{metricName}”, in
-which case the meaning of the parts SHOULD be as follows:</t>
+the details section. It MAY have two parts: “{componentName}:{measurementName}”,
+in which case the meaning of the parts SHOULD be as follows:</t>
 
 <t><list style="symbols">
   <t>componentName: (optional) human-readable name for the component. MUST not 
 contain a colon, in the name, since colon is used as a separator.</t>
-  <t>metricName: (optional) name of the metrics that the status is reported for.
-MUST not contain a colon, in the name, since colon is used as a separator and
-can be one of:
+  <t>measurementName: (optional) name of the measurement type (a data point type)
+that the status is reported for. MUST not contain a colon, in the name, since
+colon is used as a separator. The observation’s name can be one of:
   <list style="symbols">
-      <t>Pre-defined value from this spec. Pre-defined values include:
+      <t>A pre-defined value from this spec. Pre-defined values include:
       <list style="symbols">
           <t>utilization</t>
           <t>responseTime</t>
@@ -243,7 +245,7 @@ Swagger document or a nicely printed book).</t>
     </list></t>
 </list></t>
 
-<t>On the value eside of the equation, each “component details” object in the array
+<t>On the value side of the equation, each “component details” object in the array
 MAY have one of the following object keys:</t>
 
 <section anchor="componentid" title="componentId">
@@ -275,16 +277,19 @@ Swagger document or a nicely printed book).</t>
 </list></t>
 
 </section>
-<section anchor="metricvalue" title="metricValue">
+<section anchor="observedvalue" title="observedValue">
 
-<t>metricValue: (optional) could be any valid JSON value, such as: string, number,
+<t>observedValue: (optional) could be any valid JSON value, such as: string, number,
 object, array or literal.</t>
 
 </section>
-<section anchor="metricunit" title="metricUnit">
+<section anchor="observedunit" title="observedUnit">
 
-<t>metricUnit (optional) SHOULD be present if metricValue is present. Could be
-one of:</t>
+<t>observedUnit (optional) SHOULD be present if observedValue is present. Calrifies
+the unit of measurement in which observedUnit is reported, e.g. for a time-based
+value it is important to know whether the time is reported in seconds, minutes,
+hours or something else. To make sure unit is denoted by a well-understood name
+or an abbreviation, it should be one of:</t>
 
 <t><list style="symbols">
   <t>A common and standard term from a well-known source such as schema.org, IANA,
@@ -307,7 +312,7 @@ by the details object.</t>
 <section anchor="time" title="time">
 
 <t>time (optional) is the date-time, in ISO8601 format, at which the reading of the
-metricValue was recorded. This assumes that the value can be cached and the
+observedValue was recorded. This assumes that the value can be cached and the
 reading typically doesn’t happen in real time, for performance and scalability
 purposes.</t>
 
@@ -352,8 +357,8 @@ by the details object.</t>
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "componentType": "datastore",
-        "metricValue": 250,
-        "metricUnit": "ms",
+        "observedValue": 250,
+        "observedUnit": "ms",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -363,7 +368,7 @@ by the details object.</t>
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
         "type": "datastore",
-        "metricValue": 75,
+        "observedValue": 75,
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": "",
@@ -375,8 +380,8 @@ by the details object.</t>
     "uptime": [
       {
         "componentType": "system",
-        "metricValue": 1209600.245,
-        "metricUnit": "s",
+        "observedValue": 1209600.245,
+        "observedUnit": "s",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z"
       }
@@ -386,8 +391,8 @@ by the details object.</t>
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 1,
         "componentType": "system",
-        "metricValue": 85,
-        "metricUnit": "percent",
+        "observedValue": 85,
+        "observedUnit": "percent",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -396,8 +401,8 @@ by the details object.</t>
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 2,
         "componentType": "system",
-        "metricValue": 85,
-        "metricUnit": "percent",
+        "observedValue": 85,
+        "observedUnit": "percent",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -408,8 +413,8 @@ by the details object.</t>
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 1,
         "componentType": "system",
-        "metricValue": 8.5,
-        "metricUnit": "GiB",
+        "observedValue": 8.5,
+        "observedUnit": "GiB",
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -418,8 +423,8 @@ by the details object.</t>
         "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
         "node": 2,
         "componentType": "system",
-        "metricValue": 5500,
-        "metricUnit": "MiB",
+        "observedValue": 5500,
+        "observedUnit": "MiB",
         "status": "pass",
         "time": "2018-01-17T03:36:48Z",
         "output": ""
@@ -505,10 +510,11 @@ URI, such as “health” because it will help self-discoverability by clients.<
   <t>Health check responses can be personalized. For example, you could advertise
 different URIs, and/or different kinds of link relations, to afford different
 clients access to additional health check information.</t>
-  <t>Health check responses must be assigned a freshness lifetime (e.g.,
+  <t>Health check responses SHOULD be assigned a freshness lifetime (e.g.,
 “Cache-Control: max-age=3600”) so that clients can determine how long they
 could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
-the service.</t>
+the service. Any method of cach lifetime negotiation provided by HTTP spec is
+acceptable (e.g. ETags are just fine).</t>
   <t>Custom link relation types, as well as the URIs for variables, should lead to
 documentation for those constructs.</t>
 </list></t>
@@ -689,138 +695,144 @@ a fresh copy of the health check response, to assure that it is up-to-date.</t>
   </back>
 
 <!-- ##markdown-source:
-H4sIAI14qlsAA+1b63LbypH+j6eY4vkR2yEpiZZkiXupVWyfWNljy2vJyWZT
-qdQQGIo4AgEGA4hmTjmVB9l9uTzJfl/3DAjqcpytnGwlu/EPCwRmenr63j09
-o9EoafKmcFPzxtmiWZiXC5femA/Or6rSO/N1VS9tY+ZVbd5cXb03Z+/PfWJn
-s9rdTpOsSku7xNystvNmlJc2s7XLR3aVjxYCbpQS3Gh/kmS2wcDJ/sFJkuLx
-uqo3U5OX8ypJ8lU9NU3d+mayv3+KsQBip+anrnS1LZJ1Vd9c11W7miY3boNf
-2dScl42rS9eMXnHlJPGNLbPf2KIqscjG+WSVT82vmiodGvyXl5krm6HxVd3U
-bu7xtFmGh6bOU3xKq+XKhoclBuNTXhZ56X6dJLZtFlU9TcwoMfiXlx4IjM07
-3a1f3OZFLl+UGOe1vSnyBz5jLeeaqTk4ODRHIPXZrStbJ5/SvAE53rm1+SV2
-q6+qtmxIpI9l3rjMXDYgm5dPbmnzAtSThf7lmr/GwFu+tTV2vmia1XRvb71e
-j+e184tZ0dYzL2OSUjia3zpsyHz4+uXk4OA0PD4/PTnm41d4PppMjsPrk8nJ
-SXh8MXl+2L09wryELNwFiDH74fH45Hlv5kFc5vlzzhyNRsbOQBTQPUmuFrk3
-EKiW1DerulpV3nljjXf1bZ46owJlRKBMHeVz/oB8jhV2WTXuN+/4X1P95oOz
-mat9kjx7BgzM61fnVxcfpmZVOAsotVtWt840xMG7tMmr0swcgDqzamdFDonF
-q2fPiKYzufctUCtyrwvLNFEBk1pOxNu2zAzw+kdywoMV13mzaGfkwF5Uk716
-ngY1kU3tKdx/Husqywrga5eSHAocq/RBRjjjADuv7kEkrA8KIl3Y8poExZ6I
-ufuf40fVyBu/t7SYXhP2pXPGFr4CCZwi+SNv0rauuSJ0smk91EW+nr+++trA
-CFjy+8bVQyyfdMv3Poxz18zHVX29B2nY+4JlkR2S2cs8ywqXJF/RNNRV1goT
-lZK3wNcs7bdVDS0z1RykhSyUIivAOr/Ny2tBDbbCrN3MwJZgzCwvsLvVKrLf
-m9a7RKTsu++CnH/+bKzn/vKaMgtbUxVjw0WDuBJUu2rypePCGAhpExuaOdBw
-CQNj7C3012K1gB2ptbMsXiy9K26dH2N3JstptGYtWeg3YMXSJ7M2Lxqzzrmi
-KdvlzNUExZWGBrII0aeF5EabLXKBQ2FNIQcGJUt7w4FpVauaybTMpbknOkOR
-+TlwhspglRrGq07bvBnBKcjMoQiZ8x5SkMOAczyIc5sLoEV+vSg2cdcgsa+K
-Vjaqgs+pn7BF6v46z8i+GiIhpKlW8AgcawtMmzdrLtQsLBWlyCHdlQpboGYC
-fgKn7BHbEQgk/Kqp1lF0gV5ZGaGYrbOg4y7ZgVK1zaptOmBDs6jW7pZyDXUQ
-3d3hoQNrQC2guQlIJjPr89QUmFQQlc6Q4nNepkWbgb9QHhG4wKkUgus76TuA
-9AE1SmVj/c3Ir8CjOWAqINLzo7fXKnk7AzCrh929iSYF1eBsjM+vS36wZZPA
-gBSFow0ZUgTxo1qTn7bcmKWzJZ7nbQGMIdfCpyDRNq0rDz3L53NH4ib5ElaX
-Vj6Qhioyc83auXI7CqpYwf1e08gEPuS/k+X6Jr/PES/GV+XMCVbYdk8Zkhni
-iXmunp3kBTR4oWfm6wLyRkHM3KqoNuJ/Rth6CafTF7iAkeALuTEpJK5sdNnA
-V/g3hBMLqlxONAOuQ/J7E52Dt3OOhjWdQf0zgedbOMK8EZ2GQSmdA/fHxO71
-bVXcRlrCqSFEUK1OKxEYUWk1wFFgh7JSWAYL5sEiuixh9CK0ceVtXlelbJYI
-uLRSW6LqJEY9rOA7+AhvtosAFu0N9AADfSM7QmwGUy0iTKAQoYb41e63bV4L
-z1XJ+64+A1NK8fSDPjsHkc+tj1brZ5cX7+Jb0QGGIJ8/i30R4wU8oQwkoN1q
-76rC/qMOR4npK5vwpqLcjZM39laFbO2KYqSoZX2JE1+/amtGJxS2ZUU9ua4q
-LMRAhpEKbehWfL8yiEGiDL2syltaRci9+iZEtIYhrTeDtx8vrwZD/WveXcjz
-h9f/9vH8w+tXfL58c/bNN91DHHH55uLjN/iehKftzJcXb9++fvdKJ789+yX+
-kCmDi/dX5xfvzr4ZqGvu80LMaQWZSUSNV7ULAgmzk8LnqEUS2jNs/PxZ9kdl
-CNlDzBt0cw98iAnFk6oeqq3QwASeYDPclYDOtiZK/8FTctffE4X7uKlcyG4X
-6p5hobIc/n2zcsmgZ/r2dMEff+urcoDNnFOfK6DFiAlrix8SO0IphI1YUqoa
-JC+mriqIRO6KzDwZqH0GhqLM9APwe9UqcF1GeRibr76KllxSFjxMzZOgHdlT
-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
+H4sIAKIIxFsAA+1c7XLbyJX9j6fo4vyI7ZCUREuyxP2oVWxPrOzYmrXkZLOp
+qVQTaIoYgQCDBkQzU57Kg+y+XJ5kz7m3GwQl2Z5kJ1vZbPJjTAGN27fv57m3
+uzMajZImbwo3Na+cLZqFeb5w6Y156/yqKr0zX1b10jZmXtXm1dXV1+bs63Of
+2NmsdrfTJKvS0i7xbVbbeTPKS5vZ2uUju8pHCyE3SklutD9JMttg4GT/4CRJ
+8fO6qjdTk5fzKknyVT01Td36ZrK/f4qxIGKn5ueudLUtknVV31zXVbuaJjdu
+g7+yqTkvG1eXrhm94MxJ4htbZr+1RVViko3zySqfmt80VTo0+E9eZq5shsZX
+dVO7ucevzTL8aOo8xau0Wq5s+LHEYLzKyyIv3TdJYttmUdXTxIwSg//lpQcD
+Y/NGV+sXt3mRyxsVxnltb4r8gdeYy7lmag4ODs0RRH1268rWyas0byCON25t
+fo3V6qOqLRsK6V2ZNy4zlw3E5uWVW9q8gPRkon+55l9j8C3v2horXzTNarq3
+t16vx/Pa+cWsaOuZlzFJKRrNbx0WZN5++XxycHAafj49PTnmzy/w+2gyOQ6P
+TyYnJ+Hns8nTw+7pEb5LqMJdghizH34enzztfXkQp3n6lF+ORiNjZxAK5J4k
+V4vcGxhUS+mbVV2tKu+8sca7+jZPnVGDMmJQpo72OX/APsdKu6wa99s3/E9T
+/fats5mrfZI8eQIOzMsX51cXb6dmVTgLKrVbVrfONOTBu7TJq9LMHIg6s2pn
+RQ6LxaMnT8imM7n3LVgrcq8Ty2fiAia1/BBP2zIz4OsfqQkPVVznzaKdUQN7
+0U326nka3EQWtad0/3mssywrkK9dSnEocczSJxnpjAPtvLpHkbTeKol0Yctr
+ChRrIufuT+ePrpE3fm9p8XlN2pfOGVv4CiJwyuRPvEnbuuaM8Mmm9XAXeXv+
+8upLgyBgqe8bVw8xfdJN33sxzl0zH1f19R6sYe8zkUVWSGUv8ywrXJJ8wdBQ
+V1krSlRJ3oJfs7TfVjW8zFRziBa2UIqtgOv8Ni+vhTXECrN2M4NYgjGzvMDq
+Vquofm9a7xKxsu++C3b+4YOxnuvLa9osYk1VjA0nDeZKUu2qyZeOE2MgrE1i
+aOYgwyUCjLG38F+L2QJ3lNbOtHiw9K64dX6M1ZksZ9CatVSh30AVS5/M2rxo
+zDrnjKZslzNXkxRnGhrYIkyfEZILbbbMBQ2FOUUcGJQs7Q0HplWtbiafZS7N
+PdkZis2nNl3gMf4A8/AdTIeHeZ22eTNCdhASQ1pb4ryHOeS2oHhlcdu1Qma3
+udBf5NeLYjMKwoDkfVW0sn71B5ite4+VMySs84xarWEpQqVaIVFwLObw1bxZ
+08ibhaX/FDmMvir7EyfgAxxmHwkpQW5j86pau1taaiPT551pFxsEFyMStXWW
+aAy4E6Gqtlm1TUeVyUddeke1LidtsrkJTCYz6/PUFJi5ICtdfMXrvEyLNoPa
+4VNih0GBKezZd0Z5AKMERzTWxvqbkV9BdXPQVEKU5ztvr9Ugdwbgqx539z40
+KaSGHGR8fl3yhS2bBHGlKBxDy5CWiT+qNfVpy41ZOlvi97wtwDHMXfQUlG/T
+uvJwv3w+d5Rpki8RjBn8g2joOTPXrJ0rt6NgQhWy8jVjTxB//nuZrp8J+orw
+EpPVzpxwhWX3fCSZAWbMc034FC+oITk9MV8WsDcaYuZWRbWRtDTC0kvkor7B
+BY6EX9iNSWFxZaPTBr0i7QFlLOiJOdkMvIphbWLO8HbO0QiyM0SFTOj5Fvkx
+b8TVEWdK56D9Mbl7eVsVt1GWyHVADursaSUGI56u7hbtdCgzhWkwYR4CpcsS
+ghqRjStv87oqZbFkwKWVhhh1J4n1YQbf0Qfq2U4CWgxDMH8M9I2sCJANEVxM
+mERhQg35q93v2rwWnauT9xFABqWUAgAGfXUOop5bH4PZLy4v3sSn4gNEJh8+
+iFtKTAOfcAYK0HZ8mlWF9Zs7rtt3NtFNRbsbJ6/srRrZ2hXFSFnL+hYnEGDV
+1gQtNLZlRT+5ripMRHxDAMPQujXfLwygSbSh51V5yxgJu9eUBaBriHS9Gbx+
+d3k1GOq/5s2F/H778t/enb99+YK/L1+dffVV9yOOuHx18e4rvE/Cr+2Xzy9e
+v3755oV+/Prs1/iHShlcfH11fvHm7KuBZuy+LiScVrCZRNx4VbtgkAg7KVKR
+RiSRPdHkhw+yPjpDKCpiOZEkP7zKoM78PQX3Z0x62pY1LDQXI+5kOZL5ZuXM
+oBfQ9lTLP/3WV+UALJ7TSyusiPAIfEh2kehA24LnL2krDSoVU1cV2MtdkZlH
+A426g8fqokwRqFKqVdCljPIIIV98EeOz1Cf4MTWPgs1nj8F/Rr6wxvXCSRYQ
+ZwpoN4In2GyaulUjKRHiAagdJ5Ss4FKPz7wJGm4FDsf4e2sLgtRo4MIVmDII
+FoOV9X4wDUa/MY96U9giByAGp4MKvgal+3a1QtkEa80cwN2VgJa8VaTAgmPQ
+rsQpzS+QuzHiclVj/p9BYI+HOh0hAqZry09P6Oq6qn/gnFm1Lj86axiGmQEE
+yu1ChwqQfIV4BX2nwICMO8YoSIS8IhQK0leFM++DRYBQ4Bifs9IRzeN5A9DC
+EIc4b+kSpA96JCF23GEKZmj81bQ1A8ds0w86rswkGI3pBuaPf/hPquePf/gv
+mQR/chH4MzGBLWbaB6gHnD15/3709P17UxPuGwkaiPX4KuvoUx99gp8idwhy
+Rx8hByxKwQShgdyW2Y5yXFxnpSqEHfjyEOdRiTbL8uBY/eAciM1czOzIbkCL
+hYKBO764ZTAuUbR+dlcB1GhVFndwi/AmYeJ9E+2D3YKqZNzIG0me0ZV7aq3m
+kFAjMQlgsRIPD4TpyCFZjM0Z8FRLcAAMAloxEzFZYdYMeDom2o7wLg9j8zxA
+jiAVmA/itmTsP9sYhQENnfRS5QDUmKXqvgAeufH1GLwWtr52knAFRqIgI8DT
+aPaYJVEu0Uz6LA1xVQAKMvnMLZBhJVQhxscCEgqvUbrVqOXauoe03HsA08az
+m1BUNhvNbGHpzWznhPAJJJqyKiH4pxuJ+H3fRvpVJKMAojXGs8JBuA6/EK+j
+KT0OjYBuUIwUOqESQBhgO+E8S5Lu5w4NWFNAEITQLguYbYbCF46T+dFWPF3B
+npdBiV1qALhCWEImQGXJthqkHblSWDuOCbQFHN8ESlqlgtbuWKZxChp5SSsb
+/A3D9OSBzTM4mOPMEhTJl0CAueWaTSyRzC54lyQq9TVSaDf/ElaOEgjWs50N
+IXkBZIxyx2a0/mDpIIf4bwVqz81C0Zd3K1tzuYMg3LCCAQ0uPjt/MVAjyklu
+WzfMgcmE9MNqBKuqQjaNPJtkDXNST3W2rq3UDvJKVH1rpSDZaXgow2JbQk/L
+wCTRf3co1nZtJOeFQSxAuoCqSVNWJklMiXt1JKxMU9M2DFbLvGkUk4b8rl/o
+qjLXgBzWFX7s2CQ9xFSzb+FTKroQUr0qK35iZ8T0veyI2qlvlrQjfOugt7zs
+ioN+0N5SYPpmN9QuWV05tmdTuGqy61SUB+zE8+Ox+Tq26uaESkp9wMz9IjB4
+IUsYxAae4H9ZQY8HFQeiyA2EIf/cF0WnaZWJYkSsiTbITzTbdzXqu7fnXpEo
+26dAopwXuQLoAjFL5xCxAmtHUvf42som2Y3yW3DwNZa9drMRKYo7hErGx6Ln
+5IQwWGZMOhYX+SpaSeg1zJxkluUSgLh212wFAo8i8Qm+lLpQs1mmFRPWN2TH
+xN5WeSYtbpS4FsgTxmjOiZYH3hXzgcqGZVCXkXNddAAMzDShOCY9bZOE1d4C
+r99PUkNysNTCiOzMENJVg8FCGGm7n3c1yWob5mNyNv9zOEx9J2gPY3bv1QgJ
+8saq8xrWGittJPb+uDfRokWlMJoj25QZImh/6P00Ye7brNZ8g+Bpg+iMlB1i
+n9tp6YVFoUAkDqTWxN4sg2h1jVUUyUe8i+r17WzU5W4o8FLaGfL1ziuJ2zM2
+o9Ib1VyocxD+GBkkc9/aerNNpT10qm1OsOhDmU3zoVeJhwe32sGPseQakfwd
+Vh6B73yueShkBGUCgZBJMIZiAv9Ixmk2Cr4cMma0w1AlCuKXbmYSqj+Q34y3
+BXgwnI12d0ykGYwmKGlLuzM4tmfxCWWE5C3xLqg7hCYBhp12mzWSrK0b1kDf
+dct+A0f7MP0OiNG32iORJ6joCSIkaYrwtN4NsFKNTYj1coP1oS700tjamWIn
+I6kdszUqmV58PRaQPbgpVQAln5guoDGkFFXZuRS/HYZumbyhp0Tp25jLq3oM
+hu6scYcl4SGsqzdOi/tHVtv2wcjw6LFgJbuTp3Jma+IJTY89/n8A87LET7Av
+3lzN6N8SP1CKaojUpp5E1TmR6hPUGzDhrnmk9WaAJdx2AqZFkL87wsem71QK
+3ycBwWqs0icxZF7lSxceYWGlmpqPn8keROBDo7+2L2I/jLsRyk7oct2UCCMo
+ltuamJPYDUv3iNpLy92ZoTk/e3Mm1Jlnifa7/rLOgsQRoFhXHiEt1pQezKzJ
+U82fSBep89LNq9vC9ZLlTJcT8wmjkOVqlaWgZC2sHDG+WgmmHUtSBsoQLauT
+VZFc5gRCMJRYwbgLxbCiyo30ur5t2acXRfqVTbUYvetpttvylTHm+dmbfj0q
+3JbsfrK1l0tMxcc+FEyhfRNCC/L3UMhdru01y6iu9Sa1VInUgbzCFgeNeFZV
+N48Rpy7KbRyDtWadowBdi4EMNbIPtrH0boqJCZBhMukiklqt9o26hlL4glFd
+m1sdVWbh3h/TH5aILfczfAfyrYnbDclO+N/rUljo3MdUal63RZOvCtfhtK6c
+ZEe6x9ELsSYkeWfruOIgiCEzSxP1Lua/rRkky4x313qFINNbLf/cWW+/McF8
+1XCCnYirEEneMQ/8xCehVXmvt0CjS2N2iZFEnOtemPgzAkk3T/ibkdQjpMUY
+on3/v0eMv52IgdHyidSlkrJc9kvaBsrT/p87Bt0ZIFmDJaEGkH58QE9BzdMA
+eoYBqQ4TdcphrKZqlAcNAaT6U5yPZ1u2s/OvzzrTDqs7zvTcFjXDixfM1ZIY
+N/t7qKGDTjsz9gACIiZlPRchMmOOZgBZWaJOpmNjc0JgLW1+p4EvW/19yIE5
+AfuqMkOwWeZlC6seJgCNtQLyaukaUaor2A28qgC9b+g+dVgCN2Icmw7BnMXV
+wpY+95doTwn5ZRHJc1l5iP15H5zuhI8f05/VCvvePFQT3NannWlGGlotP30q
+O0V/d/3/FbBwfzdqB/mHmsi9t6xpmKYi9+FNU61GeihhoO2qQRIKoqGZtdud
+1DvJ+4FSlNslwWfhWaH9HCskDRvKryDWRBxqF1HIB7CREd8Jaj+/vDg53j/o
+Ntahb3V0DmVBsy2PdmOdWVv6alrV3FnXNrX2z/22kFDvD5CeJ1/C9jypReJI
+4Sy+Wf5Xzpc/oSkBcRDkkIHCKK8U08rVwmepm8JwKRvP/yRhWyDAjnCIJLYP
+/+o19rHG2l8hs+ble8umtbkIHdrvv/8eXvXzl1cm7BNLQ2rvYHwgfW7fTMk+
+P2Hw4/6RbGJOzUd2mBlqIwUz2d83F/+KJ891v3mkwPFjn2IcrWzE0XVVTJET
+3o/stfunp8f7+0ol1HdTkxYVN9a/w+O4Mz0NLWCGiUHodPPhgT7Ztsr5bDwZ
+T/S5dLbx7DeDwTfyIGgCo3RAbLXJh/P9p+5oMpmPDuaHh6PD/ePJ6HR2dDQ6
+PTp5Nj89SE/TwzBfrx/GD7cNTh6s/X0E9HGsFihT853u9KZYCJykttN+nUsu
+5b0J43TstgjhRNk8O07nk9noYHbsRoeHB5OR3Z+djObH82fPTp/Z4/1MV373
+cypHCERI3B+1Ez4wanK0/8BbAguSWPr+tw/oJ7xpdFEDHpAe7R+MDp5d7T+d
+Pj2eHp78x87sW5WEhx/k32+Gd8XV6wH8RaTV/ClCenb0oBRka+N/JoXeUwk7
+neXEydibptXpkWi7ysfRjXnYNZuxytuLiw9eOOgofHhQytpN+YxYoxVpIfUp
+6RxM9k/h2OPJ4dEnTOnHsKSHbWbVTnttpR9kLcfz7PDg2O2PTk4n+6PDg/35
+6DR9hth8+Ox0f39//mwyedbnilLmSj/lbp8X1Mmn5IO0ypPOD0vpR7C0KLvh
+X0o4k78B4ewY1tItec3j/4htjT8lv5/nP/t/a1hHR/ufSnGvPyaaHz3HJUFI
+dyL9QDZPPxHk5f2eoI0wT3/ke7k54Yq9ZsG7MlWRgXSY+N64Hqn+eHKWfBAM
+CWh56dJW7ho8575SFs4KAxjHgzo8yMsq072HW+bc7WQluV64MvQNettq/d1r
+89oCL+ZV6xMA6ar2oT3T+nB5pb+lTMhc1YCRvGIjFG3TWJ524c6bnoKz4Yxl
+snN2fXtoi9uAkVn2gLBu9nDD9jAPwZXhgLIBTo3dEh7v87pvjqeCttkquCeO
+q92zmnePbm83g7eHke5CZTkM/XpLQ69g9Td042tUDr0RfbT9xLwNpzK5dYbX
+DSDz1JR7Fq8u4lmy+69elmmV6U2J/rqmZpaXtt5gRGcId0foMdifSifNL6B8
+2RvUseF6UWjRcOu0KKTnJjYZD6xyLdzAdY4NAcNTsJxONP/FwURbWA8enpPD
+b2aHBTm17/t7S4Tn78Jp9bexi3LeNfBR3bFrokdgrZ5gE6qfXQwbPS2vH2x5
+57mJLe/PhM5n2ded654apT6HH9Wbe/dDCFGHavGyX0irDgdx2Se5tekmtqXZ
+NLkWzkNZEo7cdLsTKh3W+NIvYqUpB5Klf9NtYYgowgWWIKNeT4GHT3mG2ty9
+87DOoWrVggsyG+rNSKcHX2HYdcXS0HfNtKuvLvdYZ14OzcUZ/HNiXJNyW/X8
+7pWLu0b4BnkA474OJ4mz3TVONaJQQXIJCyPP+ldXtL/SRR7x46n5JaTO8PTE
+fFnba226brd9PuUGYYtarg2eaitnKx94WULL6YhGUwz62DYxK21P77qJuLhe
+9RTe8YXYYCeDswdNTbPAwdi8YEchBD2eV9ZO3vbkfyPVPKMCP5gwTl/naeiF
+P/KPt++ejs2XvFfGA0Il63J5Ow5VvzGH/DaFFVZ+YeYcKUGLp2Gm5urlv1/J
+qKNxODnSd8kYlsK9WURbvck6pY7xXv1P9rxTbajM21oaog8t+c2n77JijS8/
+cgtVLa9kWzMI+blYMsUsN2n3nuuBwJAfCld/ZCJeIkjZhS5cdq33RJg0rByp
+qox5nd84c7Zsy8w7OMrLOr8xv8oLHhz6Rcs7JuZn8JWKj+mDb2kjcLD4L09+
+6NU9315f6zkzbTPPkfJ49GVszkqxqde2vuGFDRriwsoFHjMDOpIuqxDSS8LM
+BjBgb5z1ebGR1Pect6biDaFLRhX8vnMxAuv6FbN/uHqHSPZgQjbd9bh4KY24
+wYLftZFdBJHLjXMrnhJZ5mUmJz66k85dQu0f851h5aaognmzly24XU/nyxYk
+tVdsRjz/AOXzQFgXfUI3ZwAqqWUwyBuNYgtXrAyL71E8ixvD0PYYGP3y1UMJ
+38dm60rs1jIehvPrAdcNzaZqA/qxGag3gFFJ/8Qn85P04vfw1fYx5KsnwneP
+8slRVzuHJrPenTTT3eYKkIaDtqFiR0c7Keqj6+qfyglngK2RO9ol6Rf53GnD
+m41/wbqf6AQOHhu5e8uU0rt1tr1auqjW0Kzek2KKU3lJB1tuleqq5WAfNVRs
+uqO5MKkmXUSrbcs8uvSLFxeXI+2mJzvnkukrPDoPN5DtlVSOpMX1lO66anRn
+amfXQ+8BIO/ogd3exRDd+nh5Za/9dp+FG9qPKd7n+Kta7ipRg70cGuT+VWwt
+y/YOHZaIgKR5Tlw3xnjsGCKg3YQ9lC10xjrkGGKpJ9DZkacz4+922fPg3ZtM
+PYy/5N0QyY8PYlq59mD7KGVtN5yEN9a3Ww8fx8OsghhKBh3v/xBOm8azzsnD
+H8eLZMEI8WmE97q9O3ObKuxgdYaZdIoMG2cPkhbRw2VFq7wJrpeE5b510d1P
+PZT7YWde9+fagv+nC0FmVUuZMUtFE/2IAB7pREmP5uOeMXfGi2gU7vFz126j
+h9etIs1HimDWtIREdgbXLMVmznSXtMDnV8gxfM7Dhcomgqf8fzO4Wu8EHu4f
+mkfQGsITMtFjggvbHYaVsQAtKuNqxvNmSfB4GNdq8xmBckleNoN1d1Qidrsa
+NdUok+Pd/w0DjNnbwkMAAA==
 
 -->
 
