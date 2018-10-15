@@ -2,7 +2,7 @@
 
 Health Check Response RFC Draft for HTTP APIs
 
-RFC Draft: https://tools.ietf.org/html/draft-inadarei-api-health-check-01
+Published RFC Draft: <https://tools.ietf.org/html/draft-inadarei-api-health-check>
 
 ## Workspace Setup 
 
