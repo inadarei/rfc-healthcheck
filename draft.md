@@ -116,10 +116,10 @@ API publishers SHOULD use following values for the field:
   - "warn": healthy, with some concerns.
 
   The value of the status field is case-insensitive and is tightly related with
-  the HTTP response code returned by the health endpoint. For “pass” and “warn”
-  statuses, HTTP response code in the 2xx-3xx range MUST be used. For “fail”
-  status, HTTP response code in the 4xx-5xx range MUST be used. In case of the
-  “warn” status, endpoints SHOULD return HTTP status in the 2xx-3xx range, and
+  the HTTP response code returned by the health endpoint. For “pass” status,
+  HTTP response code in the 2xx-3xx range MUST be used. For “fail” status,
+  HTTP response code in the 4xx-5xx range MUST be used. In case of the “warn”
+  status, endpoints MUST return HTTP status in the 2xx-3xx range, and
   additional information SHOULD be provided, utilizing optional fields of the
   response.
 
