@@ -30,6 +30,7 @@ normative:
   RFC8288:
   RFC7234:
   RFC8259:
+  RFC6570:
 
 informative:
   RFC7230:
@@ -153,12 +154,13 @@ notes: (optional) array of notes relevant to current state of health
 output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.
 
-## details
+## checks
 
-details (optional) is an object that provides more details about the status of
-the service as it pertains to the information about the downstream dependencies
-of the service in question. Please refer to the "The Details Object" section
-for more information.
+checks (optional) is an object that provides detailed health statuses of
+additional downstream systems and endpoints which can affect the overall health
+of the main API. Please refer to the “The Checks Object” section for more
+information.
+
 
 ## links
 
@@ -178,9 +180,9 @@ scope.
 
 description (optional) is a human-friendly description of the service.
 
-# The Details Object
+# The Checks Object
 
-The "details" object MAY have a number of unique keyes, one for each logical
+The "checks" object MAY have a number of unique keyes, one for each logical
 downstream dependencies or sub-components. Since each sub-component may be
 backed by several nodes with varying health statuses, these keys point to arrays
 of objects. In case of a single-node sub-component (or if presence of nodes is
@@ -262,6 +264,16 @@ status (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
 by the details object.
 
+## affectedEndpoints
+
+A typical API has many URI endpoints. Most of the time we are interested in
+the overall health of the API, without diving into details. That said, sometimes
+operational and resilience middleware needs to know more details about the health
+of the API (which is why "checks" property provides details). In such cases,
+we often need to indicate which particular endpoints are affected by a particular
+check's troubles vs. other endpoints that may be fine. The `affectedEndpoints`
+property is a JSON array containing URI Templates as defined by {{RFC6570}}.
+
 ## time
 
 time (optional) is the date-time, in ISO8601 format, at which the reading of the
@@ -301,7 +313,7 @@ by the details object.
   "output": "",
   "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
   "description": "health of authz service",
-  "details": {
+  "checks": {
     "cassandra:responseTime": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
@@ -309,6 +321,11 @@ by the details object.
         "observedValue": 250,
         "observedUnit": "ms",
         "status": "pass",
+        "affectedEndpoints" : [
+          "/users/{userId}",
+          "/customers/{customerId}/status",
+          "/shopping/{anything}"
+        ],
         "time": "2018-01-17T03:36:48Z",
         "output": ""
       }
