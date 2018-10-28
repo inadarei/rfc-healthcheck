@@ -22,3 +22,17 @@ Published RFC Draft: <https://tools.ietf.org/html/draft-inadarei-api-health-chec
     ```
     make latest
     ```
+
+## Known Implementations
+
+1. Node.js: https://github.com/inadarei/maikai
+
+## References
+
+In creation of this RFC following existing standards were reviewed and taken
+into account:
+
+1. [Kubernetes health](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#define-a-liveness-http-request)
+1. [Azure health](https://docs.microsoft.com/en-us/azure/architecture/patterns/health-endpoint-monitoring)
+1. [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html#_writing_custom_healthindicators)
+1. [Node Terminus](https://github.com/godaddy/terminus)
