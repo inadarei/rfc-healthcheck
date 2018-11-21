@@ -501,7 +501,7 @@ authoring RFCs easily.</t>
 </section>
 <section anchor="creating-and-serving-health-responses" title="Creating and Serving Health Responses">
 
-<t>When making an health check endpoint available, there are a few things to keep
+<t>When making a health check endpoint available, there are a few things to keep
 in mind:</t>
 
 <t><list style="symbols">
