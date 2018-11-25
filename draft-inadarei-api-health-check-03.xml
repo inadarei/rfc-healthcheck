@@ -285,11 +285,12 @@ object, array or literal.</t>
 </section>
 <section anchor="observedunit" title="observedUnit">
 
-<t>observedUnit (optional) SHOULD be present if observedValue is present. Clarifies
-the unit of measurement in which observedUnit is reported, e.g. for a time-based
-value it is important to know whether the time is reported in seconds, minutes,
-hours or something else. To make sure unit is denoted by a well-understood name
-or an abbreviation, it should be one of:</t>
+<t>observedUnit (optional) SHOULD be present if observedValue is present and can 
+be more that one type of unit. Clarifies the unit of measurement in which 
+observedUnit is reported, e.g. for a time-based value it is important to know 
+whether the time is reported in seconds, minutes, hours or something else. To 
+make sure unit is denoted by a well-understood name or an abbreviation, it 
+should be one of:</t>
 
 <t><list style="symbols">
   <t>A common and standard term from a well-known source such as schema.org, IANA,
