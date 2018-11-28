@@ -220,7 +220,7 @@ componentID MAY appear in the details, if they are from different nodes.
 
 ## componentType
 
-componentType: (optional) SHOULD be present if componentName is present. It's
+componentType: (optional) SHOULD be present if componentId is present. It's
 a type of the component and could be one of:
 
   * Pre-defined value from this spec. Pre-defined values include:
