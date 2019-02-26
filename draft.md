@@ -104,7 +104,7 @@ Health Check Response Format for HTTP APIs uses the JSON format described in
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
 
-## status 
+## status
 
 status: (required) indicates whether the service status is acceptable or not.
 API publishers SHOULD use following values for the field:
@@ -131,14 +131,14 @@ API publishers SHOULD use following values for the field:
   with the behavior that current infrastructural tooling expects:
   load-balancers, service discoveries and others, utilizing health-checks.
 
-## version 
+## version
 
 version: (optional) public version of the service.
 
 ## releaseId
 
 releaseId: (optional) in well-designed APIs, backwards-compatible changes in
-  the service should not update a version number. APIs usually change their
+  the service SHOULD not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
   However implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "releaseID" that is
@@ -181,17 +181,17 @@ description (optional) is a human-friendly description of the service.
 # The Details Object
 
 The "details" object MAY have a number of unique keyes, one for each logical
-downstream dependencies or sub-components. Since each sub-component may be
+downstream dependency or sub-component. Since each sub-component may be
 backed by several nodes with varying health statuses, these keys point to arrays
 of objects. In case of a single-node sub-component (or if presence of nodes is
-not relevant), a single-element array should be used as the value, for
+not relevant), a single-element array SHOULD be used as the value, for
 consistency.
 
-The key identifying an element in the object should be a unique string within
+The key identifying an element in the object SHOULD be a unique string within
 the details section. It MAY have two parts: "{componentName}:{measurementName}",
 in which case the meaning of the parts SHOULD be as follows:
 
-* componentName: (optional) human-readable name for the component. MUST not 
+* componentName: (optional) human-readable name for the component. MUST not
   contain a colon, in the name, since colon is used as a separator.
 * measurementName: (optional) name of the measurement type (a data point type)
   that the status is reported for. MUST not contain a colon, in the name, since
@@ -233,8 +233,8 @@ a type of the component and could be one of:
     provided by a resource at the other end of the URI. URIs do not have to be
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).   
-    
+    Swagger document or a nicely printed book).
+
 ## observedValue
 
 observedValue: (optional) could be any valid JSON value, such as: string, number,
@@ -242,11 +242,11 @@ object, array or literal.
 
 ## observedUnit
 
-observedUnit (optional) SHOULD be present if observedValue is present. Calrifies
-the unit of measurement in which observedUnit is reported, e.g. for a time-based
+observedUnit (optional) SHOULD be present if observedValue is present. Clarifies
+the unit of measurement in which observedValue is reported, e.g. for a time-based
 value it is important to know whether the time is reported in seconds, minutes,
 hours or something else. To make sure unit is denoted by a well-understood name
-or an abbreviation, it should be one of:
+or an abbreviation, it SHOULD be one of:
 
   * A common and standard term from a well-known source such as schema.org, IANA,
     microformats, or a standards document such as {{RFC3339}}.
@@ -256,7 +256,7 @@ or an abbreviation, it should be one of:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
-## status 
+## status
 
 status (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
@@ -269,7 +269,7 @@ observedValue was recorded. This assumes that the value can be cached and the
 reading typically doesn't happen in real time, for performance and scalability
 purposes.
 
-## output 
+## output
 
 output (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented

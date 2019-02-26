@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                          October 27, 2018
+Internet-Draft                                         February 26, 2018
 Intended status: Informational
-Expires: April 30, 2019
+Expires: August 30, 2019
 
 
                Health Check Response Format for HTTP APIs
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 30, 2019.
+   This Internet-Draft will expire on August 30, 2019.
 
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 1]
+Nadareishvili            Expires August 30, 2019                [Page 1]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 2]
+Nadareishvili            Expires August 30, 2019                [Page 2]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -165,9 +165,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 3]
+Nadareishvili            Expires August 30, 2019                [Page 3]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 3.  API Health Response
@@ -216,14 +216,14 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 3.3.  releaseId
 
    releaseId: (optional) in well-designed APIs, backwards-compatible
-   changes in the service should not update a version number.  APIs
+   changes in the service SHOULD not update a version number.  APIs
    usually change their version number as infrequently as possible, to
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 4]
+Nadareishvili            Expires August 30, 2019                [Page 4]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    preserve stable interface.  However implementation of an API may
@@ -270,22 +270,22 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 4.  The Details Object
 
    The "details" object MAY have a number of unique keyes, one for each
-   logical downstream dependencies or sub-components.  Since each sub-
+   logical downstream dependency or sub-component.  Since each sub-
    component may be backed by several nodes with varying health
    statuses, these keys point to arrays of objects.  In case of a
 
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 5]
+Nadareishvili            Expires August 30, 2019                [Page 5]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    single-node sub-component (or if presence of nodes is not relevant),
-   a single-element array should be used as the value, for consistency.
+   a single-element array SHOULD be used as the value, for consistency.
 
-   The key identifying an element in the object should be a unique
+   The key identifying an element in the object SHOULD be a unique
    string within the details section.  It MAY have two parts:
    "{componentName}:{measurementName}", in which case the meaning of the
    parts SHOULD be as follows:
@@ -333,9 +333,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 6]
+Nadareishvili            Expires August 30, 2019                [Page 6]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 4.2.  componentType
@@ -369,11 +369,11 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 4.4.  observedUnit
 
    observedUnit (optional) SHOULD be present if observedValue is
-   present.  Calrifies the unit of measurement in which observedUnit is
+   present.  Clarifies the unit of measurement in which observedValue is
    reported, e.g. for a time-based value it is important to know whether
    the time is reported in seconds, minutes, hours or something else.
    To make sure unit is denoted by a well-understood name or an
-   abbreviation, it should be one of:
+   abbreviation, it SHOULD be one of:
 
    o  A common and standard term from a well-known source such as
       schema.org, IANA, microformats, or a standards document such as
@@ -389,9 +389,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 7]
+Nadareishvili            Expires August 30, 2019                [Page 7]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 4.5.  status
@@ -445,9 +445,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 8]
+Nadareishvili            Expires August 30, 2019                [Page 8]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
            "componentType": "datastore",
@@ -501,9 +501,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 9]
+Nadareishvili            Expires August 30, 2019                [Page 9]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
            "time": "2018-01-17T03:36:48Z",
@@ -557,9 +557,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 10]
+Nadareishvili            Expires August 30, 2019               [Page 10]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    o  Required parameters: n/a
@@ -613,9 +613,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 11]
+Nadareishvili            Expires August 30, 2019               [Page 11]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
       1.  Name: Irakli Nadareishvili
@@ -669,9 +669,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 12]
+Nadareishvili            Expires August 30, 2019               [Page 12]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    As a result, clients ought to cache the health check response (as per
@@ -725,9 +725,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 13]
+Nadareishvili            Expires August 30, 2019               [Page 13]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
@@ -781,4 +781,4 @@ Author's Address
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 14]
+Nadareishvili            Expires August 30, 2019               [Page 14]
