@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                          October 27, 2018
+Internet-Draft                                         February 26, 2018
 Intended status: Informational
-Expires: April 30, 2019
+Expires: August 30, 2019
 
 
                Health Check Response Format for HTTP APIs
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 30, 2019.
+   This Internet-Draft will expire on August 30, 2019.
 
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 1]
+Nadareishvili            Expires August 30, 2019                [Page 1]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 Copyright Notice
@@ -91,29 +91,30 @@ Table of Contents
      4.1.  componentId . . . . . . . . . . . . . . . . . . . . . . .   6
      4.2.  componentType . . . . . . . . . . . . . . . . . . . . . .   7
      4.3.  observedValue . . . . . . . . . . . . . . . . . . . . . .   7
-     4.4.  observedUnit  . . . . . . . . . . . . . . . . . . . . . .   7
-     4.5.  status  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.6.  time  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.7.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.8.  links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.4.  thresholdValue  . . . . . . . . . . . . . . . . . . . . .   7
+     4.5.  observedUnit  . . . . . . . . . . . . . . . . . . . . . .   7
+     4.6.  status  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.7.  time  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.8.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.9.  links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
    5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   8
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  10
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
    9.  Creating and Serving Health Responses . . . . . . . . . . . .  12
-   10. Consuming Health Check Responses  . . . . . . . . . . . . . .  12
+   10. Consuming Health Check Responses  . . . . . . . . . . . . . .  13
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  13
-     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 2]
+Nadareishvili            Expires August 30, 2019                [Page 2]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
+     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
 
 1.  Introduction
@@ -164,10 +165,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-
-Nadareishvili            Expires April 30, 2019                 [Page 3]
+Nadareishvili            Expires August 30, 2019                [Page 3]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 3.  API Health Response
@@ -221,9 +221,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 4]
+Nadareishvili            Expires August 30, 2019                [Page 4]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    preserve stable interface.  However implementation of an API may
@@ -277,9 +277,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 5]
+Nadareishvili            Expires August 30, 2019                [Page 5]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
    single-node sub-component (or if presence of nodes is not relevant),
@@ -333,9 +333,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 6]
+Nadareishvili            Expires August 30, 2019                [Page 6]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
 
 
 4.2.  componentType
@@ -366,18 +366,33 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    observedValue: (optional) could be any valid JSON value, such as:
    string, number, object, array or literal.
 
-4.4.  observedUnit
+4.4.  thresholdValue
+
+   thresholdValue: (optional) could be any valid JSON value, such as:
+   string, number, object, array or literal.  Determines the value above
+   (or below) which the status changes from "pass" state to "warn" state
+   or back. thresholdValue MUST only be present if observedValue is also
+   present.
+
+4.5.  observedUnit
 
    observedUnit (optional) SHOULD be present if observedValue is
-   present.  Calrifies the unit of measurement in which observedUnit is
-   reported, e.g. for a time-based value it is important to know whether
-   the time is reported in seconds, minutes, hours or something else.
-   To make sure unit is denoted by a well-understood name or an
-   abbreviation, it should be one of:
+   present.  Clarifies the unit of measurement in which observedValue
+   and thresholdValue are reported, e.g. for a time-based value it is
+   important to know whether the time is reported in seconds, minutes,
+   hours or something else.  To make sure unit is denoted by a well-
+   understood name or an abbreviation, it should be one of:
 
    o  A common and standard term from a well-known source such as
       schema.org, IANA, microformats, or a standards document such as
       [RFC3339].
+
+
+
+Nadareishvili            Expires August 30, 2019                [Page 7]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
 
    o  A URI that indicates extra semantics and processing rules that MAY
       be provided by a resource at the other end of the URI.  URIs do
@@ -386,34 +401,26 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
       convenient means (e.g. publishing an RFC, Swagger document or a
       nicely printed book).
 
-
-
-
-Nadareishvili            Expires April 30, 2019                 [Page 7]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
-
-4.5.  status
+4.6.  status
 
    status (optional) has the exact same meaning as the top-level
    "output" element, but for the sub-component/downstream dependency
    represented by the details object.
 
-4.6.  time
+4.7.  time
 
    time (optional) is the date-time, in ISO8601 format, at which the
    reading of the observedValue was recorded.  This assumes that the
    value can be cached and the reading typically doesn't happen in real
    time, for performance and scalability purposes.
 
-4.7.  output
+4.8.  output
 
    output (optional) has the exact same meaning as the top-level
    "output" element, but for the sub-component/downstream dependency
    represented by the details object.
 
-4.8.  links
+4.9.  links
 
    links (optional) has the exact same meaning as the top-level "output"
    element, but for the sub-component/downstream dependency represented
@@ -435,6 +442,14 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
      "version": "1",
      "releaseID": "1.2.2",
      "notes": [""],
+
+
+
+Nadareishvili            Expires August 30, 2019                [Page 8]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
      "output": "",
      "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
      "description": "health of authz service",
@@ -442,14 +457,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
        "cassandra:responseTime": [
          {
            "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-
-
-
-Nadareishvili            Expires April 30, 2019                 [Page 8]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
-
            "componentType": "datastore",
            "observedValue": 250,
            "observedUnit": "ms",
@@ -491,6 +498,14 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
            "time": "2018-01-17T03:36:48Z",
            "output": ""
          },
+
+
+
+Nadareishvili            Expires August 30, 2019                [Page 9]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
          {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "node": 2,
@@ -498,14 +513,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
            "observedValue": 85,
            "observedUnit": "percent",
            "status": "warn",
-
-
-
-Nadareishvili            Expires April 30, 2019                 [Page 9]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
-
            "time": "2018-01-17T03:36:48Z",
            "output": ""
          }
@@ -547,6 +554,14 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    attacks.  In some cases the health check endpoints may need to be
    authenticated and institute role-based access control.
 
+
+
+
+Nadareishvili            Expires August 30, 2019               [Page 10]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
 7.  IANA Considerations
 
    The media type for health check response is application/health+json.
@@ -554,13 +569,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    o  Media type name: application
 
    o  Media subtype name: health+json
-
-
-
-Nadareishvili            Expires April 30, 2019                [Page 10]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
 
    o  Required parameters: n/a
 
@@ -602,6 +610,14 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
       3.  File extension(s): .json
 
+
+
+
+Nadareishvili            Expires August 30, 2019               [Page 11]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
       4.  Macintosh file type code: TEXT
 
       5.  Object Identifiers: n/a
@@ -609,14 +625,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    o  General Comments:
 
    o  Person to contact for further information:
-
-
-
-
-Nadareishvili            Expires April 30, 2019                [Page 11]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
 
       1.  Name: Irakli Nadareishvili
 
@@ -656,6 +664,16 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    o  Custom link relation types, as well as the URIs for variables,
       should lead to documentation for those constructs.
 
+
+
+
+
+
+Nadareishvili            Expires August 30, 2019               [Page 12]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
 10.  Consuming Health Check Responses
 
    Clients might use health check responses in a variety of ways.
@@ -664,15 +682,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    from the health check response MUST NOT be assumed to be valid beyond
    the freshness lifetime of the health check response, as per HTTP's
    caching model [RFC7234].
-
-
-
-
-
-Nadareishvili            Expires April 30, 2019                [Page 12]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
 
    As a result, clients ought to cache the health check response (as per
    [RFC7234]), to avoid fetching it before every interaction (which
@@ -710,6 +719,17 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
               DOI 10.17487/RFC8288, October 2017,
               <https://www.rfc-editor.org/info/rfc8288>.
 
+
+
+
+
+
+
+Nadareishvili            Expires August 30, 2019               [Page 13]
+
+Internet-Draft Health Check Response Format for HTTP APIs  February 2018
+
+
 11.2.  Informative References
 
    [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
@@ -720,15 +740,6 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
               Specifications and Registration Procedures", BCP 13,
               RFC 6838, DOI 10.17487/RFC6838, January 2013,
               <https://www.rfc-editor.org/info/rfc6838>.
-
-
-
-
-
-Nadareishvili            Expires April 30, 2019                [Page 13]
-
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
-
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Message Syntax and Routing",
@@ -770,15 +781,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Nadareishvili            Expires April 30, 2019                [Page 14]
+Nadareishvili            Expires August 30, 2019               [Page 14]

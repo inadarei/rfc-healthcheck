@@ -240,13 +240,19 @@ a type of the component and could be one of:
 observedValue: (optional) could be any valid JSON value, such as: string, number,
 object, array or literal.
 
+## thresholdValue
+thresholdValue: (optional) could be any valid JSON value, such as: string, number,
+object, array or literal. Determines the value above (or below) which the status
+changes from "pass" state to "warn" state or back. thresholdValue MUST only be
+present if observedValue is also present.
+
 ## observedUnit
 
-observedUnit (optional) SHOULD be present if observedValue is present. Calrifies
-the unit of measurement in which observedUnit is reported, e.g. for a time-based
-value it is important to know whether the time is reported in seconds, minutes,
-hours or something else. To make sure unit is denoted by a well-understood name
-or an abbreviation, it should be one of:
+observedUnit (optional) SHOULD be present if observedValue is present. Clarifies
+the unit of measurement in which observedValue and thresholdValue are reported,
+e.g. for a time-based value it is important to know whether the time is reported
+in seconds, minutes, hours or something else. To make sure unit is denoted by a
+well-understood name or an abbreviation, it should be one of:
 
   * A common and standard term from a well-known source such as schema.org, IANA,
     microformats, or a standards document such as {{RFC3339}}.
