@@ -109,9 +109,9 @@ optional fields:
 status: (required) indicates whether the service status is acceptable or not.
 API publishers SHOULD use following values for the field:
 
-  - "pass": healthy (acceptable aliases: "ok" to support Node's Terminius and
+  - "pass": healthy (acceptable aliases: "ok" to support Node's Terminus and
     "up" for Java's SpringBoot),
-  - "fail": unhealthy (acceptable aliases: "error" to support Node's Terminius and
+  - "fail": unhealthy (acceptable aliases: "error" to support Node's Terminus and
     "down" for Java's SpringBoot), and
   - "warn": healthy, with some concerns.
 

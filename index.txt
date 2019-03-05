@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                          October 27, 2018
+Internet-Draft                                             March 5, 2018
 Intended status: Informational
-Expires: April 30, 2019
+Expires: September 6, 2019
 
 
                Health Check Response Format for HTTP APIs
@@ -48,14 +48,14 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 30, 2019.
+   This Internet-Draft will expire on September 6, 2019.
 
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 1]
+Nadareishvili           Expires September 6, 2019               [Page 1]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 2]
+Nadareishvili           Expires September 6, 2019               [Page 2]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -165,9 +165,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 3]
+Nadareishvili           Expires September 6, 2019               [Page 3]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 3.  API Health Response
@@ -185,10 +185,10 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
    or not.  API publishers SHOULD use following values for the field:
 
    o  "pass": healthy (acceptable aliases: "ok" to support Node's
-      Terminius and "up" for Java's SpringBoot),
+      Terminus and "up" for Java's SpringBoot),
 
    o  "fail": unhealthy (acceptable aliases: "error" to support Node's
-      Terminius and "down" for Java's SpringBoot), and
+      Terminus and "down" for Java's SpringBoot), and
 
    o  "warn": healthy, with some concerns.
 
@@ -221,9 +221,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 4]
+Nadareishvili           Expires September 6, 2019               [Page 4]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    preserve stable interface.  However implementation of an API may
@@ -277,9 +277,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 5]
+Nadareishvili           Expires September 6, 2019               [Page 5]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    single-node sub-component (or if presence of nodes is not relevant),
@@ -333,9 +333,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 6]
+Nadareishvili           Expires September 6, 2019               [Page 6]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 4.2.  componentType
@@ -389,9 +389,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 7]
+Nadareishvili           Expires September 6, 2019               [Page 7]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 4.5.  status
@@ -445,9 +445,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 8]
+Nadareishvili           Expires September 6, 2019               [Page 8]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
            "componentType": "datastore",
@@ -501,9 +501,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                 [Page 9]
+Nadareishvili           Expires September 6, 2019               [Page 9]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
            "time": "2018-01-17T03:36:48Z",
@@ -557,9 +557,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 10]
+Nadareishvili           Expires September 6, 2019              [Page 10]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    o  Required parameters: n/a
@@ -613,9 +613,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 11]
+Nadareishvili           Expires September 6, 2019              [Page 11]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
       1.  Name: Irakli Nadareishvili
@@ -669,9 +669,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 12]
+Nadareishvili           Expires September 6, 2019              [Page 12]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    As a result, clients ought to cache the health check response (as per
@@ -725,9 +725,9 @@ Internet-Draft Health Check Response Format for HTTP APIs   October 2018
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 13]
+Nadareishvili           Expires September 6, 2019              [Page 13]
 
-Internet-Draft Health Check Response Format for HTTP APIs   October 2018
+Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
@@ -781,4 +781,4 @@ Author's Address
 
 
 
-Nadareishvili            Expires April 30, 2019                [Page 14]
+Nadareishvili           Expires September 6, 2019              [Page 14]
