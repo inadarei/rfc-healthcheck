@@ -270,7 +270,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 4.  The Checks Object
 
    The "checks" object MAY have a number of unique keyes, one for each
-   logical downstream dependencies or sub-components.  Since each sub-
+   logical downstream dependency or sub-component.  Since each sub-
    component may be backed by several nodes with varying health
    statuses, these keys point to arrays of objects.  In case of a
 
@@ -283,9 +283,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
    single-node sub-component (or if presence of nodes is not relevant),
-   a single-element array should be used as the value, for consistency.
+   a single-element array SHOULD be used as the value, for consistency.
 
-   The key identifying an element in the object should be a unique
+   The key identifying an element in the object SHOULD be a unique
    string within the details section.  It MAY have two parts:
    "{componentName}:{measurementName}", in which case the meaning of the
    parts SHOULD be as follows:
@@ -369,11 +369,11 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 4.4.  observedUnit
 
    observedUnit (optional) SHOULD be present if observedValue is
-   present.  Calrifies the unit of measurement in which observedUnit is
+   present.  Clarifies the unit of measurement in which observedUnit is
    reported, e.g. for a time-based value it is important to know whether
    the time is reported in seconds, minutes, hours or something else.
    To make sure unit is denoted by a well-understood name or an
-   abbreviation, it should be one of:
+   abbreviation, it SHOULD be one of:
 
    o  A common and standard term from a well-known source such as
       schema.org, IANA, microformats, or a standards document such as

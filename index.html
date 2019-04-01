@@ -609,8 +609,8 @@
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#the-checks-object" id="the-checks-object">The Checks Object</a>
 </h1>
-<p id="rfc.section.4.p.1">The &#8220;checks&#8221; object MAY have a number of unique keyes, one for each logical downstream dependencies or sub-components. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array should be used as the value, for consistency.</p>
-<p id="rfc.section.4.p.2">The key identifying an element in the object should be a unique string within the details section. It MAY have two parts: &#8220;{componentName}:{measurementName}&#8221;, in which case the meaning of the parts SHOULD be as follows:</p>
+<p id="rfc.section.4.p.1">The &#8220;checks&#8221; object MAY have a number of unique keyes, one for each logical downstream dependency or sub-component. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array SHOULD be used as the value, for consistency.</p>
+<p id="rfc.section.4.p.2">The key identifying an element in the object SHOULD be a unique string within the details section. It MAY have two parts: &#8220;{componentName}:{measurementName}&#8221;, in which case the meaning of the parts SHOULD be as follows:</p>
 <p></p>
 
 <ul>
@@ -656,7 +656,7 @@
 <h1 id="rfc.section.4.4">
 <a href="#rfc.section.4.4">4.4.</a> <a href="#observedunit" id="observedunit">observedUnit</a>
 </h1>
-<p id="rfc.section.4.4.p.1">observedUnit (optional) SHOULD be present if observedValue is present. Calrifies the unit of measurement in which observedUnit is reported, e.g. for a time-based value it is important to know whether the time is reported in seconds, minutes, hours or something else. To make sure unit is denoted by a well-understood name or an abbreviation, it should be one of:</p>
+<p id="rfc.section.4.4.p.1">observedUnit (optional) SHOULD be present if observedValue is present. Clarifies the unit of measurement in which observedUnit is reported, e.g. for a time-based value it is important to know whether the time is reported in seconds, minutes, hours or something else. To make sure unit is denoted by a well-understood name or an abbreviation, it SHOULD be one of:</p>
 <p></p>
 
 <ul>

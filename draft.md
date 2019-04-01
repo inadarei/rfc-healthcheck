@@ -141,7 +141,7 @@ version: (optional) public version of the service.
 releaseId: (optional) in well-designed APIs, backwards-compatible changes in
   the service should not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
-  However implementation of an API may change much more frequently, which leads
+  However, implementation of an API may change much more frequently, which leads
   to the importance of having separate "release number" or "releaseID" that is
   different from the public version of the API.
 
@@ -182,7 +182,7 @@ description (optional) is a human-friendly description of the service.
 
 # The Checks Object
 
-The "checks" object MAY have a number of unique keyes, one for each logical
+The "checks" object MAY have a number of unique keys, one for each logical
 downstream dependency or sub-component. Since each sub-component may be
 backed by several nodes with varying health statuses, these keys point to arrays
 of objects. In case of a single-node sub-component (or if presence of nodes is
@@ -408,7 +408,7 @@ by the details object.
 # Security Considerations
 
 Clients need to exercise care when reporting health information. Malicious
-actors could use this information for orchestrating attacks. In some cases the
+actors could use this information for orchestrating attacks. In some cases, the
 health check endpoints may need to be authenticated and institute role-based
 access control.
 
@@ -470,7 +470,7 @@ in mind:
 * Health check responses SHOULD be assigned a freshness lifetime (e.g.,
   "Cache-Control: max-age=3600") so that clients can determine how long they
   could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
-  the service. Any method of cach lifetime negotiation provided by HTTP spec is
+  the service. Any method of cache lifetime negotiation provided by HTTP spec is
   acceptable (e.g. ETags are just fine).
 * Custom link relation types, as well as the URIs for variables, should lead to
   documentation for those constructs.
