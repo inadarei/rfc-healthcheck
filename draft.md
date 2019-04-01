@@ -142,7 +142,7 @@ releaseId: (optional) in well-designed APIs, backwards-compatible changes in
   the service should not update a version number. APIs usually change their
   version number as infrequently as possible, to preserve stable interface.
   However, implementation of an API may change much more frequently, which leads
-  to the importance of having separate "release number" or "releaseID" that is
+  to the importance of having separate "release number" or "releaseId" that is
   different from the public version of the API.
 
 ## notes
@@ -308,10 +308,10 @@ by the details object.
 {
   "status": "pass",
   "version": "1",
-  "releaseID": "1.2.2",
+  "releaseId": "1.2.2",
   "notes": [""],
   "output": "",
-  "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+  "serviceId": "f03e522f-1f44-4062-9b55-9587f91c9c41",
   "description": "health of authz service",
   "checks": {
     "cassandra:responseTime": [
