@@ -581,7 +581,7 @@
 <h1 id="rfc.section.3.3">
 <a href="#rfc.section.3.3">3.3.</a> <a href="#releaseid" id="releaseid">releaseId</a>
 </h1>
-<p id="rfc.section.3.3.p.1">releaseId: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseID&#8221; that is different from the public version of the API.</p>
+<p id="rfc.section.3.3.p.1">releaseId: (optional) in well-designed APIs, backwards-compatible changes in the service should not update a version number. APIs usually change their version number as infrequently as possible, to preserve stable interface.  However, implementation of an API may change much more frequently, which leads to the importance of having separate &#8220;release number&#8221; or &#8220;releaseId&#8221; that is different from the public version of the API.</p>
 <h1 id="rfc.section.3.4">
 <a href="#rfc.section.3.4">3.4.</a> <a href="#notes" id="notes">notes</a>
 </h1>
@@ -609,7 +609,7 @@
 <h1 id="rfc.section.4">
 <a href="#rfc.section.4">4.</a> <a href="#the-checks-object" id="the-checks-object">The Checks Object</a>
 </h1>
-<p id="rfc.section.4.p.1">The &#8220;checks&#8221; object MAY have a number of unique keyes, one for each logical downstream dependency or sub-component. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array SHOULD be used as the value, for consistency.</p>
+<p id="rfc.section.4.p.1">The &#8220;checks&#8221; object MAY have a number of unique keys, one for each logical downstream dependency or sub-component. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array SHOULD be used as the value, for consistency.</p>
 <p id="rfc.section.4.p.2">The key identifying an element in the object SHOULD be a unique string within the details section. It MAY have two parts: &#8220;{componentName}:{measurementName}&#8221;, in which case the meaning of the parts SHOULD be as follows:</p>
 <p></p>
 
@@ -699,10 +699,10 @@
 {
   "status": "pass",
   "version": "1",
-  "releaseID": "1.2.2",
+  "releaseId": "1.2.2",
   "notes": [""],
   "output": "",
-  "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+  "serviceId": "f03e522f-1f44-4062-9b55-9587f91c9c41",
   "description": "health of authz service",
   "checks": {
     "cassandra:responseTime": [
@@ -798,7 +798,7 @@
 <h1 id="rfc.section.6">
 <a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a>
 </h1>
-<p id="rfc.section.6.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases the health check endpoints may need to be authenticated and institute role-based access control.</p>
+<p id="rfc.section.6.p.1">Clients need to exercise care when reporting health information. Malicious actors could use this information for orchestrating attacks. In some cases, the health check endpoints may need to be authenticated and institute role-based access control.</p>
 <h1 id="rfc.section.7">
 <a href="#rfc.section.7">7.</a> <a href="#iana-considerations" id="iana-considerations">IANA Considerations</a>
 </h1>
@@ -847,7 +847,7 @@
 <ul>
 <li>A health response endpoint is best located at a memorable and commonly-used URI, such as &#8220;health&#8221; because it will help self-discoverability by clients.</li>
 <li>Health check responses can be personalized. For example, you could advertise different URIs, and/or different kinds of link relations, to afford different clients access to additional health check information.</li>
-<li>Health check responses SHOULD be assigned a freshness lifetime (e.g., &#8220;Cache-Control: max-age=3600&#8221;) so that clients can determine how long they could cache them, to avoid overly frequent fetching and unintended DDOS-ing of the service. Any method of cach lifetime negotiation provided by HTTP spec is acceptable (e.g. ETags are just fine).</li>
+<li>Health check responses SHOULD be assigned a freshness lifetime (e.g., &#8220;Cache-Control: max-age=3600&#8221;) so that clients can determine how long they could cache them, to avoid overly frequent fetching and unintended DDOS-ing of the service. Any method of cache lifetime negotiation provided by HTTP spec is acceptable (e.g. ETags are just fine).</li>
 <li>Custom link relation types, as well as the URIs for variables, should lead to documentation for those constructs.</li>
 </ul>
 <h1 id="rfc.section.10">

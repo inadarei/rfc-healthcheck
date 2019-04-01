@@ -226,9 +226,9 @@ Nadareishvili            Expires October 2, 2019                [Page 4]
 Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
-   preserve stable interface.  However implementation of an API may
+   preserve stable interface.  However, implementation of an API may
    change much more frequently, which leads to the importance of having
-   separate "release number" or "releaseID" that is different from the
+   separate "release number" or "releaseId" that is different from the
    public version of the API.
 
 3.4.  notes
@@ -269,7 +269,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 4.  The Checks Object
 
-   The "checks" object MAY have a number of unique keyes, one for each
+   The "checks" object MAY have a number of unique keys, one for each
    logical downstream dependency or sub-component.  Since each sub-
    component may be backed by several nodes with varying health
    statuses, these keys point to arrays of objects.  In case of a
@@ -453,10 +453,10 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
    {
      "status": "pass",
      "version": "1",
-     "releaseID": "1.2.2",
+     "releaseId": "1.2.2",
      "notes": [""],
      "output": "",
-     "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
+     "serviceId": "f03e522f-1f44-4062-9b55-9587f91c9c41",
      "description": "health of authz service",
      "checks": {
        "cassandra:responseTime": [
@@ -569,7 +569,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
    Clients need to exercise care when reporting health information.
    Malicious actors could use this information for orchestrating
-   attacks.  In some cases the health check endpoints may need to be
+   attacks.  In some cases, the health check endpoints may need to be
    authenticated and institute role-based access control.
 
 7.  IANA Considerations
@@ -676,7 +676,7 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
       determine how long they could cache them, to avoid overly frequent
       fetching and unintended DDOS-ing of the service.  Any method of
-      cach lifetime negotiation provided by HTTP spec is acceptable
+      cache lifetime negotiation provided by HTTP spec is acceptable
       (e.g.  ETags are just fine).
 
    o  Custom link relation types, as well as the URIs for variables,
