@@ -382,19 +382,20 @@
 <link href="#rfc.section.3.3" rel="Chapter" title="3.3 releaseId">
 <link href="#rfc.section.3.4" rel="Chapter" title="3.4 notes">
 <link href="#rfc.section.3.5" rel="Chapter" title="3.5 output">
-<link href="#rfc.section.3.6" rel="Chapter" title="3.6 details">
+<link href="#rfc.section.3.6" rel="Chapter" title="3.6 checks">
 <link href="#rfc.section.3.7" rel="Chapter" title="3.7 links">
 <link href="#rfc.section.3.8" rel="Chapter" title="3.8 serviceId">
 <link href="#rfc.section.3.9" rel="Chapter" title="3.9 description">
-<link href="#rfc.section.4" rel="Chapter" title="4 The Details Object">
+<link href="#rfc.section.4" rel="Chapter" title="4 The Checks Object">
 <link href="#rfc.section.4.1" rel="Chapter" title="4.1 componentId">
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 componentType">
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 observedValue">
 <link href="#rfc.section.4.4" rel="Chapter" title="4.4 observedUnit">
 <link href="#rfc.section.4.5" rel="Chapter" title="4.5 status">
-<link href="#rfc.section.4.6" rel="Chapter" title="4.6 time">
-<link href="#rfc.section.4.7" rel="Chapter" title="4.7 output">
-<link href="#rfc.section.4.8" rel="Chapter" title="4.8 links">
+<link href="#rfc.section.4.6" rel="Chapter" title="4.6 affectedEndpoints">
+<link href="#rfc.section.4.7" rel="Chapter" title="4.7 time">
+<link href="#rfc.section.4.8" rel="Chapter" title="4.8 output">
+<link href="#rfc.section.4.9" rel="Chapter" title="4.9 links">
 <link href="#rfc.section.5" rel="Chapter" title="5 Example Output">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
@@ -412,7 +413,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-03" />
-  <meta name="dct.issued" scheme="ISO8601" content="2018-27" />
+  <meta name="dct.issued" scheme="ISO8601" content="2018-31" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -429,14 +430,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">October 27, 2018</td>
+<td class="right">March 31, 2018</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: April 30, 2019</td>
+<td class="left">Expires: October 2, 2019</td>
 <td class="right"></td>
 </tr>
 
@@ -459,7 +460,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on April 30, 2019.</p>
+<p>This Internet-Draft will expire on October 2, 2019.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
 <p>Copyright (c) 2018 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
@@ -485,7 +486,7 @@
 </li>
 <li>3.5.   <a href="#rfc.section.3.5">output</a>
 </li>
-<li>3.6.   <a href="#rfc.section.3.6">details</a>
+<li>3.6.   <a href="#rfc.section.3.6">checks</a>
 </li>
 <li>3.7.   <a href="#rfc.section.3.7">links</a>
 </li>
@@ -493,7 +494,7 @@
 </li>
 <li>3.9.   <a href="#rfc.section.3.9">description</a>
 </li>
-</ul><li>4.   <a href="#rfc.section.4">The Details Object</a>
+</ul><li>4.   <a href="#rfc.section.4">The Checks Object</a>
 </li>
 <ul><li>4.1.   <a href="#rfc.section.4.1">componentId</a>
 </li>
@@ -505,11 +506,13 @@
 </li>
 <li>4.5.   <a href="#rfc.section.4.5">status</a>
 </li>
-<li>4.6.   <a href="#rfc.section.4.6">time</a>
+<li>4.6.   <a href="#rfc.section.4.6">affectedEndpoints</a>
 </li>
-<li>4.7.   <a href="#rfc.section.4.7">output</a>
+<li>4.7.   <a href="#rfc.section.4.7">time</a>
 </li>
-<li>4.8.   <a href="#rfc.section.4.8">links</a>
+<li>4.8.   <a href="#rfc.section.4.8">output</a>
+</li>
+<li>4.9.   <a href="#rfc.section.4.9">links</a>
 </li>
 </ul><li>5.   <a href="#rfc.section.5">Example Output</a>
 </li>
@@ -565,8 +568,8 @@
 <p></p>
 
 <ul>
-<li>&#8220;pass&#8221;: healthy (acceptable aliases: &#8220;ok&#8221; to support Node&#8217;s Terminius and &#8220;up&#8221; for Java&#8217;s SpringBoot),</li>
-<li>&#8220;fail&#8221;: unhealthy (acceptable aliases: &#8220;error&#8221; to support Node&#8217;s Terminius and &#8220;down&#8221; for Java&#8217;s SpringBoot), and</li>
+<li>&#8220;pass&#8221;: healthy (acceptable aliases: &#8220;ok&#8221; to support Node&#8217;s Terminus and &#8220;up&#8221; for Java&#8217;s SpringBoot),</li>
+<li>&#8220;fail&#8221;: unhealthy (acceptable aliases: &#8220;error&#8221; to support Node&#8217;s Terminus and &#8220;down&#8221; for Java&#8217;s SpringBoot), and</li>
 <li>&#8220;warn&#8221;: healthy, with some concerns.</li>
 </ul>
 <p id="rfc.section.3.1.p.3">The value of the status field is case-insensitive and is tightly related with the HTTP response code returned by the health endpoint. For &#8220;pass&#8221; status, HTTP response code in the 2xx-3xx range MUST be used. For &#8220;fail&#8221; status, HTTP response code in the 4xx-5xx range MUST be used. In case of the &#8220;warn&#8221; status, endpoints MUST return HTTP status in the 2xx-3xx range, and additional information SHOULD be provided, utilizing optional fields of the response.</p>
@@ -588,9 +591,9 @@
 </h1>
 <p id="rfc.section.3.5.p.1">output: (optional) raw error output, in case of &#8220;fail&#8221; or &#8220;warn&#8221; states. This field SHOULD be omitted for &#8220;pass&#8221; state.</p>
 <h1 id="rfc.section.3.6">
-<a href="#rfc.section.3.6">3.6.</a> <a href="#details" id="details">details</a>
+<a href="#rfc.section.3.6">3.6.</a> <a href="#checks" id="checks">checks</a>
 </h1>
-<p id="rfc.section.3.6.p.1">details (optional) is an object that provides more details about the status of the service as it pertains to the information about the downstream dependencies of the service in question. Please refer to the &#8220;The Details Object&#8221; section for more information.</p>
+<p id="rfc.section.3.6.p.1">checks (optional) is an object that provides detailed health statuses of additional downstream systems and endpoints which can affect the overall health of the main API. Please refer to the &#8220;The Checks Object&#8221; section for more information.</p>
 <h1 id="rfc.section.3.7">
 <a href="#rfc.section.3.7">3.7.</a> <a href="#links" id="links">links</a>
 </h1>
@@ -604,9 +607,9 @@
 </h1>
 <p id="rfc.section.3.9.p.1">description (optional) is a human-friendly description of the service.</p>
 <h1 id="rfc.section.4">
-<a href="#rfc.section.4">4.</a> <a href="#the-details-object" id="the-details-object">The Details Object</a>
+<a href="#rfc.section.4">4.</a> <a href="#the-checks-object" id="the-checks-object">The Checks Object</a>
 </h1>
-<p id="rfc.section.4.p.1">The &#8220;details&#8221; object MAY have a number of unique keyes, one for each logical downstream dependencies or sub-components. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array should be used as the value, for consistency.</p>
+<p id="rfc.section.4.p.1">The &#8220;checks&#8221; object MAY have a number of unique keyes, one for each logical downstream dependencies or sub-components. Since each sub-component may be backed by several nodes with varying health statuses, these keys point to arrays of objects. In case of a single-node sub-component (or if presence of nodes is not relevant), a single-element array should be used as the value, for consistency.</p>
 <p id="rfc.section.4.p.2">The key identifying an element in the object should be a unique string within the details section. It MAY have two parts: &#8220;{componentName}:{measurementName}&#8221;, in which case the meaning of the parts SHOULD be as follows:</p>
 <p></p>
 
@@ -665,17 +668,21 @@
 </h1>
 <p id="rfc.section.4.5.p.1">status (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
 <h1 id="rfc.section.4.6">
-<a href="#rfc.section.4.6">4.6.</a> <a href="#time" id="time">time</a>
+<a href="#rfc.section.4.6">4.6.</a> <a href="#affectedendpoints" id="affectedendpoints">affectedEndpoints</a>
 </h1>
-<p id="rfc.section.4.6.p.1">time (optional) is the date-time, in ISO8601 format, at which the reading of the observedValue was recorded. This assumes that the value can be cached and the reading typically doesn&#8217;t happen in real time, for performance and scalability purposes.</p>
+<p id="rfc.section.4.6.p.1">A typical API has many URI endpoints. Most of the time we are interested in the overall health of the API, without diving into details. That said, sometimes operational and resilience middleware needs to know more details about the health of the API (which is why &#8220;checks&#8221; property provides details). In such cases, we often need to indicate which particular endpoints are affected by a particular check&#8217;s troubles vs. other endpoints that may be fine. The <samp>affectedEndpoints</samp> property is a JSON array containing URI Templates as defined by <a href="#RFC6570" class="xref">[RFC6570]</a>.</p>
 <h1 id="rfc.section.4.7">
-<a href="#rfc.section.4.7">4.7.</a> <a href="#output-1" id="output-1">output</a>
+<a href="#rfc.section.4.7">4.7.</a> <a href="#time" id="time">time</a>
 </h1>
-<p id="rfc.section.4.7.p.1">output (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<p id="rfc.section.4.7.p.1">time (optional) is the date-time, in ISO8601 format, at which the reading of the observedValue was recorded. This assumes that the value can be cached and the reading typically doesn&#8217;t happen in real time, for performance and scalability purposes.</p>
 <h1 id="rfc.section.4.8">
-<a href="#rfc.section.4.8">4.8.</a> <a href="#links-1" id="links-1">links</a>
+<a href="#rfc.section.4.8">4.8.</a> <a href="#output-1" id="output-1">output</a>
 </h1>
-<p id="rfc.section.4.8.p.1">links (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<p id="rfc.section.4.8.p.1">output (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<h1 id="rfc.section.4.9">
+<a href="#rfc.section.4.9">4.9.</a> <a href="#links-1" id="links-1">links</a>
+</h1>
+<p id="rfc.section.4.9.p.1">links (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#example-output" id="example-output">Example Output</a>
 </h1>
@@ -697,7 +704,7 @@
   "output": "",
   "serviceID": "f03e522f-1f44-4062-9b55-9587f91c9c41",
   "description": "health of authz service",
-  "details": {
+  "checks": {
     "cassandra:responseTime": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
@@ -705,6 +712,11 @@
         "observedValue": 250,
         "observedUnit": "ms",
         "status": "pass",
+        "affectedEndpoints" : [
+          "/users/{userId}",
+          "/customers/{customerId}/status",
+          "/shopping/{anything}"
+        ],
         "time": "2018-01-17T03:36:48Z",
         "output": ""
       }
@@ -859,6 +871,11 @@
 <td class="reference"><b id="RFC3986">[RFC3986]</b></td>
 <td class="top">
 <a>Berners-Lee, T.</a>, <a>Fielding, R.</a> and <a>L. Masinter</a>, "<a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005.</td>
+</tr>
+<tr>
+<td class="reference"><b id="RFC6570">[RFC6570]</b></td>
+<td class="top">
+<a>Gregorio, J.</a>, <a>Fielding, R.</a>, <a>Hadley, M.</a>, <a>Nottingham, M.</a> and <a>D. Orchard</a>, "<a href="https://tools.ietf.org/html/rfc6570">URI Template</a>", RFC 6570, DOI 10.17487/RFC6570, March 2012.</td>
 </tr>
 <tr>
 <td class="reference"><b id="RFC7234">[RFC7234]</b></td>
