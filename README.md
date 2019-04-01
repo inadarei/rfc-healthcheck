@@ -26,6 +26,7 @@ Published RFC Draft: <https://tools.ietf.org/html/draft-inadarei-api-health-chec
 ## Known Implementations
 
 1. Node.js: https://github.com/inadarei/maikai
+2. Golang: https://github.com/nelkinda/health-go
 
 ## References
 
