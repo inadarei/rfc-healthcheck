@@ -212,7 +212,7 @@ in which case the meaning of the parts SHOULD be as follows:
     Swagger document or a nicely printed book).
 
 On the value side of the equation, each "component details" object in the array
-MAY have one of the following object keys:
+SHOULD have at least one key, and MAY have any or none of the following object keys:
 
 ## componentId
 
@@ -292,6 +292,12 @@ by the details object.
 links (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
 by the details object.
+
+## Additional Keys
+
+In addition to the above keys, additional user-defined keys MAY be
+included in the 'component details' object. Implementations MAY ignore
+any keys that are not part of the list of standard keys above.
 
 # Example Output
 
