@@ -1,5 +1,11 @@
 #!/bin/sh
 
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$BRANCH" != "master" ]]; then
+  echo 'Aborting pre-push build';
+  exit 1;
+fi
+
 make latest
 git add draft-inadarei-*.* index.*
 git commit -m "rebuilt generated spec files" draft-inadarei-*.* index.*
