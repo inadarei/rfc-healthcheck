@@ -249,13 +249,14 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 3.7.  links
 
-   links (optional) is an array of objects containing link relations and
-   URIs [RFC3986] for external links that MAY contain more information
-   about the health of the endpoint.  Per web-linking standards
-   [RFC8288] a link relationship SHOULD either be a common/registered
-   one or be indicated as a URI, to avoid name clashes.  If a "self"
-   link is provided, it MAY be used by clients to check health via HTTP
-   response code, as mentioned above.
+   links (optional) is an object containing link relations and URIs
+   [RFC3986] for external links that MAY contain more information about
+   the health of the endpoint.  All values of this object SHALL be URIs.
+   Keys MAY also be URIs.  Per web-linking standards [RFC8288] a link
+   relationship SHOULD either be a common/registered one or be indicated
+   as a URI, to avoid name clashes.  If a "self" link is provided, it
+   MAY be used by clients to check health via HTTP response code, as
+   mentioned above.
 
 3.8.  serviceId
 
@@ -273,7 +274,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    logical downstream dependency or sub-component.  Since each sub-
    component may be backed by several nodes with varying health
    statuses, these keys point to arrays of objects.  In case of a
-
 
 
 
@@ -478,7 +478,7 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
        "cassandra:connections": [
          {
            "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-           "type": "datastore",
+           "componentType": "datastore",
            "observedValue": 75,
            "status": "warn",
            "time": "2018-01-17T03:36:48Z",

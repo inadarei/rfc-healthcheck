@@ -597,7 +597,7 @@
 <h1 id="rfc.section.3.7">
 <a href="#rfc.section.3.7">3.7.</a> <a href="#links" id="links">links</a>
 </h1>
-<p id="rfc.section.3.7.p.1">links (optional) is an array of objects containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. Per web-linking standards <a href="#RFC8288" class="xref">[RFC8288]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.  If a &#8220;self&#8221; link is provided, it MAY be used by clients to check health via HTTP response code, as mentioned above.</p>
+<p id="rfc.section.3.7.p.1">links (optional) is an object containing link relations and URIs <a href="#RFC3986" class="xref">[RFC3986]</a> for external links that MAY contain more information about the health of the endpoint. All values of this object SHALL be URIs. Keys MAY also be URIs. Per web-linking standards <a href="#RFC8288" class="xref">[RFC8288]</a> a link relationship SHOULD either be a common/registered one or be indicated as a URI, to avoid name clashes.  If a &#8220;self&#8221; link is provided, it MAY be used by clients to check health via HTTP response code, as mentioned above.</p>
 <h1 id="rfc.section.3.8">
 <a href="#rfc.section.3.8">3.8.</a> <a href="#serviceid" id="serviceid">serviceId</a>
 </h1>
@@ -724,7 +724,7 @@
     "cassandra:connections": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "type": "datastore",
+        "componentType": "datastore",
         "observedValue": 75,
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
