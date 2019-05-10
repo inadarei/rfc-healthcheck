@@ -334,7 +334,7 @@ by the details object.
     "cassandra:connections": [
       {
         "componentId": "dfd6cf2b-1b6e-4412-a0b8-f6f7797a60d2",
-        "type": "datastore",
+        "componentType": "datastore",
         "observedValue": 75,
         "status": "warn",
         "time": "2018-01-17T03:36:48Z",
