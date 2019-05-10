@@ -97,6 +97,7 @@ Table of Contents
      4.7.  time  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
      4.8.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
      4.9.  links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.10. Additional Keys . . . . . . . . . . . . . . . . . . . . .   8
    5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   8
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
@@ -105,7 +106,6 @@ Table of Contents
    10. Consuming Health Check Responses  . . . . . . . . . . . . . .  13
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
 
 
 
@@ -114,8 +114,9 @@ Nadareishvili           Expires November 10, 2019               [Page 2]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  14
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -159,7 +160,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
-
 
 
 
@@ -321,7 +321,8 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
          document or a nicely printed book).
 
    On the value side of the equation, each "component details" object in
-   the array MAY have one of the following object keys:
+   the array SHOULD have at least one key, and MAY have any or none of
+   the following object keys:
 
 4.1.  componentId
 
@@ -329,7 +330,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    specific sub-component/dependency of a service.  Multiple objects
    with the same componentID MAY appear in the details, if they are from
    different nodes.
-
 
 
 
@@ -431,17 +431,17 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    element, but for the sub-component/downstream dependency represented
    by the details object.
 
+4.10.  Additional Keys
+
+   In addition to the above keys, additional user-defined keys MAY be
+   included in the 'component details' object.  Implementations MAY
+   ignore any keys that are not part of the list of standard keys above.
+
 5.  Example Output
 
      GET /health HTTP/1.1
      Host: example.org
      Accept: application/health+json
-
-     HTTP/1.1 200 OK
-     Content-Type: application/health+json
-     Cache-Control: max-age=3600
-     Connection: close
-
 
 
 
@@ -449,6 +449,11 @@ Nadareishvili           Expires November 10, 2019               [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
+
+     HTTP/1.1 200 OK
+     Content-Type: application/health+json
+     Cache-Control: max-age=3600
+     Connection: close
 
    {
      "status": "pass",
@@ -493,11 +498,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
            "componentType": "system",
            "observedValue": 1209600.245,
            "observedUnit": "s",
-           "status": "pass",
-           "time": "2018-01-17T03:36:48Z"
-         }
-       ],
-       "cpu:utilization": [
 
 
 
@@ -506,6 +506,11 @@ Nadareishvili           Expires November 10, 2019               [Page 9]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+           "status": "pass",
+           "time": "2018-01-17T03:36:48Z"
+         }
+       ],
+       "cpu:utilization": [
          {
            "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
            "node": 1,
@@ -549,11 +554,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
            "output": ""
          }
        ]
-     },
-     "links": {
-       "about": "http://api.example.com/about/authz",
-       "http://api.x.io/rel/thresholds":
-         "http://api.x.io/about/authz/thresholds"
 
 
 
@@ -562,6 +562,11 @@ Nadareishvili           Expires November 10, 2019              [Page 10]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+     },
+     "links": {
+       "about": "http://api.example.com/about/authz",
+       "http://api.x.io/rel/thresholds":
+         "http://api.x.io/about/authz/thresholds"
      }
    }
 
@@ -606,17 +611,16 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
    o  Applications which use this media: Various
 
-   o  Fragment identifier considerations: Health+JSON follows RFC6901
-      for implementing URI Fragment Identification standard to JSON
-      content types.
-
-
 
 
 Nadareishvili           Expires November 10, 2019              [Page 11]
 
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
+
+   o  Fragment identifier considerations: Health+JSON follows RFC6901
+      for implementing URI Fragment Identification standard to JSON
+      content types.
 
    o  Restrictions on usage: None
 
@@ -661,11 +665,7 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
    o  Health check responses can be personalized.  For example, you
       could advertise different URIs, and/or different kinds of link
-      relations, to afford different clients access to additional health
-      check information.
 
-   o  Health check responses SHOULD be assigned a freshness lifetime
-      (e.g., "Cache-Control: max-age=3600") so that clients can
 
 
 
@@ -674,6 +674,11 @@ Nadareishvili           Expires November 10, 2019              [Page 12]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+      relations, to afford different clients access to additional health
+      check information.
+
+   o  Health check responses SHOULD be assigned a freshness lifetime
+      (e.g., "Cache-Control: max-age=3600") so that clients can
       determine how long they could cache them, to avoid overly frequent
       fetching and unintended DDOS-ing of the service.  Any method of
       cache lifetime negotiation provided by HTTP spec is acceptable
@@ -718,17 +723,17 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
               DOI 10.17487/RFC6570, March 2012,
               <https://www.rfc-editor.org/info/rfc6570>.
 
-   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
-              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
-              RFC 7234, DOI 10.17487/RFC7234, June 2014,
-              <https://www.rfc-editor.org/info/rfc7234>.
-
 
 
 Nadareishvili           Expires November 10, 2019              [Page 13]
 
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
+
+   [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
+              RFC 7234, DOI 10.17487/RFC7234, June 2014,
+              <https://www.rfc-editor.org/info/rfc7234>.
 
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", STD 90, RFC 8259,
@@ -770,11 +775,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
    [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
 
-Author's Address
-
-
-
-
 
 
 
@@ -786,6 +786,8 @@ Nadareishvili           Expires November 10, 2019              [Page 14]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+Author's Address
+
    Irakli Nadareishvili
    114 5th Avenue
    New York
@@ -793,8 +795,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
    Email: irakli@gmail.com
    URI:   http://www.freshblurbs.com
-
-
 
 
 

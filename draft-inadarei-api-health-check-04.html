@@ -396,6 +396,7 @@
 <link href="#rfc.section.4.7" rel="Chapter" title="4.7 time">
 <link href="#rfc.section.4.8" rel="Chapter" title="4.8 output">
 <link href="#rfc.section.4.9" rel="Chapter" title="4.9 links">
+<link href="#rfc.section.4.10" rel="Chapter" title="4.10 Additional Keys">
 <link href="#rfc.section.5" rel="Chapter" title="5 Example Output">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
@@ -514,6 +515,8 @@
 </li>
 <li>4.9.   <a href="#rfc.section.4.9">links</a>
 </li>
+<li>4.10.   <a href="#rfc.section.4.10">Additional Keys</a>
+</li>
 </ul><li>5.   <a href="#rfc.section.5">Example Output</a>
 </li>
 <li>6.   <a href="#rfc.section.6">Security Considerations</a>
@@ -628,7 +631,7 @@
 </ul>
 </li>
 </ul>
-<p id="rfc.section.4.p.4">On the value side of the equation, each &#8220;component details&#8221; object in the array MAY have one of the following object keys:</p>
+<p id="rfc.section.4.p.4">On the value side of the equation, each &#8220;component details&#8221; object in the array SHOULD have at least one key, and MAY have any or none of the following object keys:</p>
 <h1 id="rfc.section.4.1">
 <a href="#rfc.section.4.1">4.1.</a> <a href="#componentid" id="componentid">componentId</a>
 </h1>
@@ -683,6 +686,10 @@
 <a href="#rfc.section.4.9">4.9.</a> <a href="#links-1" id="links-1">links</a>
 </h1>
 <p id="rfc.section.4.9.p.1">links (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<h1 id="rfc.section.4.10">
+<a href="#rfc.section.4.10">4.10.</a> <a href="#additional-keys" id="additional-keys">Additional Keys</a>
+</h1>
+<p id="rfc.section.4.10.p.1">In addition to the above keys, additional user-defined keys MAY be included in the &#8216;component details&#8217; object. Implementations MAY ignore any keys that are not part of the list of standard keys above.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#example-output" id="example-output">Example Output</a>
 </h1>
