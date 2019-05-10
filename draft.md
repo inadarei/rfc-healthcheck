@@ -164,9 +164,10 @@ information.
 
 ## links
 
-links (optional) is an array of objects containing link relations and URIs
+links (optional) is an object containing link relations and URIs
 {{RFC3986}} for external links that MAY contain more information about the
-health of the endpoint. Per web-linking standards {{RFC8288}} a link
+health of the endpoint. All values of this object SHALL be URIs. Keys MAY
+also be URIs. Per web-linking standards {{RFC8288}} a link
 relationship SHOULD either be a common/registered one or be indicated as a URI,
 to avoid name clashes.  If a "self" link is provided, it MAY be used by clients
 to check health via HTTP response code, as mentioned above.
