@@ -1,8 +1,8 @@
 ---
 title: Health Check Response Format for HTTP APIs
 abbrev:
-docname: draft-inadarei-api-health-check-03
-date: 2018
+docname: draft-inadarei-api-health-check-04
+date: 2019
 category: info
 
 ipr: trust200902
@@ -19,7 +19,7 @@ author:
     name: Irakli Nadareishvili
     street: 114 5th Avenue
     city: New York
-    country: United States
+    country: United States of America
     email: irakli@gmail.com
     uri: http://www.freshblurbs.com
 
@@ -105,7 +105,7 @@ Health Check Response Format for HTTP APIs uses the JSON format described in
 Its content consists of a single mandatory root field ("status") and several
 optional fields:
 
-## status 
+## status
 
 status: (required) indicates whether the service status is acceptable or not.
 API publishers SHOULD use following values for the field:
@@ -132,7 +132,7 @@ API publishers SHOULD use following values for the field:
   with the behavior that current infrastructural tooling expects:
   load-balancers, service discoveries and others, utilizing health-checks.
 
-## version 
+## version
 
 version: (optional) public version of the service.
 
@@ -193,7 +193,7 @@ The key identifying an element in the object SHOULD be a unique string within
 the details section. It MAY have two parts: "{componentName}:{measurementName}",
 in which case the meaning of the parts SHOULD be as follows:
 
-* componentName: (optional) human-readable name for the component. MUST not 
+* componentName: (optional) human-readable name for the component. MUST not
   contain a colon, in the name, since colon is used as a separator.
 * measurementName: (optional) name of the measurement type (a data point type)
   that the status is reported for. MUST not contain a colon, in the name, since
@@ -209,7 +209,7 @@ in which case the meaning of the parts SHOULD be as follows:
     provided by a resource at the other end of the URI. URIs do not have to be
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).
+    Open API Spec document or a nicely printed book).
 
 On the value side of the equation, each "component details" object in the array
 MAY have one of the following object keys:
@@ -235,8 +235,8 @@ a type of the component and could be one of:
     provided by a resource at the other end of the URI. URIs do not have to be
     dereferenceable, however. They are just a namespace, and the meaning of a
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
-    Swagger document or a nicely printed book).   
-    
+    Swagger document or a nicely printed book).
+
 ## observedValue
 
 observedValue: (optional) could be any valid JSON value, such as: string, number,
@@ -258,7 +258,7 @@ or an abbreviation, it SHOULD be one of:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
-## status 
+## status
 
 status (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
@@ -281,7 +281,7 @@ observedValue was recorded. This assumes that the value can be cached and the
 reading typically doesn't happen in real time, for performance and scalability
 purposes.
 
-## output 
+## output
 
 output (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented

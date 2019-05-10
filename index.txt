@@ -3,9 +3,9 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                            March 31, 2018
+Internet-Draft                                               May 9, 2019
 Intended status: Informational
-Expires: October 2, 2019
+Expires: November 10, 2019
 
 
                Health Check Response Format for HTTP APIs
@@ -48,19 +48,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on October 2, 2019.
+   This Internet-Draft will expire on November 10, 2019.
 
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 1]
+Nadareishvili           Expires November 10, 2019               [Page 1]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
 Copyright Notice
 
-   Copyright (c) 2018 IETF Trust and the persons identified as the
+   Copyright (c) 2019 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 2]
+Nadareishvili           Expires November 10, 2019               [Page 2]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
@@ -165,9 +165,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 3]
+Nadareishvili           Expires November 10, 2019               [Page 3]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
 3.  API Health Response
@@ -221,9 +221,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 4]
+Nadareishvili           Expires November 10, 2019               [Page 4]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    preserve stable interface.  However, implementation of an API may
@@ -277,9 +277,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 5]
+Nadareishvili           Expires November 10, 2019               [Page 5]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    single-node sub-component (or if presence of nodes is not relevant),
@@ -333,9 +333,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 6]
+Nadareishvili           Expires November 10, 2019               [Page 6]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
 4.2.  componentType
@@ -389,9 +389,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 7]
+Nadareishvili           Expires November 10, 2019               [Page 7]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
 4.5.  status
@@ -445,9 +445,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 8]
+Nadareishvili           Expires November 10, 2019               [Page 8]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    {
@@ -501,9 +501,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019                [Page 9]
+Nadareishvili           Expires November 10, 2019               [Page 9]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
          {
@@ -557,9 +557,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 10]
+Nadareishvili           Expires November 10, 2019              [Page 10]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
      }
@@ -613,9 +613,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 11]
+Nadareishvili           Expires November 10, 2019              [Page 11]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    o  Restrictions on usage: None
@@ -669,9 +669,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 12]
+Nadareishvili           Expires November 10, 2019              [Page 12]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
       determine how long they could cache them, to avoid overly frequent
@@ -725,9 +725,9 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 13]
+Nadareishvili           Expires November 10, 2019              [Page 13]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    [RFC8259]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
@@ -781,9 +781,9 @@ Author's Address
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 14]
+Nadareishvili           Expires November 10, 2019              [Page 14]
 
-Internet-Draft Health Check Response Format for HTTP APIs     March 2018
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
    Irakli Nadareishvili
@@ -837,4 +837,4 @@ Internet-Draft Health Check Response Format for HTTP APIs     March 2018
 
 
 
-Nadareishvili            Expires October 2, 2019               [Page 15]
+Nadareishvili           Expires November 10, 2019              [Page 15]
