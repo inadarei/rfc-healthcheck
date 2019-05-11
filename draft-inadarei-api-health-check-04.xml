@@ -539,7 +539,7 @@ clients access to additional health check information.</t>
 could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
 the service. Any method of cache lifetime negotiation provided by HTTP spec is
 acceptable (e.g. ETags are just fine).</t>
-  <t>Custom link relation types, as well as the URIs for variables, should lead to
+  <t>Custom link relation types, as well as the URIs for variables, SHOULD lead to
 documentation for those constructs.</t>
 </list></t>
 
@@ -736,7 +736,7 @@ a fresh copy of the health check response, to assure that it is up-to-date.</t>
   </back>
 
 <!-- ##markdown-source:
-H4sIAE7s1FwAA+1c63IbyXX+P0/RBf1YSQZAECIlErlUaIq7or0SNyJlx3G5
+H4sIAIZa11wAA+1c63IbyXX+P0/RBf1YSQZAECIlErlUaIq7or0SNyJlx3G5
 7MZMg5jlYAaZniEEq+TygyQv5yfJ953TcwFJaWXHSW0S748VMOjpPn0u37n0
 aY5Go6hKq8zNzCtns2ppTpcuvjFvnV8XuXfm66Jc2cositK8urr6zpx8d+4j
 O5+X7nYWJUWc2xXeTUq7qEZpbhNbunRk1+loKdONYk43mhxEia0wcDrZP45i
@@ -876,13 +876,13 @@ vUIcFfXbvumf5BhtD291j8FfvRay2+crDe92AUkmvSuopr28GUIaDuqgYkdG
 Oy7qk/vqN96FmwDWyF9nyDl/li6cnjXwzE6C3c/UKQdPjFy1p0vpXTLtbpIv
 iw0kq9ci6eKUX3J4wEcr3bV07VJC2bbtz4dKVfGy0do6TxuTfvny4nKkBxnR
 zu0E2grvz8AM5GRUV2k3lLvrotJT5Z0TS70NxI4maW7vXQXTY8uzK3vtuzNS
-lrufkL+nUoTblaKivbQE8+y5qevL0SwtliEBp+ZtEb1KwcsH4AEVJ5x/dsEz
-NiJNxrneQ/HSTy4xbL3qmfDuzcVelL/idTBxkA8GtXL5yfbDlI3dchH+hYru
-2OfTATHzIGLJoKX970IvenPjIXr45ebiaNBCvNrE99qaMXfbIpw+t5oZtYIM
-xf8HpxbWw2ZFqvzLD/pHAeTvK2TtffQDOVs78Xq2Xmf80yuBZ0VNntFNNTr6
-CQY81oWi3pxPetrcai/gKPzdDp64b/X41mqoGY5DN9SESI4cN0zG5s60tzJB
-57dwMnzOBmIlE+gpf6HFlXoH+GByYB5DasAnuKInjC5s2+ouYxG1KI+LOQ8h
-o2DyUK719gcYyi15aeTQzgaB7Ho9qopRIpc8/hOlyDoXyEcAAA==
+lrufkL+nUoTblaKivbQE8+y5qevL0SwtliEBp8aQIAdePgAPqDjh/LMLnrER
+aTLO9R6Kl35yiWHrVc+Ed28u9qL8Fa+DiYN8MKiVy0+2H6Zs7JaL8C9UdMc+
+nw6ImQcRSwYt7X8XetGbGw/Rwy83F0eDFuLVJr7X1oy52xbh9LnVzKgVZCj+
+Pzi1sB42K1LlX37QPwogf18ha++jH8jZ2onXs/U6459eCTwravKMbqrR0U8w
+4LEuFPXmfNLT5lZ7AUfh73bwxH2rx7dWQ81wHLqhUURy5LhhMjZ3pr2VCTq/
+hZPhczYQK5lAT/kLLa7UO8AHkwPzGFIDPsEVPWF0YdtWdxmLqEV5XMx5CBkF
+k4dyrbc/wFBuyUsjh3Y2CGTX61FVjBK55PGf6zzd7shHAAA=
 
 -->
 
