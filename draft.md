@@ -479,7 +479,7 @@ in mind:
   could cache them, to avoid overly frequent fetching and unintended DDOS-ing of
   the service. Any method of cache lifetime negotiation provided by HTTP spec is
   acceptable (e.g. ETags are just fine).
-* Custom link relation types, as well as the URIs for variables, should lead to
+* Custom link relation types, as well as the URIs for variables, SHOULD lead to
   documentation for those constructs.
 
 
