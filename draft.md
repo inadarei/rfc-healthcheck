@@ -284,9 +284,10 @@ purposes.
 
 ## output
 
-output (optional) has the exact same meaning as the top-level "output"
-element, but for the sub-component/downstream dependency represented
-by the details object.
+output (optional) has the exact same meaning as the top-level "output" element,
+but for the sub-component/downstream dependency represented by the details
+object. As is the case for the top-level element, this field SHOULD be omitted
+for “pass” state of a downstream dependency.
 
 ## links
 
