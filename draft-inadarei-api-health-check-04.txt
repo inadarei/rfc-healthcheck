@@ -98,7 +98,7 @@ Table of Contents
      4.8.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
      4.9.  links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
      4.10. Additional Keys . . . . . . . . . . . . . . . . . . . . .   8
-   5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   8
+   5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
@@ -115,7 +115,7 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
      11.2.  Informative References . . . . . . . . . . . . . . . . .  14
-     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  15
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
@@ -423,7 +423,9 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
    output (optional) has the exact same meaning as the top-level
    "output" element, but for the sub-component/downstream dependency
-   represented by the details object.
+   represented by the details object.  As is the case for the top-level
+   element, this field SHOULD be omitted for "pass" state of a
+   downstream dependency.
 
 4.9.  links
 
@@ -437,11 +439,9 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    included in the 'component details' object.  Implementations MAY
    ignore any keys that are not part of the list of standard keys above.
 
-5.  Example Output
 
-     GET /health HTTP/1.1
-     Host: example.org
-     Accept: application/health+json
+
+
 
 
 
@@ -449,6 +449,12 @@ Nadareishvili           Expires November 12, 2019               [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
+
+5.  Example Output
+
+     GET /health HTTP/1.1
+     Host: example.org
+     Accept: application/health+json
 
      HTTP/1.1 200 OK
      Content-Type: application/health+json
@@ -492,12 +498,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
              "self": "http://api.example.com/dbnode/dfd6cf2b/health"
            }
          }
-       ],
-       "uptime": [
-         {
-           "componentType": "system",
-           "observedValue": 1209600.245,
-           "observedUnit": "s",
 
 
 
@@ -506,6 +506,12 @@ Nadareishvili           Expires November 12, 2019               [Page 9]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+       ],
+       "uptime": [
+         {
+           "componentType": "system",
+           "observedValue": 1209600.245,
+           "observedUnit": "s",
            "status": "pass",
            "time": "2018-01-17T03:36:48Z"
          }
@@ -548,12 +554,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
            "node": 2,
            "componentType": "system",
            "observedValue": 5500,
-           "observedUnit": "MiB",
-           "status": "pass",
-           "time": "2018-01-17T03:36:48Z",
-           "output": ""
-         }
-       ]
 
 
 
@@ -562,6 +562,12 @@ Nadareishvili           Expires November 12, 2019              [Page 10]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+           "observedUnit": "MiB",
+           "status": "pass",
+           "time": "2018-01-17T03:36:48Z",
+           "output": ""
+         }
+       ]
      },
      "links": {
        "about": "http://api.example.com/about/authz",
@@ -605,18 +611,18 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
       implementations will utilize common, trusted approaches such as
       TLS/HTTPS, OAuth2 etc.
 
-   o  Interoperability considerations: None
-
-   o  Published specification: this RFC draft
-
-   o  Applications which use this media: Various
-
 
 
 Nadareishvili           Expires November 12, 2019              [Page 11]
 
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
+
+   o  Interoperability considerations: None
+
+   o  Published specification: this RFC draft
+
+   o  Applications which use this media: Various
 
    o  Fragment identifier considerations: Health+JSON follows RFC6901
       for implementing URI Fragment Identification standard to JSON
@@ -659,12 +665,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
    When making an health check endpoint available, there are a few
    things to keep in mind:
 
-   o  A health response endpoint is best located at a memorable and
-      commonly-used URI, such as "health" because it will help self-
-      discoverability by clients.
-
-   o  Health check responses can be personalized.  For example, you
-      could advertise different URIs, and/or different kinds of link
 
 
 
@@ -674,6 +674,12 @@ Nadareishvili           Expires November 12, 2019              [Page 12]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+   o  A health response endpoint is best located at a memorable and
+      commonly-used URI, such as "health" because it will help self-
+      discoverability by clients.
+
+   o  Health check responses can be personalized.  For example, you
+      could advertise different URIs, and/or different kinds of link
       relations, to afford different clients access to additional health
       check information.
 
@@ -713,6 +719,17 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+
+
+
+
+Nadareishvili           Expires November 12, 2019              [Page 13]
+
+Internet-Draft Health Check Response Format for HTTP APIs       May 2019
+
+
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
@@ -722,13 +739,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
               and D. Orchard, "URI Template", RFC 6570,
               DOI 10.17487/RFC6570, March 2012,
               <https://www.rfc-editor.org/info/rfc6570>.
-
-
-
-Nadareishvili           Expires November 12, 2019              [Page 13]
-
-Internet-Draft Health Check Response Format for HTTP APIs       May 2019
-
 
    [RFC7234]  Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "Hypertext Transfer Protocol (HTTP/1.1): Caching",
@@ -765,16 +775,6 @@ Internet-Draft Health Check Response Format for HTTP APIs       May 2019
               DOI 10.17487/RFC7231, June 2014,
               <https://www.rfc-editor.org/info/rfc7231>.
 
-11.3.  URIs
-
-   [1] https://github.com/inadarei/rfc-healthcheck/issues
-
-   [2] https://inadarei.github.io/rfc-healthcheck/
-
-   [3] https://github.com/inadarei/rfc-healthcheck/commits/master
-
-   [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
-
 
 
 
@@ -786,6 +786,16 @@ Nadareishvili           Expires November 12, 2019              [Page 14]
 Internet-Draft Health Check Response Format for HTTP APIs       May 2019
 
 
+11.3.  URIs
+
+   [1] https://github.com/inadarei/rfc-healthcheck/issues
+
+   [2] https://inadarei.github.io/rfc-healthcheck/
+
+   [3] https://github.com/inadarei/rfc-healthcheck/commits/master
+
+   [4] https://datatracker.ietf.org/doc/draft-inadarei-api-health-check/
+
 Author's Address
 
    Irakli Nadareishvili
@@ -795,16 +805,6 @@ Author's Address
 
    Email: irakli@gmail.com
    URI:   http://www.freshblurbs.com
-
-
-
-
-
-
-
-
-
-
 
 
 
