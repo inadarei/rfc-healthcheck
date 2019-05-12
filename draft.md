@@ -267,7 +267,7 @@ by the details object.
 ## affectedEndpoints
 
 affectedEndpoints (optional) is a JSON array containing URI Templates as defined by {{RFC6570}}.
-This field SHOULD be omitted if the "status" field is present and has value equal to "pass"
+This field SHOULD be omitted if the "status" field is present and has value equal to "pass".
 A typical API has many URI endpoints. Most of the time we are interested in
 the overall health of the API, without diving into details. That said, sometimes
 operational and resilience middleware needs to know more details about the health
