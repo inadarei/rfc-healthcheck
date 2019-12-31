@@ -391,12 +391,13 @@
 <link href="#rfc.section.4.2" rel="Chapter" title="4.2 componentType">
 <link href="#rfc.section.4.3" rel="Chapter" title="4.3 observedValue">
 <link href="#rfc.section.4.4" rel="Chapter" title="4.4 observedUnit">
-<link href="#rfc.section.4.5" rel="Chapter" title="4.5 status">
-<link href="#rfc.section.4.6" rel="Chapter" title="4.6 affectedEndpoints">
-<link href="#rfc.section.4.7" rel="Chapter" title="4.7 time">
-<link href="#rfc.section.4.8" rel="Chapter" title="4.8 output">
-<link href="#rfc.section.4.9" rel="Chapter" title="4.9 links">
-<link href="#rfc.section.4.10" rel="Chapter" title="4.10 Additional Keys">
+<link href="#rfc.section.4.5" rel="Chapter" title="4.5 thresholdValue">
+<link href="#rfc.section.4.6" rel="Chapter" title="4.6 status">
+<link href="#rfc.section.4.7" rel="Chapter" title="4.7 affectedEndpoints">
+<link href="#rfc.section.4.8" rel="Chapter" title="4.8 time">
+<link href="#rfc.section.4.9" rel="Chapter" title="4.9 output">
+<link href="#rfc.section.4.10" rel="Chapter" title="4.10 links">
+<link href="#rfc.section.4.11" rel="Chapter" title="4.11 Additional Keys">
 <link href="#rfc.section.5" rel="Chapter" title="5 Example Output">
 <link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations">
 <link href="#rfc.section.7" rel="Chapter" title="7 IANA Considerations">
@@ -414,7 +415,7 @@
 
   <meta name="dct.creator" content="Nadareishvili, I." />
   <meta name="dct.identifier" content="urn:ietf:id:draft-inadarei-api-health-check-04" />
-  <meta name="dct.issued" scheme="ISO8601" content="2019-11" />
+  <meta name="dct.issued" scheme="ISO8601" content="2020-31" />
   <meta name="dct.abstract" content="This document proposes a service health check response format for HTTP APIs." />
   <meta name="description" content="This document proposes a service health check response format for HTTP APIs." />
 
@@ -431,14 +432,14 @@
 </tr>
 <tr>
 <td class="left">Internet-Draft</td>
-<td class="right">May 11, 2019</td>
+<td class="right">December 31, 2020</td>
 </tr>
 <tr>
 <td class="left">Intended status: Informational</td>
 <td class="right"></td>
 </tr>
 <tr>
-<td class="left">Expires: November 12, 2019</td>
+<td class="left">Expires: July 3, 2020</td>
 <td class="right"></td>
 </tr>
 
@@ -461,9 +462,9 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at https://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on November 12, 2019.</p>
+<p>This Internet-Draft will expire on July 3, 2020.</p>
 <h1 id="rfc.copyrightnotice"><a href="#rfc.copyrightnotice">Copyright Notice</a></h1>
-<p>Copyright (c) 2019 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>Copyright (c) 2020 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
 <p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (https://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
 
   
@@ -505,17 +506,19 @@
 </li>
 <li>4.4.   <a href="#rfc.section.4.4">observedUnit</a>
 </li>
-<li>4.5.   <a href="#rfc.section.4.5">status</a>
+<li>4.5.   <a href="#rfc.section.4.5">thresholdValue</a>
 </li>
-<li>4.6.   <a href="#rfc.section.4.6">affectedEndpoints</a>
+<li>4.6.   <a href="#rfc.section.4.6">status</a>
 </li>
-<li>4.7.   <a href="#rfc.section.4.7">time</a>
+<li>4.7.   <a href="#rfc.section.4.7">affectedEndpoints</a>
 </li>
-<li>4.8.   <a href="#rfc.section.4.8">output</a>
+<li>4.8.   <a href="#rfc.section.4.8">time</a>
 </li>
-<li>4.9.   <a href="#rfc.section.4.9">links</a>
+<li>4.9.   <a href="#rfc.section.4.9">output</a>
 </li>
-<li>4.10.   <a href="#rfc.section.4.10">Additional Keys</a>
+<li>4.10.   <a href="#rfc.section.4.10">links</a>
+</li>
+<li>4.11.   <a href="#rfc.section.4.11">Additional Keys</a>
 </li>
 </ul><li>5.   <a href="#rfc.section.5">Example Output</a>
 </li>
@@ -667,29 +670,33 @@
 <li>A URI that indicates extra semantics and processing rules that MAY be provided by a resource at the other end of the URI. URIs do not have to be dereferenceable, however. They are just a namespace, and the meaning of a namespace CAN be provided by any convenient means (e.g. publishing an RFC, Swagger document or a nicely printed book).</li>
 </ul>
 <h1 id="rfc.section.4.5">
-<a href="#rfc.section.4.5">4.5.</a> <a href="#status-1" id="status-1">status</a>
+<a href="#rfc.section.4.5">4.5.</a> <a href="#thresholdvalue" id="thresholdvalue">thresholdValue</a>
 </h1>
-<p id="rfc.section.4.5.p.1">status (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<p id="rfc.section.4.5.p.1">thresholdValue: (optional) could be any valid JSON value, such as: string, number, object, array or literal. Determines the value above (or below) which the status changes from &#8220;pass&#8221; state to &#8220;warn&#8221; state or back. thresholdValue MUST only be present if observedValue is also present.</p>
 <h1 id="rfc.section.4.6">
-<a href="#rfc.section.4.6">4.6.</a> <a href="#affectedendpoints" id="affectedendpoints">affectedEndpoints</a>
+<a href="#rfc.section.4.6">4.6.</a> <a href="#status-1" id="status-1">status</a>
 </h1>
-<p id="rfc.section.4.6.p.1">A typical API has many URI endpoints. Most of the time we are interested in the overall health of the API, without diving into details. That said, sometimes operational and resilience middleware needs to know more details about the health of the API (which is why &#8220;checks&#8221; property provides details). In such cases, we often need to indicate which particular endpoints are affected by a particular check&#8217;s troubles vs. other endpoints that may be fine. The <samp>affectedEndpoints</samp> property is a JSON array containing URI Templates as defined by <a href="#RFC6570" class="xref">[RFC6570]</a>.</p>
+<p id="rfc.section.4.6.p.1">status (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
 <h1 id="rfc.section.4.7">
-<a href="#rfc.section.4.7">4.7.</a> <a href="#time" id="time">time</a>
+<a href="#rfc.section.4.7">4.7.</a> <a href="#affectedendpoints" id="affectedendpoints">affectedEndpoints</a>
 </h1>
-<p id="rfc.section.4.7.p.1">time (optional) is the date-time, in ISO8601 format, at which the reading of the observedValue was recorded. This assumes that the value can be cached and the reading typically doesn&#8217;t happen in real time, for performance and scalability purposes.</p>
+<p id="rfc.section.4.7.p.1">affectedEndpoints (optional) is a JSON array containing URI Templates as defined by <a href="#RFC6570" class="xref">[RFC6570]</a>. This field SHOULD be omitted if the &#8220;status&#8221; field is present and has value equal to &#8220;pass&#8221;. A typical API has many URI endpoints. Most of the time we are interested in the overall health of the API, without diving into details. That said, sometimes operational and resilience middleware needs to know more details about the health of the API (which is why &#8220;checks&#8221; property provides details). In such cases, we often need to indicate which particular endpoints are affected by a particular check&#8217;s troubles vs. other endpoints that may be fine.</p>
 <h1 id="rfc.section.4.8">
-<a href="#rfc.section.4.8">4.8.</a> <a href="#output-1" id="output-1">output</a>
+<a href="#rfc.section.4.8">4.8.</a> <a href="#time" id="time">time</a>
 </h1>
-<p id="rfc.section.4.8.p.1">output (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object. As is the case for the top-level element, this field SHOULD be omitted for &#8220;pass&#8221; state of a downstream dependency.</p>
+<p id="rfc.section.4.8.p.1">time (optional) is the date-time, in ISO8601 format, at which the reading of the observedValue was recorded. This assumes that the value can be cached and the reading typically doesn&#8217;t happen in real time, for performance and scalability purposes.</p>
 <h1 id="rfc.section.4.9">
-<a href="#rfc.section.4.9">4.9.</a> <a href="#links-1" id="links-1">links</a>
+<a href="#rfc.section.4.9">4.9.</a> <a href="#output-1" id="output-1">output</a>
 </h1>
-<p id="rfc.section.4.9.p.1">links (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<p id="rfc.section.4.9.p.1">output (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object. As is the case for the top-level element, this field SHOULD be omitted for &#8220;pass&#8221; state of a downstream dependency.</p>
 <h1 id="rfc.section.4.10">
-<a href="#rfc.section.4.10">4.10.</a> <a href="#additional-keys" id="additional-keys">Additional Keys</a>
+<a href="#rfc.section.4.10">4.10.</a> <a href="#links-1" id="links-1">links</a>
 </h1>
-<p id="rfc.section.4.10.p.1">In addition to the above keys, additional user-defined keys MAY be included in the &#8216;component details&#8217; object. Implementations MAY ignore any keys that are not part of the list of standard keys above.</p>
+<p id="rfc.section.4.10.p.1">links (optional) has the exact same meaning as the top-level &#8220;output&#8221; element, but for the sub-component/downstream dependency represented by the details object.</p>
+<h1 id="rfc.section.4.11">
+<a href="#rfc.section.4.11">4.11.</a> <a href="#additional-keys" id="additional-keys">Additional Keys</a>
+</h1>
+<p id="rfc.section.4.11.p.1">In addition to the above keys, additional user-defined keys MAY be included in the &#8216;component details&#8217; object. Implementations MAY ignore any keys that are not part of the list of standard keys above.</p>
 <h1 id="rfc.section.5">
 <a href="#rfc.section.5">5.</a> <a href="#example-output" id="example-output">Example Output</a>
 </h1>
