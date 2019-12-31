@@ -92,20 +92,20 @@ Table of Contents
      4.2.  componentType . . . . . . . . . . . . . . . . . . . . . .   7
      4.3.  observedValue . . . . . . . . . . . . . . . . . . . . . .   7
      4.4.  observedUnit  . . . . . . . . . . . . . . . . . . . . . .   7
-     4.5.  thresholdValue  . . . . . . . . . . . . . . . . . . . . .   8
-     4.6.  status  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.7.  affectedEndpoints . . . . . . . . . . . . . . . . . . . .   8
-     4.8.  time  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.9.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.10. links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.11. Additional Keys . . . . . . . . . . . . . . . . . . . . .   9
+     4.5.  status  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.6.  affectedEndpoints . . . . . . . . . . . . . . . . . . . .   8
+     4.7.  time  . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.8.  output  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.9.  links . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.10. Additional Keys . . . . . . . . . . . . . . . . . . . . .   8
    5.  Example Output  . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
    7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  11
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  12
-   9.  Creating and Serving Health Responses . . . . . . . . . . . .  13
+   9.  Creating and Serving Health Responses . . . . . . . . . . . .  12
    10. Consuming Health Check Responses  . . . . . . . . . . . . . .  13
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
 
 
 
@@ -114,7 +114,6 @@ Nadareishvili             Expires July 3, 2020                  [Page 2]
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
 
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
      11.2.  Informative References . . . . . . . . . . . . . . . . .  14
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  15
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  15
@@ -161,6 +160,7 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
+
 
 
 
@@ -394,21 +394,13 @@ Nadareishvili             Expires July 3, 2020                  [Page 7]
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
 
-4.5.  thresholdValue
-
-   thresholdValue: (optional) could be any valid JSON value, such as:
-   string, number, object, array or literal.  Determines the value above
-   (or below) which the status changes from "pass" state to "warn" state
-   or back. thresholdValue MUST only be present if observedValue is also
-   present.
-
-4.6.  status
+4.5.  status
 
    status (optional) has the exact same meaning as the top-level
    "output" element, but for the sub-component/downstream dependency
    represented by the details object.
 
-4.7.  affectedEndpoints
+4.6.  affectedEndpoints
 
    affectedEndpoints (optional) is a JSON array containing URI Templates
    as defined by [RFC6570].  This field SHOULD be omitted if the
@@ -421,14 +413,14 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
    which particular endpoints are affected by a particular check's
    troubles vs. other endpoints that may be fine.
 
-4.8.  time
+4.7.  time
 
    time (optional) is the date-time, in ISO8601 format, at which the
    reading of the observedValue was recorded.  This assumes that the
    value can be cached and the reading typically doesn't happen in real
    time, for performance and scalability purposes.
 
-4.9.  output
+4.8.  output
 
    output (optional) has the exact same meaning as the top-level
    "output" element, but for the sub-component/downstream dependency
@@ -436,11 +428,19 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
    element, this field SHOULD be omitted for "pass" state of a
    downstream dependency.
 
-4.10.  links
+4.9.  links
 
    links (optional) has the exact same meaning as the top-level "output"
    element, but for the sub-component/downstream dependency represented
    by the details object.
+
+4.10.  Additional Keys
+
+   In addition to the above keys, additional user-defined keys MAY be
+   included in the 'component details' object.  Implementations MAY
+   ignore any keys that are not part of the list of standard keys above.
+
+
 
 
 
@@ -449,12 +449,6 @@ Nadareishvili             Expires July 3, 2020                  [Page 8]
 
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
-
-4.11.  Additional Keys
-
-   In addition to the above keys, additional user-defined keys MAY be
-   included in the 'component details' object.  Implementations MAY
-   ignore any keys that are not part of the list of standard keys above.
 
 5.  Example Output
 
@@ -498,6 +492,12 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
            "componentType": "datastore",
            "observedValue": 75,
            "status": "warn",
+           "time": "2018-01-17T03:36:48Z",
+           "output": "",
+           "links": {
+             "self": "http://api.example.com/dbnode/dfd6cf2b/health"
+           }
+         }
 
 
 
@@ -506,12 +506,6 @@ Nadareishvili             Expires July 3, 2020                  [Page 9]
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
 
-           "time": "2018-01-17T03:36:48Z",
-           "output": "",
-           "links": {
-             "self": "http://api.example.com/dbnode/dfd6cf2b/health"
-           }
-         }
        ],
        "uptime": [
          {
@@ -554,6 +548,12 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
            "status": "warn",
            "time": "2018-01-17T03:36:48Z",
            "output": ""
+         },
+         {
+           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
+           "node": 2,
+           "componentType": "system",
+           "observedValue": 5500,
 
 
 
@@ -562,12 +562,6 @@ Nadareishvili             Expires July 3, 2020                 [Page 10]
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
 
-         },
-         {
-           "componentId": "6fd416e0-8920-410f-9c7b-c479000f7227",
-           "node": 2,
-           "componentType": "system",
-           "observedValue": 5500,
            "observedUnit": "MiB",
            "status": "pass",
            "time": "2018-01-17T03:36:48Z",
@@ -611,18 +605,18 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
       (URIs) and as such shares security issues common to URI usage.
       See RFC 3986 Section #7 for additional information.
 
+      Since health+json can carry wide variety of data, some data may
+      require privacy or integrity services.  This specification does
+      not prescribe any specific solution and assumes that concrete
+      implementations will utilize common, trusted approaches such as
+      TLS/HTTPS, OAuth2 etc.
+
 
 
 Nadareishvili             Expires July 3, 2020                 [Page 11]
 
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
-
-      Since health+json can carry wide variety of data, some data may
-      require privacy or integrity services.  This specification does
-      not prescribe any specific solution and assumes that concrete
-      implementations will utilize common, trusted approaches such as
-      TLS/HTTPS, OAuth2 etc.
 
    o  Interoperability considerations: None
 
@@ -666,6 +660,12 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
    Randall for their suggestions and feedback.  And to Mark Nottingham
    for blueprint for authoring RFCs easily.
 
+9.  Creating and Serving Health Responses
+
+   When making an health check endpoint available, there are a few
+   things to keep in mind:
+
+
 
 
 
@@ -673,11 +673,6 @@ Nadareishvili             Expires July 3, 2020                 [Page 12]
 
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
-
-9.  Creating and Serving Health Responses
-
-   When making an health check endpoint available, there are a few
-   things to keep in mind:
 
    o  A health response endpoint is best located at a memorable and
       commonly-used URI, such as "health" because it will help self-
@@ -719,6 +714,11 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
 11.1.  Normative References
 
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
 
 
 
@@ -729,11 +729,6 @@ Nadareishvili             Expires July 3, 2020                 [Page 13]
 
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -775,6 +770,11 @@ Internet-Draft Health Check Response Format for HTTP APIs  December 2020
               RFC 7230, DOI 10.17487/RFC7230, June 2014,
               <https://www.rfc-editor.org/info/rfc7230>.
 
+   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
+              DOI 10.17487/RFC7231, June 2014,
+              <https://www.rfc-editor.org/info/rfc7231>.
+
 
 
 
@@ -785,11 +785,6 @@ Nadareishvili             Expires July 3, 2020                 [Page 14]
 
 Internet-Draft Health Check Response Format for HTTP APIs  December 2020
 
-
-   [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
-              Protocol (HTTP/1.1): Semantics and Content", RFC 7231,
-              DOI 10.17487/RFC7231, June 2014,
-              <https://www.rfc-editor.org/info/rfc7231>.
 
 11.3.  URIs
 
@@ -810,6 +805,11 @@ Author's Address
 
    Email: irakli@gmail.com
    URI:   http://www.freshblurbs.com
+
+
+
+
+
 
 
 
