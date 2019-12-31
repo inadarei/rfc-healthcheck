@@ -259,6 +259,13 @@ or an abbreviation, it SHOULD be one of:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
+## thresholdValue
+
+thresholdValue: (optional) could be any valid JSON value, such as: string, number,
+object, array or literal. Determines the value above (or below) which the status
+changes from "pass" state to "warn" state or back. thresholdValue MUST only be
+present if observedValue is also present.
+
 ## status
 
 status (optional) has the exact same meaning as the top-level "output"
@@ -267,14 +274,15 @@ by the details object.
 
 ## affectedEndpoints
 
-affectedEndpoints (optional) is a JSON array containing URI Templates as defined by {{RFC6570}}.
-This field SHOULD be omitted if the "status" field is present and has value equal to "pass".
-A typical API has many URI endpoints. Most of the time we are interested in
-the overall health of the API, without diving into details. That said, sometimes
-operational and resilience middleware needs to know more details about the health
-of the API (which is why "checks" property provides details). In such cases,
-we often need to indicate which particular endpoints are affected by a particular
-check's troubles vs. other endpoints that may be fine.
+affectedEndpoints (optional) is a JSON array containing URI Templates as defined
+by {{RFC6570}}. This field SHOULD be omitted if the "status" field is present
+and has value equal to "pass". A typical API has many URI endpoints. Most of the
+time we are interested in the overall health of the API, without diving into
+details. That said, sometimes operational and resilience middleware needs to
+know more details about the health of the API (which is why "checks" property
+provides details). In such cases, we often need to indicate which particular
+endpoints are affected by a particular check's troubles vs. other endpoints that
+may be fine.
 
 ## time
 
