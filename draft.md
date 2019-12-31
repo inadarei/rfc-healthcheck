@@ -267,13 +267,14 @@ by the details object.
 
 ## affectedEndpoints
 
+affectedEndpoints (optional) is a JSON array containing URI Templates as defined by {{RFC6570}}.
+This field SHOULD be omitted if the "status" field is present and has value equal to "pass".
 A typical API has many URI endpoints. Most of the time we are interested in
 the overall health of the API, without diving into details. That said, sometimes
 operational and resilience middleware needs to know more details about the health
 of the API (which is why "checks" property provides details). In such cases,
 we often need to indicate which particular endpoints are affected by a particular
-check's troubles vs. other endpoints that may be fine. The `affectedEndpoints`
-property is a JSON array containing URI Templates as defined by {{RFC6570}}.
+check's troubles vs. other endpoints that may be fine.
 
 ## time
 
