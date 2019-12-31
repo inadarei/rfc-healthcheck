@@ -260,13 +260,6 @@ or an abbreviation, it SHOULD be one of:
     namespace CAN be provided by any convenient means (e.g. publishing an RFC,
     Swagger document or a nicely printed book).
 
-## thresholdValue
-
-thresholdValue: (optional) could be any valid JSON value, such as: string, number,
-object, array or literal. Determines the value above (or below) which the status
-changes from "pass" state to "warn" state or back. thresholdValue MUST only be
-present if observedValue is also present.
-
 ## status
 
 status (optional) has the exact same meaning as the top-level "output"
