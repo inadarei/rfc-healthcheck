@@ -2,7 +2,7 @@
 title: Health Check Response Format for HTTP APIs
 abbrev:
 docname: draft-inadarei-api-health-check-04
-date: 2019
+date: 2020
 category: info
 
 ipr: trust200902
@@ -213,7 +213,8 @@ in which case the meaning of the parts SHOULD be as follows:
     Open API Spec document or a nicely printed book).
 
 On the value side of the equation, each "component details" object in the array
-SHOULD have at least one key, and MAY have any or none of the following object keys:
+SHOULD have at least one key, and MAY have any or none of the following object
+keys:
 
 ## componentId
 
@@ -452,8 +453,8 @@ The media type for health check response is application/health+json.
 * Interoperability considerations: None
 * Published specification: this RFC draft
 * Applications which use this media: Various
-* Fragment identifier considerations: Health+JSON follows RFC6901 for implementing
-URI Fragment Identification standard to JSON content types.
+* Fragment identifier considerations: Health+JSON follows RFC6901 for
+  implementing URI Fragment Identification standard to JSON content types.
 * Restrictions on usage: None
 * Additional information:
     1. Deprecated alias names for this type: n/a
