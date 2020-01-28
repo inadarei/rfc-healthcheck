@@ -321,7 +321,6 @@ any keys that are not part of the list of standard keys above.
   "version": "1",
   "releaseId": "1.2.2",
   "notes": [""],
-  "output": "",
   "serviceId": "f03e522f-1f44-4062-9b55-9587f91c9c41",
   "description": "health of authz service",
   "checks": {
@@ -337,8 +336,7 @@ any keys that are not part of the list of standard keys above.
           "/customers/{customerId}/status",
           "/shopping/{anything}"
         ],
-        "time": "2018-01-17T03:36:48Z",
-        "output": ""
+        "time": "2018-01-17T03:36:48Z"
       }
     ],
     "cassandra:connections": [
@@ -403,8 +401,7 @@ any keys that are not part of the list of standard keys above.
         "observedValue": 5500,
         "observedUnit": "MiB",
         "status": "pass",
-        "time": "2018-01-17T03:36:48Z",
-        "output": ""
+        "time": "2018-01-17T03:36:48Z"
       }
     ]
   },
