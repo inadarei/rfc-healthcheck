@@ -3,13 +3,13 @@
 
 
 Network Working Group                                   I. Nadareishvili
-Internet-Draft                                           16 October 2021
+Internet-Draft                                          18 November 2020
 Intended status: Informational                                          
-Expires: 19 April 2022
+Expires: 22 May 2021
 
 
                Health Check Response Format for HTTP APIs
-                   draft-inadarei-api-health-check-06
+                   draft-inadarei-api-health-check-05
 
 Abstract
 
@@ -53,16 +53,16 @@ Status of This Memo
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 1]
+Nadareishvili              Expires 22 May 2021                  [Page 1]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
-   This Internet-Draft will expire on 19 April 2022.
+   This Internet-Draft will expire on 22 May 2021.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2020 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 2]
+Nadareishvili              Expires 22 May 2021                  [Page 2]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  13
@@ -165,9 +165,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 3]
+Nadareishvili              Expires 22 May 2021                  [Page 3]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 3.  API Health Response
@@ -221,9 +221,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 4]
+Nadareishvili              Expires 22 May 2021                  [Page 4]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 3.3.  releaseId
@@ -277,9 +277,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 5]
+Nadareishvili              Expires 22 May 2021                  [Page 5]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 4.  The Checks Object
@@ -333,9 +333,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 6]
+Nadareishvili              Expires 22 May 2021                  [Page 6]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 4.1.  componentId
@@ -389,9 +389,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 7]
+Nadareishvili              Expires 22 May 2021                  [Page 7]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
    *  A URI that indicates extra semantics and processing rules that MAY
@@ -445,9 +445,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 8]
+Nadareishvili              Expires 22 May 2021                  [Page 8]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 4.10.  Additional Keys
@@ -501,9 +501,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                 [Page 9]
+Nadareishvili              Expires 22 May 2021                  [Page 9]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
            "time": "2018-01-17T03:36:48Z",
@@ -557,9 +557,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 10]
+Nadareishvili              Expires 22 May 2021                 [Page 10]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
          },
@@ -613,9 +613,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 11]
+Nadareishvili              Expires 22 May 2021                 [Page 11]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
       Since health+json can carry wide variety of data, some data may
@@ -669,9 +669,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 12]
+Nadareishvili              Expires 22 May 2021                 [Page 12]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
 9.  Creating and Serving Health Responses
@@ -725,9 +725,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 13]
+Nadareishvili              Expires 22 May 2021                 [Page 13]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -781,9 +781,9 @@ Internet-Draft  Health Check Response Format for HTTP AP    October 2021
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 14]
+Nadareishvili              Expires 22 May 2021                 [Page 14]
 
-Internet-Draft  Health Check Response Format for HTTP AP    October 2021
+Internet-Draft  Health Check Response Format for HTTP AP   November 2020
 
 
    [RFC7231]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
@@ -837,4 +837,4 @@ Author's Address
 
 
 
-Nadareishvili             Expires 19 April 2022                [Page 15]
+Nadareishvili              Expires 22 May 2021                 [Page 15]

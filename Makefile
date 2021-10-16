@@ -12,7 +12,13 @@ next = draft-$(title)-$(shell printf "%.2d" `echo ${version}+1 | bc`)
 
 .PHONY: latest clean next diff idnits update
 
-latest: $(target).html $(target).txt index.html index.txt
+latest:
+	$(kramdown-rfc2629) draft.md > $(target).xml
+	$(xml2rfc) $(target).xml --text --html
+	cp $(target).html index.html
+	cp $(target).txt index.txt
+
+#latest: $(target).html $(target).txt index.html index.txt
 
 clean:
 	rm -f $(target).html $(target).txt
@@ -27,17 +33,17 @@ diff:
 idnits: $(target).txt
 	$(idnits) $<
 
-%.xml: draft.md
-	$(kramdown-rfc2629) $< > $@
-
-%.html: %.xml
-	$(xml2rfc) --html $< $@
-
-%.txt: %.xml
-	$(xml2rfc) $< $@
-
-index.html: $(target).html
-	cp $< $@
-
-index.txt: $(target).txt
-	cp $< $@
+# %.xml: draft.md
+# 	$(kramdown-rfc2629) $< > $@
+# 
+# %.html: %.xml
+# 	$(xml2rfc) --html --text $< 
+# 
+# %.txt: %.xml
+# 	$(xml2rfc) $< 
+# 
+# index.html: $(target).html
+# 	cp $< $@
+# 
+# index.txt: $(target).txt
+# 	cp $< $@

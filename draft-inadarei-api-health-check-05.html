@@ -9,28 +9,28 @@
 <meta content="
        This document proposes a service health check response format for HTTP APIs. 
     " name="description">
-<meta content="xml2rfc 3.10.0" name="generator">
+<meta content="xml2rfc 3.5.0" name="generator">
 <meta content="Internet-Draft" name="keyword">
-<meta content="draft-inadarei-api-health-check-06" name="ietf.draft">
+<meta content="draft-inadarei-api-health-check-05" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.10.0
-    Python 3.7.10
+  xml2rfc 3.5.0
+    Python 3.7.3
     appdirs 1.4.4
-    ConfigArgParse 1.5.3
-    google-i18n-address 2.5.0
+    ConfigArgParse 1.2.3
+    google-i18n-address 2.4.0
     html5lib 1.1
     intervaltree 3.1.0
-    Jinja2 2.11.3
+    Jinja2 2.11.2
     kitchen 1.2.6
-    lxml 4.6.3
+    lxml 4.6.1
     pycountry 20.7.3
-    pyflakes 2.4.0
-    PyYAML 6.0
-    requests 2.26.0
-    setuptools 47.1.0
-    six 1.16.0
+    pyflakes 2.2.0
+    PyYAML 5.3.1
+    requests 2.25.0
+    setuptools 40.8.0
+    six 1.12.0
 -->
-<link href="draft-inadarei-api-health-check-06.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-inadarei-api-health-check-05.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">/*
 
@@ -197,9 +197,6 @@ ul.empty, .ulEmpty {
 }
 ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
-}
-ul.ulBare, li.ulBare {
-  margin-left: 0em !important;
 }
 ul.compact, .ulCompact,
 ol.compact, .olCompact {
@@ -383,12 +380,6 @@ hr {
 #identifiers dd {
   float: left;
   margin-bottom: 0;
-}
-/* Fix PDF info block run off issue */
-@media print {
-  #identifiers dd {
-    float: none;
-  }
 }
 #identifiers .authors .author {
   display: inline-block;
@@ -1084,7 +1075,7 @@ tr:nth-child(2n+1) > td {
 }
 /* Change the approach to avoiding breaks inside artwork etc. */
 figure, pre, table, .artwork, .sourcecode  {
-  break-before: auto;
+  break-before: avoid-page;
   break-after: auto;
 }
 /* Avoid breaks between <dt> and <dd> */
@@ -1167,14 +1158,6 @@ dd > ul:first-child {
 dt+dd:empty::before{
   content: "\00a0";
 }
-/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
-li > p {
-  margin-bottom: 0.5em
-}
-/* Don't let p margin spill out from inside list items */
-li > p:last-of-type {
-  margin-bottom: 0;
-}
 </style>
 <link href="rfc-local.css" rel="stylesheet" type="text/css">
 <script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
@@ -1185,11 +1168,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Health Check Response Format for HTTP AP</td>
-<td class="right">October 2021</td>
+<td class="right">November 2020</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Nadareishvili</td>
-<td class="center">Expires 19 April 2022</td>
+<td class="center">Expires 22 May 2021</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1199,15 +1182,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-inadarei-api-health-check-06</dd>
+<dd class="internet-draft">draft-inadarei-api-health-check-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-10-16" class="published">16 October 2021</time>
+<time datetime="2020-11-18" class="published">18 November 2020</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-04-19">19 April 2022</time></dd>
+<dd class="expires"><time datetime="2021-05-22">22 May 2021</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1222,8 +1205,8 @@ li > p:last-of-type {
 <p id="section-abstract-1">This document proposes a service health check response format for HTTP APIs.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note" id="section-note.1">
-      <h2 id="name-note-to-readers-2">
-<a href="#name-note-to-readers-2" class="section-name selfRef">Note to Readers</a>
+      <h2 id="name-note-to-readers">
+<a href="#name-note-to-readers" class="section-name selfRef">Note to Readers</a>
       </h2>
 <p id="section-note.1-1"><strong>RFC EDITOR: please remove this section before publication</strong><a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">The issues list for this draft can be found at <a href="https://github.com/inadarei/rfc-healthcheck/issues">https://github.com/inadarei/rfc-healthcheck/issues</a>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
@@ -1234,8 +1217,8 @@ li > p:last-of-type {
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
-        <h2 id="name-status-of-this-memo-2">
-<a href="#name-status-of-this-memo-2" class="section-name selfRef">Status of This Memo</a>
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
         </h2>
 <p id="section-boilerplate.1-1">
         This Internet-Draft is submitted in full conformance with the
@@ -1251,16 +1234,16 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 19 April 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 May 2021.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
 <section id="section-boilerplate.2">
-        <h2 id="name-copyright-notice-2">
-<a href="#name-copyright-notice-2" class="section-name selfRef">Copyright Notice</a>
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2020 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1276,114 +1259,114 @@ li > p:last-of-type {
 </div>
 <div id="toc">
 <section id="section-toc.1">
-        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents-2">
-<a href="#name-table-of-contents-2" class="section-name selfRef">Table of Contents</a>
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
         </h2>
-<nav class="toc"><ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction-2" class="xref">Introduction</a></p>
+<nav class="toc"><ul class="ulEmpty compact toc">
+<li class="ulEmpty compact toc" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="xref">1</a>.  <a href="#name-introduction" class="xref">Introduction</a><a href="#section-toc.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-notational-conventions-2" class="xref">Notational Conventions</a></p>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="xref">2</a>.  <a href="#name-notational-conventions" class="xref">Notational Conventions</a><a href="#section-toc.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-api-health-response-2" class="xref">API Health Response</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-status-3" class="xref">status</a></p>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="xref">3</a>.  <a href="#name-api-health-response" class="xref">API Health Response</a><a href="#section-toc.1-1.3.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="xref">3.1</a>.  <a href="#name-status" class="xref">status</a><a href="#section-toc.1-1.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-version-2" class="xref">version</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="xref">3.2</a>.  <a href="#name-version" class="xref">version</a><a href="#section-toc.1-1.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-releaseid-2" class="xref">releaseId</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="xref">3.3</a>.  <a href="#name-releaseid" class="xref">releaseId</a><a href="#section-toc.1-1.3.2.3.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-notes-2" class="xref">notes</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="xref">3.4</a>.  <a href="#name-notes" class="xref">notes</a><a href="#section-toc.1-1.3.2.4.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-output-3" class="xref">output</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="xref">3.5</a>.  <a href="#name-output" class="xref">output</a><a href="#section-toc.1-1.3.2.5.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.6">
-                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="xref">3.6</a>.  <a href="#name-checks-2" class="xref">checks</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.6">
+                <p id="section-toc.1-1.3.2.6.1"><a href="#section-3.6" class="xref">3.6</a>.  <a href="#name-checks" class="xref">checks</a><a href="#section-toc.1-1.3.2.6.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
-                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="xref">3.7</a>.  <a href="#name-links-3" class="xref">links</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.7">
+                <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="xref">3.7</a>.  <a href="#name-links" class="xref">links</a><a href="#section-toc.1-1.3.2.7.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
-                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="xref">3.8</a>.  <a href="#name-serviceid-2" class="xref">serviceId</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.8">
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="xref">3.8</a>.  <a href="#name-serviceid" class="xref">serviceId</a><a href="#section-toc.1-1.3.2.8.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.9">
-                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="xref">3.9</a>.  <a href="#name-description-2" class="xref">description</a></p>
-</li>
-            </ul>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-the-checks-object-2" class="xref">The Checks Object</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-componentid-2" class="xref">componentId</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-componenttype-2" class="xref">componentType</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-observedvalue-2" class="xref">observedValue</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-observedunit-2" class="xref">observedUnit</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
-                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-status-4" class="xref">status</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.6">
-                <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-affectedendpoints-2" class="xref">affectedEndpoints</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.7">
-                <p id="section-toc.1-1.4.2.7.1"><a href="#section-4.7" class="xref">4.7</a>.  <a href="#name-time-2" class="xref">time</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.8">
-                <p id="section-toc.1-1.4.2.8.1"><a href="#section-4.8" class="xref">4.8</a>.  <a href="#name-output-4" class="xref">output</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.9">
-                <p id="section-toc.1-1.4.2.9.1"><a href="#section-4.9" class="xref">4.9</a>.  <a href="#name-links-4" class="xref">links</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.10">
-                <p id="section-toc.1-1.4.2.10.1"><a href="#section-4.10" class="xref">4.10</a>. <a href="#name-additional-keys-2" class="xref">Additional Keys</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.3.2.9">
+                <p id="section-toc.1-1.3.2.9.1"><a href="#section-3.9" class="xref">3.9</a>.  <a href="#name-description" class="xref">description</a><a href="#section-toc.1-1.3.2.9.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-example-output-2" class="xref">Example Output</a></p>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="xref">4</a>.  <a href="#name-the-checks-object" class="xref">The Checks Object</a><a href="#section-toc.1-1.4.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="xref">4.1</a>.  <a href="#name-componentid" class="xref">componentId</a><a href="#section-toc.1-1.4.2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations-2" class="xref">Security Considerations</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="xref">4.2</a>.  <a href="#name-componenttype" class="xref">componentType</a><a href="#section-toc.1-1.4.2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations-2" class="xref">IANA Considerations</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="xref">4.3</a>.  <a href="#name-observedvalue" class="xref">observedValue</a><a href="#section-toc.1-1.4.2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-acknowledgements-2" class="xref">Acknowledgements</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="xref">4.4</a>.  <a href="#name-observedunit" class="xref">observedUnit</a><a href="#section-toc.1-1.4.2.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-creating-and-serving-health-" class="xref">Creating and Serving Health Responses</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="xref">4.5</a>.  <a href="#name-status-2" class="xref">status</a><a href="#section-toc.1-1.4.2.5.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-consuming-health-check-respo" class="xref">Consuming Health Check Responses</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.6">
+                <p id="section-toc.1-1.4.2.6.1"><a href="#section-4.6" class="xref">4.6</a>.  <a href="#name-affectedendpoints" class="xref">affectedEndpoints</a><a href="#section-toc.1-1.4.2.6.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-references-2" class="xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
-                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-normative-references-2" class="xref">Normative References</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.7">
+                <p id="section-toc.1-1.4.2.7.1"><a href="#section-4.7" class="xref">4.7</a>.  <a href="#name-time" class="xref">time</a><a href="#section-toc.1-1.4.2.7.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
-                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-informative-references-2" class="xref">Informative References</a></p>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.8">
+                <p id="section-toc.1-1.4.2.8.1"><a href="#section-4.8" class="xref">4.8</a>.  <a href="#name-output-2" class="xref">output</a><a href="#section-toc.1-1.4.2.8.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.9">
+                <p id="section-toc.1-1.4.2.9.1"><a href="#section-4.9" class="xref">4.9</a>.  <a href="#name-links-2" class="xref">links</a><a href="#section-toc.1-1.4.2.9.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.4.2.10">
+                <p id="section-toc.1-1.4.2.10.1"><a href="#section-4.10" class="xref">4.10</a>. <a href="#name-additional-keys" class="xref">Additional Keys</a><a href="#section-toc.1-1.4.2.10.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="xref"></a><a href="#name-authors-address-2" class="xref">Author's Address</a></p>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="xref">5</a>.  <a href="#name-example-output" class="xref">Example Output</a><a href="#section-toc.1-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a><a href="#section-toc.1-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a><a href="#section-toc.1-1.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-acknowledgements" class="xref">Acknowledgements</a><a href="#section-toc.1-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-creating-and-serving-health" class="xref">Creating and Serving Health Responses</a><a href="#section-toc.1-1.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-consuming-health-check-resp" class="xref">Consuming Health Check Responses</a><a href="#section-toc.1-1.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="xref">11</a>. <a href="#name-references" class="xref">References</a><a href="#section-toc.1-1.11.1" class="pilcrow">¶</a></p>
+<ul class="toc ulEmpty compact">
+<li class="toc ulEmpty compact" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="xref">11.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a><a href="#section-toc.1-1.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="toc ulEmpty compact" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="xref">11.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a><a href="#section-toc.1-1.11.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="ulEmpty compact toc" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-appendix.a" class="xref"></a><a href="#name-authors-address" class="xref">Author's Address</a><a href="#section-toc.1-1.12.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </nav>
@@ -1391,8 +1374,8 @@ li > p:last-of-type {
 </div>
 <div id="introduction">
 <section id="section-1">
-      <h2 id="name-introduction-2">
-<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction-2" class="section-name selfRef">Introduction</a>
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">The vast majority of modern APIs driving data to web and mobile applications use
 HTTP <span>[<a href="#RFC7230" class="xref">RFC7230</a>]</span> as their protocol. The health and uptime of these APIs
@@ -1427,8 +1410,8 @@ tooling.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </div>
 <div id="notational-conventions">
 <section id="section-2">
-      <h2 id="name-notational-conventions-2">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-notational-conventions-2" class="section-name selfRef">Notational Conventions</a>
+      <h2 id="name-notational-conventions">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-notational-conventions" class="section-name selfRef">Notational Conventions</a>
       </h2>
 <p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
@@ -1437,8 +1420,8 @@ interpreted as described in <span>[<a href="#RFC2119" class="xref">RFC2119</a>]<
 </div>
 <div id="api-health-response">
 <section id="section-3">
-      <h2 id="name-api-health-response-2">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-api-health-response-2" class="section-name selfRef">API Health Response</a>
+      <h2 id="name-api-health-response">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-api-health-response" class="section-name selfRef">API Health Response</a>
       </h2>
 <p id="section-3-1">Health Check Response Format for HTTP APIs uses the JSON format described in
 <span>[<a href="#RFC8259" class="xref">RFC8259</a>]</span> and has the media type "application/health+json".<a href="#section-3-1" class="pilcrow">¶</a></p>
@@ -1446,8 +1429,8 @@ interpreted as described in <span>[<a href="#RFC2119" class="xref">RFC2119</a>]<
 optional fields:<a href="#section-3-2" class="pilcrow">¶</a></p>
 <div id="status">
 <section id="section-3.1">
-        <h3 id="name-status-3">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-status-3" class="section-name selfRef">status</a>
+        <h3 id="name-status">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-status" class="section-name selfRef">status</a>
         </h3>
 <p id="section-3.1-1">status: (required) indicates whether the service status is acceptable or not.
 API publishers SHOULD use following values for the field:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
@@ -1479,16 +1462,16 @@ API publishers SHOULD use following values for the field:<a href="#section-3.1-1
 </div>
 <div id="version">
 <section id="section-3.2">
-        <h3 id="name-version-2">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-version-2" class="section-name selfRef">version</a>
+        <h3 id="name-version">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-version" class="section-name selfRef">version</a>
         </h3>
 <p id="section-3.2-1">version: (optional) public version of the service.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="releaseid">
 <section id="section-3.3">
-        <h3 id="name-releaseid-2">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-releaseid-2" class="section-name selfRef">releaseId</a>
+        <h3 id="name-releaseid">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-releaseid" class="section-name selfRef">releaseId</a>
         </h3>
 <p id="section-3.3-1">releaseId: (optional) in well-designed APIs, backwards-compatible changes in
   the service should not update a version number. APIs usually change their
@@ -1500,16 +1483,16 @@ API publishers SHOULD use following values for the field:<a href="#section-3.1-1
 </div>
 <div id="notes">
 <section id="section-3.4">
-        <h3 id="name-notes-2">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-notes-2" class="section-name selfRef">notes</a>
+        <h3 id="name-notes">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-notes" class="section-name selfRef">notes</a>
         </h3>
 <p id="section-3.4-1">notes: (optional) array of notes relevant to current state of health<a href="#section-3.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="output">
 <section id="section-3.5">
-        <h3 id="name-output-3">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-output-3" class="section-name selfRef">output</a>
+        <h3 id="name-output">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-output" class="section-name selfRef">output</a>
         </h3>
 <p id="section-3.5-1">output: (optional) raw error output, in case of "fail" or "warn" states. This
   field SHOULD be omitted for "pass" state.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
@@ -1517,8 +1500,8 @@ API publishers SHOULD use following values for the field:<a href="#section-3.1-1
 </div>
 <div id="checks">
 <section id="section-3.6">
-        <h3 id="name-checks-2">
-<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-checks-2" class="section-name selfRef">checks</a>
+        <h3 id="name-checks">
+<a href="#section-3.6" class="section-number selfRef">3.6. </a><a href="#name-checks" class="section-name selfRef">checks</a>
         </h3>
 <p id="section-3.6-1">checks (optional) is an object that provides detailed health statuses of
 additional downstream systems and endpoints which can affect the overall health
@@ -1528,8 +1511,8 @@ information.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 </div>
 <div id="links">
 <section id="section-3.7">
-        <h3 id="name-links-3">
-<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-links-3" class="section-name selfRef">links</a>
+        <h3 id="name-links">
+<a href="#section-3.7" class="section-number selfRef">3.7. </a><a href="#name-links" class="section-name selfRef">links</a>
         </h3>
 <p id="section-3.7-1">links (optional) is an object containing link relations and URIs
 <span>[<a href="#RFC3986" class="xref">RFC3986</a>]</span> for external links that MAY contain more information about the
@@ -1542,8 +1525,8 @@ to check health via HTTP response code, as mentioned above.<a href="#section-3.7
 </div>
 <div id="serviceid">
 <section id="section-3.8">
-        <h3 id="name-serviceid-2">
-<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-serviceid-2" class="section-name selfRef">serviceId</a>
+        <h3 id="name-serviceid">
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-serviceid" class="section-name selfRef">serviceId</a>
         </h3>
 <p id="section-3.8-1">serviceId (optional) is a unique identifier of the service, in the application
 scope.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
@@ -1551,8 +1534,8 @@ scope.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
 </div>
 <div id="description">
 <section id="section-3.9">
-        <h3 id="name-description-2">
-<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-description-2" class="section-name selfRef">description</a>
+        <h3 id="name-description">
+<a href="#section-3.9" class="section-number selfRef">3.9. </a><a href="#name-description" class="section-name selfRef">description</a>
         </h3>
 <p id="section-3.9-1">description (optional) is a human-friendly description of the service.<a href="#section-3.9-1" class="pilcrow">¶</a></p>
 </section>
@@ -1561,8 +1544,8 @@ scope.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
 </div>
 <div id="the-checks-object">
 <section id="section-4">
-      <h2 id="name-the-checks-object-2">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-the-checks-object-2" class="section-name selfRef">The Checks Object</a>
+      <h2 id="name-the-checks-object">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-the-checks-object" class="section-name selfRef">The Checks Object</a>
       </h2>
 <p id="section-4-1">The "checks" object MAY have a number of unique keys, one for each logical
 downstream dependency or sub-component. Since each sub-component may be
@@ -1612,8 +1595,8 @@ SHOULD have at least one key, and MAY have any or none of the following object
 keys:<a href="#section-4-4" class="pilcrow">¶</a></p>
 <div id="componentid">
 <section id="section-4.1">
-        <h3 id="name-componentid-2">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-componentid-2" class="section-name selfRef">componentId</a>
+        <h3 id="name-componentid">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-componentid" class="section-name selfRef">componentId</a>
         </h3>
 <p id="section-4.1-1">componentId: (optional) is a unique identifier of an instance of a specific
 sub-component/dependency of a service. Multiple objects with the same
@@ -1622,8 +1605,8 @@ componentID MAY appear in the details, if they are from different nodes.<a href=
 </div>
 <div id="componenttype">
 <section id="section-4.2">
-        <h3 id="name-componenttype-2">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-componenttype-2" class="section-name selfRef">componentType</a>
+        <h3 id="name-componenttype">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-componenttype" class="section-name selfRef">componentType</a>
         </h3>
 <p id="section-4.2-1">componentType: (optional) SHOULD be present if componentName is present. It's
 a type of the component and could be one of:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
@@ -1653,8 +1636,8 @@ Swagger document or a nicely printed book).<a href="#section-4.2-2.3" class="pil
 </div>
 <div id="observedvalue">
 <section id="section-4.3">
-        <h3 id="name-observedvalue-2">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-observedvalue-2" class="section-name selfRef">observedValue</a>
+        <h3 id="name-observedvalue">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-observedvalue" class="section-name selfRef">observedValue</a>
         </h3>
 <p id="section-4.3-1">observedValue: (optional) could be any valid JSON value, such as: string, number,
 object, array or literal.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
@@ -1662,8 +1645,8 @@ object, array or literal.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 </div>
 <div id="observedunit">
 <section id="section-4.4">
-        <h3 id="name-observedunit-2">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-observedunit-2" class="section-name selfRef">observedUnit</a>
+        <h3 id="name-observedunit">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-observedunit" class="section-name selfRef">observedUnit</a>
         </h3>
 <p id="section-4.4-1">observedUnit (optional) SHOULD be present if observedValue is present. Clarifies
 the unit of measurement in which observedUnit is reported, e.g. for a time-based
@@ -1685,8 +1668,8 @@ Swagger document or a nicely printed book).<a href="#section-4.4-2.2" class="pil
 </div>
 <div id="status-1">
 <section id="section-4.5">
-        <h3 id="name-status-4">
-<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-status-4" class="section-name selfRef">status</a>
+        <h3 id="name-status-2">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-status-2" class="section-name selfRef">status</a>
         </h3>
 <p id="section-4.5-1">status (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
@@ -1695,8 +1678,8 @@ by the details object.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 </div>
 <div id="affectedendpoints">
 <section id="section-4.6">
-        <h3 id="name-affectedendpoints-2">
-<a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-affectedendpoints-2" class="section-name selfRef">affectedEndpoints</a>
+        <h3 id="name-affectedendpoints">
+<a href="#section-4.6" class="section-number selfRef">4.6. </a><a href="#name-affectedendpoints" class="section-name selfRef">affectedEndpoints</a>
         </h3>
 <p id="section-4.6-1">affectedEndpoints (optional) is a JSON array containing URI Templates as defined
 by <span>[<a href="#RFC6570" class="xref">RFC6570</a>]</span>. This field SHOULD be omitted if the "status" field is present
@@ -1711,8 +1694,8 @@ may be fine.<a href="#section-4.6-1" class="pilcrow">¶</a></p>
 </div>
 <div id="time">
 <section id="section-4.7">
-        <h3 id="name-time-2">
-<a href="#section-4.7" class="section-number selfRef">4.7. </a><a href="#name-time-2" class="section-name selfRef">time</a>
+        <h3 id="name-time">
+<a href="#section-4.7" class="section-number selfRef">4.7. </a><a href="#name-time" class="section-name selfRef">time</a>
         </h3>
 <p id="section-4.7-1">time (optional) is the date-time, in ISO8601 format, at which the reading of the
 observedValue was recorded. This assumes that the value can be cached and the
@@ -1722,8 +1705,8 @@ purposes.<a href="#section-4.7-1" class="pilcrow">¶</a></p>
 </div>
 <div id="output-1">
 <section id="section-4.8">
-        <h3 id="name-output-4">
-<a href="#section-4.8" class="section-number selfRef">4.8. </a><a href="#name-output-4" class="section-name selfRef">output</a>
+        <h3 id="name-output-2">
+<a href="#section-4.8" class="section-number selfRef">4.8. </a><a href="#name-output-2" class="section-name selfRef">output</a>
         </h3>
 <p id="section-4.8-1">output (optional) has the exact same meaning as the top-level "output" element,
 but for the sub-component/downstream dependency represented by the details
@@ -1733,8 +1716,8 @@ for "pass" state of a downstream dependency.<a href="#section-4.8-1" class="pilc
 </div>
 <div id="links-1">
 <section id="section-4.9">
-        <h3 id="name-links-4">
-<a href="#section-4.9" class="section-number selfRef">4.9. </a><a href="#name-links-4" class="section-name selfRef">links</a>
+        <h3 id="name-links-2">
+<a href="#section-4.9" class="section-number selfRef">4.9. </a><a href="#name-links-2" class="section-name selfRef">links</a>
         </h3>
 <p id="section-4.9-1">links (optional) has the exact same meaning as the top-level "output"
 element, but for the sub-component/downstream dependency represented
@@ -1743,8 +1726,8 @@ by the details object.<a href="#section-4.9-1" class="pilcrow">¶</a></p>
 </div>
 <div id="additional-keys">
 <section id="section-4.10">
-        <h3 id="name-additional-keys-2">
-<a href="#section-4.10" class="section-number selfRef">4.10. </a><a href="#name-additional-keys-2" class="section-name selfRef">Additional Keys</a>
+        <h3 id="name-additional-keys">
+<a href="#section-4.10" class="section-number selfRef">4.10. </a><a href="#name-additional-keys" class="section-name selfRef">Additional Keys</a>
         </h3>
 <p id="section-4.10-1">In addition to the above keys, additional user-defined keys MAY be
 included in the 'component details' object. Implementations MAY ignore
@@ -1755,10 +1738,10 @@ any keys that are not part of the list of standard keys above.<a href="#section-
 </div>
 <div id="example-output">
 <section id="section-5">
-      <h2 id="name-example-output-2">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-example-output-2" class="section-name selfRef">Example Output</a>
+      <h2 id="name-example-output">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-example-output" class="section-name selfRef">Example Output</a>
       </h2>
-<div class="alignLeft art-text artwork" id="section-5-1">
+<div class="artwork art-text alignLeft" id="section-5-1">
 <pre>
   GET /health HTTP/1.1
   Host: example.org
@@ -1873,8 +1856,8 @@ any keys that are not part of the list of standard keys above.<a href="#section-
 </div>
 <div id="security-considerations">
 <section id="section-6">
-      <h2 id="name-security-considerations-2">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security Considerations</a>
+      <h2 id="name-security-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-6-1">Clients need to exercise care when reporting health information. Malicious
 actors could use this information for orchestrating attacks. In some cases, the
@@ -1884,8 +1867,8 @@ access control.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </div>
 <div id="iana-considerations">
 <section id="section-7">
-      <h2 id="name-iana-considerations-2">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA Considerations</a>
+      <h2 id="name-iana-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
 <p id="section-7-1">The media type for health check response is application/health+json.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1958,8 +1941,8 @@ implementing URI Fragment Identification standard to JSON content types.<a href=
 </div>
 <div id="acknowledgements">
 <section id="section-8">
-      <h2 id="name-acknowledgements-2">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-acknowledgements-2" class="section-name selfRef">Acknowledgements</a>
+      <h2 id="name-acknowledgements">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
       </h2>
 <p id="section-8-1">Thanks to  Mike Amundsen, Erik Wilde, Justin Bachorik and Randall Randall for
 their suggestions and feedback. And to Mark Nottingham for blueprint for
@@ -1968,8 +1951,8 @@ authoring RFCs easily.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </div>
 <div id="creating-and-serving-health-responses">
 <section id="section-9">
-      <h2 id="name-creating-and-serving-health-">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-creating-and-serving-health-" class="section-name selfRef">Creating and Serving Health Responses</a>
+      <h2 id="name-creating-and-serving-health">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-creating-and-serving-health" class="section-name selfRef">Creating and Serving Health Responses</a>
       </h2>
 <p id="section-9-1">When making an health check endpoint available, there are a few things to keep
 in mind:<a href="#section-9-1" class="pilcrow">¶</a></p>
@@ -1995,8 +1978,8 @@ documentation for those constructs.<a href="#section-9-2.4" class="pilcrow">¶</
 </div>
 <div id="consuming-health-check-responses">
 <section id="section-10">
-      <h2 id="name-consuming-health-check-respo">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-consuming-health-check-respo" class="section-name selfRef">Consuming Health Check Responses</a>
+      <h2 id="name-consuming-health-check-resp">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-consuming-health-check-resp" class="section-name selfRef">Consuming Health Check Responses</a>
       </h2>
 <p id="section-10-1">Clients might use health check responses in a variety of ways.<a href="#section-10-1" class="pilcrow">¶</a></p>
 <p id="section-10-2">Note that the health check response is a "living" document; links from the
@@ -2010,12 +1993,12 @@ a fresh copy of the health check response, to assure that it is up-to-date.<a hr
 </section>
 </div>
 <section id="section-11">
-      <h2 id="name-references-2">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references-2" class="section-name selfRef">References</a>
+      <h2 id="name-references">
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <section id="section-11.1">
-        <h3 id="name-normative-references-2">
-<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+        <h3 id="name-normative-references">
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
@@ -2024,15 +2007,15 @@ a fresh copy of the health check response, to assure that it is up-to-date.<a hr
 <dd class="break"></dd>
 <dt id="RFC3986">[RFC3986]</dt>
         <dd>
-<span class="refAuthor">Berners-Lee, T.</span>, <span class="refAuthor">Fielding, R.</span>, and <span class="refAuthor">L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>&gt;</span>. </dd>
+<span class="refAuthor">Berners-Lee, T.</span><span class="refAuthor">, Fielding, R.</span><span class="refAuthor">, and L. Masinter</span>, <span class="refTitle">"Uniform Resource Identifier (URI): Generic Syntax"</span>, <span class="seriesInfo">STD 66</span>, <span class="seriesInfo">RFC 3986</span>, <span class="seriesInfo">DOI 10.17487/RFC3986</span>, <time datetime="2005-01" class="refDate">January 2005</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6570">[RFC6570]</dt>
         <dd>
-<span class="refAuthor">Gregorio, J.</span>, <span class="refAuthor">Fielding, R.</span>, <span class="refAuthor">Hadley, M.</span>, <span class="refAuthor">Nottingham, M.</span>, and <span class="refAuthor">D. Orchard</span>, <span class="refTitle">"URI Template"</span>, <span class="seriesInfo">RFC 6570</span>, <span class="seriesInfo">DOI 10.17487/RFC6570</span>, <time datetime="2012-03" class="refDate">March 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6570">https://www.rfc-editor.org/info/rfc6570</a>&gt;</span>. </dd>
+<span class="refAuthor">Gregorio, J.</span><span class="refAuthor">, Fielding, R.</span><span class="refAuthor">, Hadley, M.</span><span class="refAuthor">, Nottingham, M.</span><span class="refAuthor">, and D. Orchard</span>, <span class="refTitle">"URI Template"</span>, <span class="seriesInfo">RFC 6570</span>, <span class="seriesInfo">DOI 10.17487/RFC6570</span>, <time datetime="2012-03" class="refDate">March 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6570">https://www.rfc-editor.org/info/rfc6570</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7234">[RFC7234]</dt>
         <dd>
-<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Caching"</span>, <span class="seriesInfo">RFC 7234</span>, <span class="seriesInfo">DOI 10.17487/RFC7234</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7234">https://www.rfc-editor.org/info/rfc7234</a>&gt;</span>. </dd>
+<span class="refAuthor">Fielding, R., Ed.</span><span class="refAuthor">, Nottingham, M., Ed.</span><span class="refAuthor">, and J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Caching"</span>, <span class="seriesInfo">RFC 7234</span>, <span class="seriesInfo">DOI 10.17487/RFC7234</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7234">https://www.rfc-editor.org/info/rfc7234</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8259">[RFC8259]</dt>
         <dd>
@@ -2045,33 +2028,33 @@ a fresh copy of the health check response, to assure that it is up-to-date.<a hr
 </dl>
 </section>
 <section id="section-11.2">
-        <h3 id="name-informative-references-2">
-<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+        <h3 id="name-informative-references">
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
 <dt id="RFC3339">[RFC3339]</dt>
         <dd>
-<span class="refAuthor">Klyne, G.</span> and <span class="refAuthor">C. Newman</span>, <span class="refTitle">"Date and Time on the Internet: Timestamps"</span>, <span class="seriesInfo">RFC 3339</span>, <span class="seriesInfo">DOI 10.17487/RFC3339</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3339">https://www.rfc-editor.org/info/rfc3339</a>&gt;</span>. </dd>
+<span class="refAuthor">Klyne, G.</span><span class="refAuthor"> and C. Newman</span>, <span class="refTitle">"Date and Time on the Internet: Timestamps"</span>, <span class="seriesInfo">RFC 3339</span>, <span class="seriesInfo">DOI 10.17487/RFC3339</span>, <time datetime="2002-07" class="refDate">July 2002</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3339">https://www.rfc-editor.org/info/rfc3339</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6838">[RFC6838]</dt>
         <dd>
-<span class="refAuthor">Freed, N.</span>, <span class="refAuthor">Klensin, J.</span>, and <span class="refAuthor">T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6838">https://www.rfc-editor.org/info/rfc6838</a>&gt;</span>. </dd>
+<span class="refAuthor">Freed, N.</span><span class="refAuthor">, Klensin, J.</span><span class="refAuthor">, and T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6838">https://www.rfc-editor.org/info/rfc6838</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7230">[RFC7230]</dt>
         <dd>
-<span class="refAuthor">Fielding, R., Ed.</span> and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing"</span>, <span class="seriesInfo">RFC 7230</span>, <span class="seriesInfo">DOI 10.17487/RFC7230</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7230">https://www.rfc-editor.org/info/rfc7230</a>&gt;</span>. </dd>
+<span class="refAuthor">Fielding, R., Ed.</span><span class="refAuthor"> and J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing"</span>, <span class="seriesInfo">RFC 7230</span>, <span class="seriesInfo">DOI 10.17487/RFC7230</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7230">https://www.rfc-editor.org/info/rfc7230</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7231">[RFC7231]</dt>
       <dd>
-<span class="refAuthor">Fielding, R., Ed.</span> and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content"</span>, <span class="seriesInfo">RFC 7231</span>, <span class="seriesInfo">DOI 10.17487/RFC7231</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7231">https://www.rfc-editor.org/info/rfc7231</a>&gt;</span>. </dd>
+<span class="refAuthor">Fielding, R., Ed.</span><span class="refAuthor"> and J. Reschke, Ed.</span>, <span class="refTitle">"Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content"</span>, <span class="seriesInfo">RFC 7231</span>, <span class="seriesInfo">DOI 10.17487/RFC7231</span>, <time datetime="2014-06" class="refDate">June 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7231">https://www.rfc-editor.org/info/rfc7231</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </section>
 <div id="authors-addresses">
-<section id="appendix-A">
-      <h2 id="name-authors-address-2">
-<a href="#name-authors-address-2" class="section-name selfRef">Author's Address</a>
+<section id="section-appendix.a">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Irakli Nadareishvili</span></div>

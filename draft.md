@@ -1,8 +1,8 @@
 ---
 title: Health Check Response Format for HTTP APIs
 abbrev:
-docname: draft-inadarei-api-health-check-05
-date: 2019
+docname: draft-inadarei-api-health-check-06
+date: 2021
 category: info
 
 ipr: trust200902
